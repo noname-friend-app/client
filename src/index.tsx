@@ -2,12 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
-import theme from './utils/theme'
+import theme from "./utils/theme";
 
-import {
-  RouterProvider,
-} from '@tanstack/react-router'
+import { RouterProvider } from "@tanstack/react-router";
 import { router } from "./libs/router";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+
+const queryClient = new QueryClient()
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -16,8 +17,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-    <ColorModeScript initialColorMode={theme.config.initalColorMode} />
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <ColorModeScript initialColorMode={theme.config.initalColorMode} />
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </ChakraProvider>
   </React.StrictMode>
 );
