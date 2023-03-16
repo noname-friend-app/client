@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@tanstack/react-router": "^0.0.1-beta.83",
-    "@tanstack/react-router-devtools": "^0.0.1-beta.83",
     "@tanstack/router": "^0.0.1-beta.83",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
