@@ -16,8 +16,8 @@ interface SignupProps {
 }
 
 const signup = (credentials: SignupProps) => {
-  return axios.post(`${API_URL}/signup`, credentials)
-} 
+  return axios.post(`${API_URL}/signup`, credentials);
+};
 
 export const useSignup = () => {
   const toast = useToast();
@@ -25,7 +25,7 @@ export const useSignup = () => {
   return useMutation({
     mutationFn: signup,
     onSuccess: () => {
-      window.location.href = '/'
+      window.location.href = "/";
       navigate("/");
       toast({
         title: "Success",
@@ -34,6 +34,7 @@ export const useSignup = () => {
         duration: 5000,
         isClosable: true,
         position: "top-right",
+        variant: "subtle",
       });
     },
     onError: (
@@ -48,6 +49,7 @@ export const useSignup = () => {
         duration: 5000,
         isClosable: true,
         position: "top-right",
+        variant: "subtle",
       });
     },
   });
@@ -60,7 +62,7 @@ interface LoginProps {
 }
 
 const login = (credentials: LoginProps) => {
-  return axios.post(`${API_URL}/login`, credentials)
+  return axios.post(`${API_URL}/login`, credentials);
 };
 
 export const useLogin = () => {
@@ -85,13 +87,14 @@ export const useLogin = () => {
         duration: 5000,
         isClosable: true,
         position: "top-right",
+        variant: "subtle",
       });
     },
   });
 };
 
 const logout = () => {
-  return axios.get(`${API_URL}/logout`)
+  return axios.get(`${API_URL}/logout`);
 };
 
 export const useLogout = () => {
@@ -109,6 +112,7 @@ export const useLogout = () => {
         duration: 5000,
         isClosable: true,
         position: "top-right",
+        variant: "subtle",
       });
     },
     onError: () => {
@@ -119,6 +123,7 @@ export const useLogout = () => {
         duration: 5000,
         isClosable: true,
         position: "top-right",
+        variant: "subtle",
       });
     },
   });
