@@ -9,22 +9,66 @@ axios.defaults.withCredentials = true;
 export const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 //MUTATIONS
+interface SignupProps {
+  email: string;
+  username: string;
+  password: string;
+}
+
+const signup = (credentials: SignupProps) => {
+  return axios.post(`${API_URL}/signup`, credentials)
+} 
+
+export const useSignup = () => {
+  const toast = useToast();
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: signup,
+    onSuccess: () => {
+      window.location.href = '/'
+      navigate("/");
+      toast({
+        title: "Success",
+        description: "Account created",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+    },
+    onError: (
+      error: AxiosError<{
+        message: string;
+      }>
+    ) => {
+      toast({
+        title: "Error",
+        description: error?.response?.data.message || "An error has occurred",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+      });
+    },
+  });
+};
+
 interface LoginProps {
   email?: string;
   username?: string;
   password: string;
 }
+
 const login = (credentials: LoginProps) => {
-  return axios.post(`${API_URL}/login`, credentials).catch(() => {
-    return null
-  })
+  return axios.post(`${API_URL}/login`, credentials)
 };
 
 export const useLogin = () => {
   const toast = useToast();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  return useMutation(login, {
+  return useMutation({
+    mutationFn: login,
     onSuccess: () => {
       queryClient.invalidateQueries(["session"]);
       navigate("/");
@@ -40,15 +84,14 @@ export const useLogin = () => {
         status: "error",
         duration: 5000,
         isClosable: true,
+        position: "top-right",
       });
     },
   });
 };
 
 const logout = () => {
-  return axios.get(`${API_URL}/logout`).catch(() => {
-    return null
-  })
+  return axios.get(`${API_URL}/logout`)
 };
 
 export const useLogout = () => {
@@ -65,7 +108,8 @@ export const useLogout = () => {
         status: "success",
         duration: 5000,
         isClosable: true,
-      })
+        position: "top-right",
+      });
     },
     onError: () => {
       toast({
@@ -74,10 +118,11 @@ export const useLogout = () => {
         status: "error",
         duration: 5000,
         isClosable: true,
+        position: "top-right",
       });
-    }
-  }) 
-}
+    },
+  });
+};
 
 //QUERIES
 export const useSession = ({
@@ -89,21 +134,23 @@ export const useSession = ({
   return useQuery({
     queryKey: ["session"],
     queryFn: async () => {
-      await axios.get(`${API_URL}/check-session`).then((res) => {
-        if (res.status === 200 || res.status === 304) {
-          setUser(res.data);
-          navigate("/");
-        } else {
-          setUser(null)
-        }
-      }).catch(() => {
-        setUser(null)
-      })
-      return null
+      await axios
+        .get(`${API_URL}/check-session`)
+        .then((res) => {
+          if (res.status === 200 || res.status === 304) {
+            setUser(res.data);
+            navigate("/");
+          } else {
+            setUser(null);
+          }
+        })
+        .catch(() => {
+          setUser(null);
+        });
+      return null;
     },
     onError: () => {
       setUser(null);
     },
   });
 };
-

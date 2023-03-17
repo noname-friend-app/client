@@ -1,25 +1,20 @@
-import '../assets/css/styles.css'
-import { useContext, useState } from "react"
-import { Navigate, useNavigate } from "react-router-dom"
-import { UserContext } from "../context/UserContext"
+import "../assets/css/styles.css";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Flex, Heading, Input, Text } from "@chakra-ui/react";
-import { useLogin } from '../libs/api';
+import { useLogin } from "../libs/api";
 
-const Login:React.FC = () => {
-  const [username, setUsername] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
+const Login: React.FC = () => {
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const navigate = useNavigate()
-  const {mutate} = useLogin()
-  const {user} = useContext(UserContext)
-
+  const navigate = useNavigate();
+  const { mutate } = useLogin();
 
   const handleSubmit = (e: any) => {
-    e.preventDefault()
-    mutate({username, email: username, password})
-  }
-
-  if (user) return <Navigate to='/' />
+    e.preventDefault();
+    mutate({ username, email: username, password });
+  };
 
   return (
     <>
@@ -70,7 +65,7 @@ const Login:React.FC = () => {
                     variant={"flushed"}
                     color="white"
                     borderColor={"white"}
-                    type='password'
+                    type="password"
                     placeholder="Password"
                   />
                   <Text
@@ -130,7 +125,7 @@ const Login:React.FC = () => {
         </Flex>
       </Flex>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
