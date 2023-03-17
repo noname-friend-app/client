@@ -3,12 +3,19 @@ import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./utils/theme";
-
-import { RouterProvider } from "@tanstack/react-router";
-import { router } from "./libs/router";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { UserProvider } from "./context/UserContext";
 
-const queryClient = new QueryClient()
+//routes
+import Dashboard from "./routes/Dashboard";
+import Login from "./routes/Login";
+import Social from "./routes/Social";
+import Signup from "./routes/Signup";
+import ProtectedRoute from "./libs/ProtectedRoute";
+import Layout from "./components/Layout";
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -19,7 +26,32 @@ root.render(
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
         <ColorModeScript initialColorMode={theme.config.initalColorMode} />
-        <RouterProvider router={router} />
+        <Router>
+          <UserProvider>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route
+                  path="/"
+                  element={
+                    <ProtectedRoute>
+                      <Dashboard />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/social"
+                  element={
+                    <ProtectedRoute>
+                      <Social />
+                    </ProtectedRoute>
+                  }
+                />
+              </Route>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+            </Routes>
+          </UserProvider>
+        </Router>
       </QueryClientProvider>
     </ChakraProvider>
   </React.StrictMode>

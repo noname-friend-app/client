@@ -1,16 +1,8 @@
-import { Route } from "@tanstack/router"
-import { rootRoute } from "../libs/router"
-
-const Login = () => {
+const Login:React.FC = () => {
   return (
     <>
     </>
   )
 }
 
-export const loginRoute = new Route({
-  getParentRoute: () => rootRoute,
-  path: "/login",
-  component: Login,
-})
 export default Login
