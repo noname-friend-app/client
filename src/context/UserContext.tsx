@@ -1,7 +1,6 @@
 import { createContext, useState } from "react";
 import Loading from "../components/Loading";
-import { fetchSession } from "../libs/api";
-import { useQuery } from "@tanstack/react-query";
+import { useSession } from "../libs/api";
 
 interface UserContextProps {
   user: Session;
@@ -19,20 +18,11 @@ interface UserProviderProps {
 
 const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<Session | null>(null);
-  const { isLoading } = useQuery({
-    queryKey: ["session"],
-    queryFn: fetchSession,
-    onError: () => {
-      setUser(null);
-    },
-    onSuccess: (data) => {
-      setUser(data);
-    },
-  });
+  const { isLoading } = useSession({ setUser });
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      {!isLoading && children ? children : <Loading />}
+      {!isLoading ? children : <Loading />}
     </UserContext.Provider>
   );
 };
