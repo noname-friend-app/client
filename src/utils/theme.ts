@@ -1,4 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
+import "@fontsource/akshar"
 
 // 2. Add your color mode config
 const config = {
@@ -15,6 +16,6 @@ const colors = {
 }
 
 // 3. extend the theme
-const theme = extendTheme({ config, colors });
+const theme = extendTheme({ config, colors, fonts: { body: '"Akshar", sans-serif;', heading: '"Akshar", sans-serif;' } });
 
 export default theme;
