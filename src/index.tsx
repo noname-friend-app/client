@@ -14,6 +14,7 @@ import Social from "./routes/Social";
 import Signup from "./routes/Signup";
 import ProtectedRoute from "./libs/ProtectedRoute";
 import Layout from "./components/Layout";
+import CreateProfile from "./routes/CreateProfile";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +44,14 @@ root.render(
                   element={
                     <ProtectedRoute>
                       <Social />
+                    </ProtectedRoute>
+                  }
+                />
+                 <Route
+                  path="/create-profile"
+                  element={
+                    <ProtectedRoute>
+                      <CreateProfile />
                     </ProtectedRoute>
                   }
                 />
