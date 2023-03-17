@@ -1,16 +1,23 @@
 import {
   ChakraProvider,
   FormControl,
-  // FormErrorMessage,
-  // FormHelperText,
   FormLabel,
-  Input,
+  Input as ChakraInput,
   extendTheme,
   Box,
 } from "@chakra-ui/react";
+import { Dispatch, SetStateAction } from "react";
 const activeLabelStyles = {
   transform: "scale(0.85) translateY(-24px)",
 };
+
+interface InputProps {
+  formLabel: string;
+  value: string;
+  onChange: Dispatch<SetStateAction<any>>;
+  w?: string | number;
+}
+
 export const theme = extendTheme({
   components: {
     Form: {
@@ -42,15 +49,26 @@ export const theme = extendTheme({
   },
 });
 
-export default function DoinkInput() {
+const Input: React.FC<InputProps> = ({
+  formLabel,
+  value,
+  onChange,
+  w = "100px",
+}) => {
   return (
     <ChakraProvider theme={theme}>
       <Box p={8}>
         <FormControl variant="floating" id="first-name">
-          <Input placeholder=" " variant="flushed" />
-          <FormLabel>First name</FormLabel>
+          <ChakraInput
+            onChange={(e) => onChange(e.target.value)}
+            variant="flushed"
+            w={w}
+            value={value}
+          />
+          <FormLabel>{formLabel}</FormLabel>
         </FormControl>
       </Box>
     </ChakraProvider>
   );
-}
+};
+export default Input;
