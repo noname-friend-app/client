@@ -9,7 +9,6 @@ axios.defaults.withCredentials = true;
 export const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 //MUTATIONS
-
 interface LoginProps {
   email?: string;
   username?: string;
@@ -46,11 +45,41 @@ export const useLogin = () => {
   });
 };
 
-//QUERIES
-// const fetchSession = (): Promise<Session> => {
-//   return axios.get(`${API_URL}/check-session`);
-// };
+const logout = () => {
+  return axios.get(`${API_URL}/logout`).catch(() => {
+    return null
+  })
+};
 
+export const useLogout = () => {
+  const toast = useToast();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  return useMutation(logout, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["session"]);
+      navigate("/login");
+      toast({
+        title: "Success",
+        description: "You have been logged out",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      })
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "An error has occurred while trying to log out",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  }) 
+}
+
+//QUERIES
 export const useSession = ({
   setUser,
 }: {
@@ -78,4 +107,3 @@ export const useSession = ({
   });
 };
 
-export const useCheckSession = () => {};

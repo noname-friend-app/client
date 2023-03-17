@@ -1,9 +1,11 @@
 import { Heading } from "@chakra-ui/react";
+import Logout from "../components/Logout";
 
 const Dashboard: React.FC = () => {
   return (
     <>
-      <Heading>Dashboard</Heading>
+      <Heading>Zay</Heading>
+      <Logout />
     </>
   );
 };
