@@ -8,11 +8,25 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
+import DoinkButton from "../components/Buton";
 import Input from "../components/Input";
 // import Logout from "../components/Logout";
 import theme from "../utils/theme";
 
 const CreateProfile: React.FC = () => {
+  // const [name, setname] = useState<string>("");
+  // const [bio, setbio] = useState<string>("");
+  // const [birthday, setbirthday] = useState<string>("");
+  // const [pronouns, setPronouns] = useState<string>("");
+
+  // const navigate = useNavigate();
+  // const { mutate } = useLogin();
+
+  // const handleSubmit = (e: any) => {
+  //   e.preventDefault();
+  //   mutate({ name, bio: birthday, pronouns });
+  // };
+
   return (
     <>
       <ChakraProvider theme={theme}>
@@ -27,7 +41,7 @@ const CreateProfile: React.FC = () => {
             Create Profile
           </Heading>
           {/* MAIN BOX */}
-          <Box w="430px" h="450" bg="purple.200" borderRadius={"15"}>
+          <Box w="430px" h="500" bg="purple.200" borderRadius={"15"}>
             {/* PHOTO AND USERNAME AND EMAIL */}
             <Flex justify={"center"} mt={"8"}>
               <Avatar
@@ -45,38 +59,47 @@ const CreateProfile: React.FC = () => {
               </Flex>
             </Flex>
             {/* INPUTS */}
-            <Flex justify={"center"}>
-              {/* <FormControl variant="floating" id="first-name"> */}
-              <Flex h="100%" flexDir={"column"}>
-                <Input
-                  value=""
-                  onChange={() => {}}
-                  formLabel=" Username"
-                  w="300px"
-                />
-                <Flex
-                  flexDir={"row"}
-                  justify="space-between"
-                  // bg="green"
-                  w="350px"
-                >
+            <Flex justifyContent={"center"} >
+              <Center h="100%" flexDir={"column"}>
+                <form>
                   <Input
                     value=""
                     onChange={() => {}}
-                    formLabel="Pronouns"
-                    w="75px"
+                    formLabel=" Display Name"
+                    w="300px"
                   />
+                  <Flex
+                    flexDir={"row"}
+                    justify="space-between"
+                    // bg="green"
+                    w="365px"
+
+                  >
+                    <Input
+                      value=""
+                      onChange={() => {}}
+                      formLabel="Pronouns"
+                      w="75px"
+                    />
+                    <Input
+                      value=""
+                      onChange={() => {}}
+                      formLabel="Birthday"
+                      w="100px"
+                      type="date"
+                    />
+                  </Flex>
                   <Input
                     value=""
                     onChange={() => {}}
-                    formLabel="Birthday"
-                    w="100px"
-                    type="date"
+                    formLabel="Bio"
+                    w="300px"
                   />
-                </Flex>
-                <Input value="" onChange={() => {}} formLabel="Bio" w="300px" />
-                {/* </FormControl> */}
-              </Flex>
+                  <Flex  justify={"center"}>
+                    <DoinkButton children="Save" />
+                  </Flex>
+                </form>
+              </Center>
             </Flex>
           </Box>
         </Center>
