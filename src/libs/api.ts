@@ -220,24 +220,26 @@ export const useProfile = () => {
   });
 };
 
-interface User {
+interface UserProps {
   name: string;
   bio: string;
   pronouns: string;
   birthday: string;
 }
 
+const profile = (credentials: UserProps) => {
+  return axios.post(`${API_URL}/profile`, credentials);
+};
+
 export const useProfile = () => {
   const toast = useToast();
-  const navigate = useNavigate();
   return useMutation({
-    mutationFn: signup,
+    mutationFn: profile,
     onSuccess: () => {
       window.location.href = "/";
-      navigate("/");
       toast({
         title: "Success",
-        description: "Account created",
+        description: "Profile Created",
         status: "success",
         duration: 5000,
         isClosable: true,

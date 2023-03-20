@@ -11,8 +11,8 @@ interface ButtonProps {
 const DoinkButton: React.FC<ButtonProps> = ({
   w = "200px",
   bg = "white",
-  color='black',
-  _hover = { color: "white", background: 'purple.100'},
+  color = "black",
+  _hover = { color: "white", background: "purple.100" },
   children,
   ...rest
 }) => {
