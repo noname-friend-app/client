@@ -1,4 +1,4 @@
-import { Avatar, Center, Flex, Heading, Text } from "@chakra-ui/react";
+import { Avatar, Flex, Heading } from "@chakra-ui/react";
 import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";

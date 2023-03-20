@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import axios, { AxiosError } from "axios";
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
@@ -9,8 +8,6 @@ axios.defaults.withCredentials = true;
 export const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 //MUTATIONS
-
-
 interface UserProps {
   name: string;
   bio: string;
