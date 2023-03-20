@@ -21,12 +21,12 @@ const signup = (credentials: SignupProps) => {
 
 export const useSignup = () => {
   const toast = useToast();
-  const navigate = useNavigate();
+  const queryClient = useQueryClient()
   return useMutation({
     mutationFn: signup,
     onSuccess: () => {
+      queryClient.invalidateQueries(["session"]);
       window.location.href = "/";
-      navigate("/");
       toast({
         title: "Success",
         description: "Account created",
@@ -73,7 +73,7 @@ export const useLogin = () => {
     mutationFn: login,
     onSuccess: () => {
       queryClient.invalidateQueries(["session"]);
-      navigate("/");
+      window.location.href = "/";
     },
     onError: (
       error: AxiosError<{
@@ -131,9 +131,17 @@ export const useLogout = () => {
 
 //QUERIES
 export const getSession = async () => {
-  const res =  await axios.get(`${API_URL}/check-session`);
-  return res.data
-}
+  try {
+    const res = await axios.get(`${API_URL}/check-session`);
+    if (res.status === 200 || res.status === 304) {
+      return res.data;
+    } else {
+      return null;
+    }
+  } catch (e) {
+    return null;
+  }
+};
 
 // export const useSession = ({
 //   setUser,

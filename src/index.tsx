@@ -6,6 +6,7 @@ import theme from "./utils/theme";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { UserProvider } from "./context/UserContext";
+import './assets/css/styles.css';
 
 //routes
 import Dashboard from "./routes/Dashboard";
