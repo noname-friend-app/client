@@ -1,17 +1,27 @@
-import { Avatar, Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import {
+  Avatar,
+  Box,
+  Center,
+  Flex,
+  Heading,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import { useContext, useState } from "react";
 import DoinkButton from "../components/Buton";
 import Input from "../components/Input";
 import { useProfile } from "../libs/api";
 // import Logout from "../components/Logout";
+import { UserContext } from "../context/UserContext";
 
 const CreateProfile: React.FC = () => {
-  const [name, setName] = useState<string>("");
+  const [name, setName] = useState<any>("");
   const [bio, setBio] = useState<string>("");
   const [birthday, setBirthday] = useState<string>("");
   const [pronouns, setPronouns] = useState<string>("");
-  const buttonProps = {type: 'submit'}
+  const buttonProps = { type: "submit" };
   const { mutate } = useProfile();
+  const { user } = useContext(UserContext);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -43,48 +53,45 @@ const CreateProfile: React.FC = () => {
             />
             <Flex flexDir={"column"} justify={"center"} ml={2}>
               <Text fontSize={"30px"} fontWeight="bold">
-                T H I R T
+                {user!.username}
               </Text>
-              <Text fontWeight={"light"}>Quandaledingle@gmail.com</Text>
+              <Text fontWeight={"light"}>{user!.email}</Text>
             </Flex>
           </Flex>
           {/* INPUTS */}
           <Flex justifyContent={"center"}>
             <Center h="100%" flexDir={"column"}>
-              <form
-              // onsubmit={handleSubmit}
-              >
+              <form onSubmit={handleSubmit}>
                 <Input
-                  value=""
+                  value={name}
                   formLabel=" Display Name"
                   w="300px"
                   setState={setName}
+                  isRequired={true}
                 />
-                <Flex
-                  flexDir={"row"}
-                  justify="space-between"
-                  // bg="green"
-                  w="365px"
-                >
+                <Flex flexDir={"row"} justify="space-between" w="365px">
                   <Input
-                    value=""
+                    value={pronouns}
                     formLabel="Pronouns"
                     w="75px"
                     setState={setPronouns}
+                    isRequired={true}
                   />
                   <Input
-                    value=""
+                    value={birthday}
                     formLabel="Birthday"
                     w="100px"
                     type="date"
                     setState={setBirthday}
+                    isRequired={true}
                   />
                 </Flex>
                 <Input
-                  value=""
+                  value={bio}
                   formLabel="Bio"
                   w="300px"
                   setState={setBio}
+                  isRequired={true}
                 />
                 <Flex justify={"center"}>
                   <DoinkButton {...buttonProps} children="Save" />

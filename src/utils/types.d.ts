@@ -1,6 +1,6 @@
 type Session = {
   id: string;
-  name: string;
+  username: string;
   email: string;
   profile?: {
     id: string;

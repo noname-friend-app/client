@@ -12,6 +12,7 @@ interface InputProps {
   setState: Dispatch<SetStateAction<any>>;
   w?: string | number;
   type?: string;
+  isRequired?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -20,17 +21,19 @@ const Input: React.FC<InputProps> = ({
   setState,
   w = "100px",
   type = "text",
+  isRequired = false,
 }) => {
   return (
       <Box p={8}>
         <FormControl variant="floating" id="first-name">
           <ChakraInput
-            placeholder=" "
+            placeholder=""
             onChange={(e) => setState(e.target.value)}
             variant="flushed"
             w={w}
             value={value}
             type={type}
+            isRequired={isRequired}
           />
           <FormLabel>{formLabel}</FormLabel>
         </FormControl>
