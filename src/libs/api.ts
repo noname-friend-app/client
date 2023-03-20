@@ -176,3 +176,48 @@ export const getSession = async () => {
 //     },
 //   });
 // };
+
+interface UserProps {
+  name: string;
+  bio: string;
+  pronouns: string;
+  birthday: string;
+}
+
+const profile = (credentials: UserProps) => {
+  return axios.post(`${API_URL}/profile`, credentials);
+};
+
+export const useProfile = () => {
+  const toast = useToast();
+  return useMutation({
+    mutationFn: profile,
+    onSuccess: () => {
+      window.location.href = "/";
+      toast({
+        title: "Success",
+        description: "Profile Created",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+    onError: (
+      error: AxiosError<{
+        message: string;
+      }>
+    ) => {
+      toast({
+        title: "Error",
+        description: error?.response?.data.message || "An error has occurred",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+};

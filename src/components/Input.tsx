@@ -1,56 +1,43 @@
 import {
-  ChakraProvider,
   FormControl,
-  // FormErrorMessage,
-  // FormHelperText,
   FormLabel,
-  Input,
-  extendTheme,
+  Input as ChakraInput,
   Box,
 } from "@chakra-ui/react";
-const activeLabelStyles = {
-  transform: "scale(0.85) translateY(-24px)",
-};
-export const theme = extendTheme({
-  components: {
-    Form: {
-      variants: {
-        floating: {
-          container: {
-            _focusWithin: {
-              label: {
-                ...activeLabelStyles,
-              },
-            },
-            "input:not(:placeholder-shown) + label, .chakra-select__wrapper + label, textarea:not(:placeholder-shown) ~ label":
-              {
-                ...activeLabelStyles,
-              },
-            label: {
-              top: 0,
-              left: 0,
-              zIndex: 2,
-              position: "absolute",
-              pointerEvents: "none",
-              my: 2,
-              transformOrigin: "left top",
-            },
-          },
-        },
-      },
-    },
-  },
-});
+import { Dispatch, SetStateAction } from "react";
 
-export default function DoinkInput() {
+interface InputProps {
+  formLabel: string;
+  value: string;
+  setState: Dispatch<SetStateAction<any>>;
+  w?: string | number;
+  type?: string;
+  isRequired?: boolean;
+}
+
+const Input: React.FC<InputProps> = ({
+  formLabel,
+  value,
+  setState,
+  w = "100px",
+  type = "text",
+  isRequired = false,
+}) => {
   return (
-    <ChakraProvider theme={theme}>
       <Box p={8}>
         <FormControl variant="floating" id="first-name">
-          <Input placeholder=" " variant="flushed" />
-          <FormLabel>First name</FormLabel>
+          <ChakraInput
+            placeholder=""
+            onChange={(e) => setState(e.target.value)}
+            variant="flushed"
+            w={w}
+            value={value}
+            type={type}
+            isRequired={isRequired}
+          />
+          <FormLabel>{formLabel}</FormLabel>
         </FormControl>
       </Box>
-    </ChakraProvider>
   );
-}
+};
+export default Input;
