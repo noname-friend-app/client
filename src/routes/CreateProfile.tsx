@@ -5,13 +5,11 @@ import {
   Flex,
   Heading,
   Text,
-  useToast,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import DoinkButton from "../components/Buton";
 import Input from "../components/Input";
 import { useProfile } from "../libs/api";
-// import Logout from "../components/Logout";
 import { UserContext } from "../context/UserContext";
 
 const CreateProfile: React.FC = () => {
@@ -49,7 +47,6 @@ const CreateProfile: React.FC = () => {
               src={
                 "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
               }
-              // alt={"Author"}
             />
             <Flex flexDir={"column"} justify={"center"} ml={2}>
               <Text fontSize={"30px"} fontWeight="bold">
@@ -101,7 +98,6 @@ const CreateProfile: React.FC = () => {
           </Flex>
         </Box>
       </Center>
-      {/* <Logout /> */}
     </>
   );
 };
