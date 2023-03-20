@@ -130,32 +130,41 @@ export const useLogout = () => {
 };
 
 //QUERIES
-export const useSession = ({
-  setUser,
-}: {
-  setUser: Dispatch<SetStateAction<any>>;
-}) => {
-  const navigate = useNavigate();
-  return useQuery({
-    queryKey: ["session"],
-    queryFn: async () => {
-      await axios
-        .get(`${API_URL}/check-session`)
-        .then((res) => {
-          if (res.status === 200 || res.status === 304) {
-            setUser(res.data);
-            navigate("/");
-          } else {
-            setUser(null);
-          }
-        })
-        .catch(() => {
-          setUser(null);
-        });
-      return null;
-    },
-    onError: () => {
-      setUser(null);
-    },
-  });
-};
+export const getSession = async () => {
+  const res =  await axios.get(`${API_URL}/check-session`);
+  return res.data
+}
+
+// export const useSession = ({
+//   setUser,
+// }: {
+//   setUser: Dispatch<SetStateAction<any>>;
+// }) => {
+//   const navigate = useNavigate();
+//   return useQuery({
+//     queryKey: ["session"],
+//     queryFn: async () => {
+//       let res = await axios.get(`${API_URL}/check-session`);
+//       return res.data
+//       // await axios
+//       //   .get(`${API_URL}/check-session`)
+//       //   .then((res) => {
+//       //     if (res.status === 200 || res.status === 304) {
+//       //       setUser(res.data);
+//       //       navigate("/");
+//       //     } else {
+//       //       console.log('no user api')
+//       //       setUser(null);
+//       //     }
+//       //   })
+//       //   .catch(() => {
+//       //     console.log('error')
+//       //     setUser(null);
+//       //   });
+//       // return null;
+//     },
+//     onError: () => {
+//       setUser(null);
+//     },
+//   });
+// };

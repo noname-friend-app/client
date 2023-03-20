@@ -9,7 +9,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState<string>("");
 
   const navigate = useNavigate();
-  const { mutate } = useLogin();
+  const { mutate, isLoading } = useLogin();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -77,6 +77,7 @@ const Login: React.FC = () => {
                     Forgot Password?
                   </Text>
                   <Button
+                  isLoading={isLoading}
                     type="submit"
                     bg="white"
                     color="black"
