@@ -6,6 +6,7 @@ interface ButtonProps {
   color?: string;
   _hover?: any;
   children: React.ReactNode;
+  onClick?: () => void;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -14,12 +15,14 @@ const Button: React.FC<ButtonProps> = ({
   color = "black",
   _hover = { color: "white", background: "purple.100" },
   children,
+  onClick,
   ...rest
 }) => {
   return (
     <>
       <ChakraButton
         {...rest}
+        onClick={onClick}
         bg={bg}
         color={color}
         fontWeight={"light"}
