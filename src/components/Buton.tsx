@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button as ChakraButton } from "@chakra-ui/react";
 
 interface ButtonProps {
   w?: string | number;
@@ -8,7 +8,7 @@ interface ButtonProps {
   children: React.ReactNode;
 }
 
-const DoinkButton: React.FC<ButtonProps> = ({
+const Button: React.FC<ButtonProps> = ({
   w = "200px",
   bg = "white",
   color = "black",
@@ -18,7 +18,7 @@ const DoinkButton: React.FC<ButtonProps> = ({
 }) => {
   return (
     <>
-      <Button
+      <ChakraButton
         {...rest}
         bg={bg}
         color={color}
@@ -27,9 +27,9 @@ const DoinkButton: React.FC<ButtonProps> = ({
         _hover={_hover}
       >
         {children}
-      </Button>
+      </ChakraButton>
     </>
   );
 };
 
-export default DoinkButton;
+export default Button;

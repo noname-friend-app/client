@@ -24,7 +24,7 @@ const Input: React.FC<InputProps> = ({
   isRequired = false,
 }) => {
   return (
-      <Box p={8}>
+      <Box>
         <FormControl variant="floating" id="first-name">
           <ChakraInput
             placeholder=""

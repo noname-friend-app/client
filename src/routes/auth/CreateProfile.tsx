@@ -4,7 +4,9 @@ import {
   Center,
   Flex,
   Heading,
+  HStack,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import DoinkButton from "../../components/Buton";
@@ -56,46 +58,44 @@ const CreateProfile: React.FC = () => {
             </Flex>
           </Flex>
           {/* INPUTS */}
-          <Flex justifyContent={"center"}>
-            <Center h="100%" flexDir={"column"}>
-              <form onSubmit={handleSubmit}>
+          <form style={{ width: "100%" }} onSubmit={handleSubmit}>
+            <VStack w="100%" h="100%" spacing={8} justifyContent={"center"}>
+              <Input
+                value={name}
+                formLabel=" Display Name"
+                w="330px"
+                setState={setName}
+                isRequired={true}
+              />
+              <Flex flexDir={"row"} justify="space-between" w="330px">
                 <Input
-                  value={name}
-                  formLabel=" Display Name"
-                  w="300px"
-                  setState={setName}
+                  value={pronouns}
+                  formLabel="Pronouns"
+                  w="75px"
+                  setState={setPronouns}
                   isRequired={true}
                 />
-                <Flex flexDir={"row"} justify="space-between" w="365px">
-                  <Input
-                    value={pronouns}
-                    formLabel="Pronouns"
-                    w="75px"
-                    setState={setPronouns}
-                    isRequired={true}
-                  />
-                  <Input
-                    value={birthday}
-                    formLabel="Birthday"
-                    w="100px"
-                    type="date"
-                    setState={setBirthday}
-                    isRequired={true}
-                  />
-                </Flex>
                 <Input
-                  value={bio}
-                  formLabel="Bio"
-                  w="300px"
-                  setState={setBio}
+                  value={birthday}
+                  formLabel="Birthday"
+                  w="120px"
+                  type="date"
+                  setState={setBirthday}
                   isRequired={true}
                 />
-                <Flex justify={"center"}>
-                  <DoinkButton {...buttonProps} children="Save" />
-                </Flex>
-              </form>
-            </Center>
-          </Flex>
+              </Flex>
+              <Input
+                value={bio}
+                formLabel="Bio"
+                w="330px"
+                setState={setBio}
+                isRequired={true}
+              />
+              <Flex justify={"center"}>
+                <DoinkButton {...buttonProps} children="Save" />
+              </Flex>
+            </VStack>
+          </form>
         </Box>
       </Center>
     </>
