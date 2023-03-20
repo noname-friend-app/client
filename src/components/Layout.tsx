@@ -1,14 +1,18 @@
 import { Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
-import UserBanner from "./UserBanner";
+import GroupInfoBanner from "./GroupInfoBanner";
+import LeftNav from "./LeftNav";
+import MembersBanner from "./MembersBanner";
 
 const Layout: React.FC = () => {
   return (
     <>
       <Flex p={5} w="100%" h="100vh">
-        <Outlet />
+        <LeftNav />
+        <GroupInfoBanner />
         <Flex>
-          <UserBanner />
+          <Outlet />
+          <MembersBanner />
         </Flex>
       </Flex>
     </>
