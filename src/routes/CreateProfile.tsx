@@ -11,6 +11,7 @@ import DoinkButton from "../components/Buton";
 import Input from "../components/Input";
 import { useProfile } from "../libs/api";
 import { UserContext } from "../context/UserContext";
+import Logout from "../components/Logout";
 
 const CreateProfile: React.FC = () => {
   const [name, setName] = useState<any>("");
@@ -30,7 +31,6 @@ const CreateProfile: React.FC = () => {
     <>
       <Center
         w="100%"
-        h="100vh"
         p={{ base: 3, md: 5 }}
         bg="purple.300"
         flexDir={"column"}
@@ -98,6 +98,7 @@ const CreateProfile: React.FC = () => {
           </Flex>
         </Box>
       </Center>
+      <Logout />
     </>
   );
 };
