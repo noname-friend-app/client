@@ -177,49 +177,6 @@ export const getSession = async () => {
 //   });
 // };
 
-interface User {
-  name: string;
-  bio: string;
-  pronouns: string;
-  birthday: string;
-}
-
-export const useProfile = () => {
-  const toast = useToast();
-  const navigate = useNavigate();
-  return useMutation({
-    mutationFn: signup,
-    onSuccess: () => {
-      window.location.href = "/";
-      navigate("/");
-      toast({
-        title: "Success",
-        description: "Account created",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-        variant: "subtle",
-      });
-    },
-    onError: (
-      error: AxiosError<{
-        message: string;
-      }>
-    ) => {
-      toast({
-        title: "Error",
-        description: error?.response?.data.message || "An error has occurred",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-        variant: "subtle",
-      });
-    },
-  });
-};
-
 interface UserProps {
   name: string;
   bio: string;
