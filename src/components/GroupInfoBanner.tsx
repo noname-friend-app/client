@@ -1,5 +1,4 @@
-import { Flex, SkeletonCircle, SkeletonText, VStack } from "@chakra-ui/react"
-import { useGroups } from "../libs/api"
+import { Flex } from "@chakra-ui/react"
 
 const GroupInfoBanner: React.FC = () => {
   

@@ -4,8 +4,9 @@ import Button from "./Buton";
 
 interface Props {
   asButton?: boolean;
+  children?: React.ReactNode;
 }
-const Logout: React.FC<Props> = ({ asButton = false }) => {
+const Logout: React.FC<Props> = ({ asButton = false, children="Logout" }) => {
   const { mutate } = useLogout();
   return (
     <>
@@ -24,7 +25,7 @@ const Logout: React.FC<Props> = ({ asButton = false }) => {
           size="sm"
           onClick={() => mutate()}
         >
-          Logout
+          {children}
         </Heading>
       )}
     </>

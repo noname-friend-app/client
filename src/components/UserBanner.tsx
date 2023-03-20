@@ -1,5 +1,6 @@
-import { Avatar, Flex, Heading } from "@chakra-ui/react";
+import { Avatar, Flex, Heading, Icon, Text } from "@chakra-ui/react";
 import { useContext } from "react";
+import { LogOut, Settings } from "react-feather";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import Logout from "./Logout";
@@ -36,18 +37,24 @@ const UserBanner: React.FC = () => {
               {user!.profile!.name.split(" ")[0]}
             </Heading>
           </Flex>
-          <Flex flexDir='column'>
+          <Flex flexDir="column">
             <Flex
               onClick={() => navigate("/settings")}
               _hover={{ cursor: "pointer", color: "purple.100" }}
               mt={4}
             >
-              <Heading display={{ base: "none", md: "flex" }} size="sm">
+              <Icon as={Settings} />
+              <Heading ml={3} display={{ base: "none", md: "flex" }} size="sm">
                 Settings
               </Heading>
             </Flex>
-            <Flex mt={2}>
-              <Logout />
+            <Flex mt={3}>
+              <Logout>
+                <Flex>
+                  <Icon as={LogOut} />
+                  <Text ml={3} alignSelf={"center"}>Logout</Text>
+                </Flex>
+              </Logout>
             </Flex>
           </Flex>
         </Flex>
