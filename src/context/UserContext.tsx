@@ -6,11 +6,13 @@ import { getSession } from "../libs/api";
 interface UserContextProps {
   user: Session;
   setUser: (user: Session) => void;
+  loading: boolean;
 }
 
 const UserContext = createContext<UserContextProps>({
   user: null,
   setUser: () => {},
+  loading: true,
 });
 
 interface UserProviderProps {
@@ -26,22 +28,16 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   });
 
   useEffect(() => {
-    console.log('1 - initial')
     if (!isLoading) {
-      console.log('2 - done loading')
       if (data) {
-        console.log('3 - data')
         if (data.user) {
-          console.log('4 - user')
           setUser(data.user);
           setLoading(false);
         } else {
-          console.log('4 - no user')
           setUser(null);
           setLoading(false);
         }
       } else {
-        console.log('3 - no data')
         setUser(null);
         setLoading(false);
       }
@@ -51,7 +47,7 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   if (loading) return <Loading />;
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, loading, setUser }}>
       {children}
     </UserContext.Provider>
   );
