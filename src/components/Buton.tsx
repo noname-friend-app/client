@@ -6,7 +6,6 @@ interface ButtonProps {
   color?: string;
   _hover?: any;
   children: React.ReactNode;
-  // isDisabled: boolean;
 }
 
 const DoinkButton: React.FC<ButtonProps> = ({
@@ -15,7 +14,6 @@ const DoinkButton: React.FC<ButtonProps> = ({
   color = "black",
   _hover = { color: "white", background: "purple.100" },
   children,
-  // isDisabled = false,
   ...rest
 }) => {
   return (
@@ -27,7 +25,6 @@ const DoinkButton: React.FC<ButtonProps> = ({
         fontWeight={"light"}
         w={w}
         _hover={_hover}
-        // isDisabled={isDisabled}
       >
         {children}
       </Button>
