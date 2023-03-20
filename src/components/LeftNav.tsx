@@ -5,7 +5,7 @@ import UserBanner from "./UserBanner"
 const LeftNav = () => {
   return (
     <>
-      <Flex flexDir={'column'} w={200} h='100%'>
+      <Flex flexDir={'column'} w={{base: 70,md: 200}} h='100%'>
         <UserBanner />
         <GroupsBanner />
       </Flex>
