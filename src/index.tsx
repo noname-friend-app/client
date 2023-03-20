@@ -15,6 +15,7 @@ import Social from "./routes/Social";
 import Signup from "./routes/auth/Signup";
 import ProtectedRoute from "./libs/ProtectedRoute";
 import CreateProfile from "./routes/auth/CreateProfile";
+import Settings from "./routes/Settings";
 import CreateGroup from "./routes/groups/CreateGroup";
 import Group from "./routes/groups";
 
@@ -53,6 +54,14 @@ root.render(
                 element={
                   <ProtectedRoute>
                     <CreateProfile />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <Settings />
                   </ProtectedRoute>
                 }
               />
