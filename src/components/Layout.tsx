@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import GroupInfoBanner from "./GroupInfoBanner";
 import LeftNav from "./LeftNav";
