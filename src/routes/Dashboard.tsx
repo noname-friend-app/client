@@ -8,8 +8,8 @@ const Dashboard: React.FC = () => {
 
   return (
     <>
-      <Heading>{user!.profile!.name}</Heading>
-      <Logout />
+      {/* <Heading>{user!.profile!.name}</Heading> */}
+      {/* <Logout /> */}
     </>
   );
 };

@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
-import Loading from "../components/Loading";
 
 interface Props {
   children: JSX.Element;
