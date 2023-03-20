@@ -1,8 +1,8 @@
-import '../assets/css/styles.css'
+// import '../assets/css/styles.css'
 import { Button, Flex, Heading, Input, Text, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSignup } from '../libs/api';
+import { useSignup } from '../../libs/api';
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>("");

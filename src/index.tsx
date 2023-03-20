@@ -10,12 +10,13 @@ import "./assets/css/styles.css";
 
 //routes
 import Dashboard from "./routes/Dashboard";
-import Login from "./routes/Login";
+import Login from "./routes/auth/Login";
 import Social from "./routes/Social";
-import Signup from "./routes/Signup";
+import Signup from "./routes/auth/Signup";
 import ProtectedRoute from "./libs/ProtectedRoute";
 import Layout from "./components/Layout";
-import CreateProfile from "./routes/CreateProfile";
+import CreateProfile from "./routes/auth/CreateProfile";
+import CreateGroup from "./routes/groups/CreateGroup";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +43,7 @@ root.render(
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/social" element={<Social />} />
               </Route>
+              <Route path='/create-group' element={<CreateGroup />} />
               <Route
                 path="/create-profile"
                 element={
