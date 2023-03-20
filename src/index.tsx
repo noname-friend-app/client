@@ -6,7 +6,7 @@ import theme from "./utils/theme";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { UserProvider } from "./context/UserContext";
-import './assets/css/styles.css';
+import "./assets/css/styles.css";
 
 //routes
 import Dashboard from "./routes/Dashboard";
@@ -31,32 +31,25 @@ root.render(
         <Router>
           <UserProvider>
             <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route
-                  path="/"
-                  element={
-                    <ProtectedRoute>
-                      <Dashboard />
-                    </ProtectedRoute>
-                  }
-                />
-                <Route
-                  path="/social"
-                  element={
-                    <ProtectedRoute>
-                      <Social />
-                    </ProtectedRoute>
-                  }
-                />
-                 <Route
-                  path="/create-profile"
-                  element={
-                    <ProtectedRoute>
-                      <CreateProfile />
-                    </ProtectedRoute>
-                  }
-                />
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Layout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/social" element={<Social />} />
               </Route>
+              <Route
+                path="/create-profile"
+                element={
+                  <ProtectedRoute>
+                    <CreateProfile />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>

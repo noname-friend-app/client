@@ -9,8 +9,8 @@ interface Props {
 const ProtectedRoute: React.FC<Props> = ({ children }) => {
   let location = useLocation();
   const { user } = useContext(UserContext);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(true);
+  const navigate = useNavigate();
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -20,9 +20,9 @@ const ProtectedRoute: React.FC<Props> = ({ children }) => {
       }
     }
     setLoading(false);
-  }, [user, loading, navigate, location.pathname]);
+  }, [user, navigate, location.pathname]);
 
-  if (loading) return null
+  if (loading) return null;
 
   return children;
 };

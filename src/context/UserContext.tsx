@@ -32,23 +32,19 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       if (data) {
         if (data.user) {
           setUser(data.user);
-          setLoading(false);
         } else {
           setUser(null);
-          setLoading(false);
         }
       } else {
         setUser(null);
-        setLoading(false);
       }
+      setLoading(false);
     }
   }, [data, isLoading]);
 
-  if (loading) return <Loading />;
-
   return (
     <UserContext.Provider value={{ user, loading, setUser }}>
-      {children}
+      {loading ? <Loading /> : children}
     </UserContext.Provider>
   );
 };
