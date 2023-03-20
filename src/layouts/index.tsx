@@ -1,8 +1,8 @@
 import { Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
-import GroupInfoBanner from "./GroupInfoBanner";
-import LeftNav from "./LeftNav";
-import MembersBanner from "./MembersBanner";
+import GroupInfoBanner from "../components/GroupInfoBanner";
+import LeftNav from "../components/LeftNav";
+import MembersBanner from "../components/MembersBanner";
 
 const Layout: React.FC = () => {
   return (

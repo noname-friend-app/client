@@ -14,8 +14,11 @@ import Login from "./routes/auth/Login";
 import Social from "./routes/Social";
 import Signup from "./routes/auth/Signup";
 import ProtectedRoute from "./libs/ProtectedRoute";
+import Layout from "./layouts";
 import CreateProfile from "./routes/auth/CreateProfile";
-import Settings from "./routes/Settings";
+import SettingsLayout from "./layouts/SettingsLayout";
+import AccountSettings from "./routes/settings/account";
+import ProfileSettings from "./routes/settings/profile";
 import CreateGroup from "./routes/groups/CreateGroup";
 import Group from "./routes/groups";
 
@@ -61,10 +64,13 @@ root.render(
                 path="/settings"
                 element={
                   <ProtectedRoute>
-                    <Settings />
+                    <SettingsLayout />
                   </ProtectedRoute>
                 }
-              />
+              >
+                <Route path="/settings/account" element={<AccountSettings />} />
+                <Route path="/settings/profile" element={<ProfileSettings />} />
+              </Route>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>

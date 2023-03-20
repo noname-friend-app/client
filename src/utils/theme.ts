@@ -1,5 +1,8 @@
 import { extendTheme } from "@chakra-ui/react";
 import "@fontsource/akshar";
+import "@fontsource/akshar/300.css";
+import "@fontsource/akshar/600.css";
+
 
 // 2. Add your color mode config
 const config = {
