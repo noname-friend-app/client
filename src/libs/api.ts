@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
 import axios, { AxiosError } from "axios";
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
@@ -9,6 +8,98 @@ axios.defaults.withCredentials = true;
 export const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 //MUTATIONS
+interface CreateGroupProps {
+  name: string;
+  description: string;
+}
+
+const createGroup = async (groupDetails: CreateGroupProps) => {
+  try {
+    const res = await axios.post(`${API_URL}/groups/new`, groupDetails);
+    return res.data;
+  } catch (e: any) {
+    throw new Error(e.response?.data.message || "An error has occurred");
+  }
+};
+
+export const useCreateGroup = () => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: createGroup,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["groups"]);
+      toast({
+        title: "Success",
+        description: "Group created",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+      navigate(`/groups/${data.group.id}`);
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+};
+
+interface ProfileProps {
+  name: string;
+  bio: string;
+  pronouns: string;
+  birthday: string;
+}
+
+const profile = (credentials: ProfileProps) => {
+  return axios.post(`${API_URL}/profile`, credentials);
+};
+
+export const useProfile = () => {
+  const toast = useToast();
+  return useMutation({
+    mutationFn: profile,
+    onSuccess: () => {
+      window.location.href = "/";
+      toast({
+        title: "Success",
+        description: "Profile Created",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+    onError: (
+      error: AxiosError<{
+        message: string;
+      }>
+    ) => {
+      toast({
+        title: "Error",
+        description: error?.response?.data.message || "An error has occurred",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+};
+
 interface SignupProps {
   email: string;
   username: string;
@@ -21,7 +112,7 @@ const signup = (credentials: SignupProps) => {
 
 export const useSignup = () => {
   const toast = useToast();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: signup,
     onSuccess: () => {
@@ -67,7 +158,6 @@ const login = (credentials: LoginProps) => {
 
 export const useLogin = () => {
   const toast = useToast();
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: login,
@@ -143,80 +233,23 @@ export const getSession = async () => {
   }
 };
 
-// export const useSession = ({
-//   setUser,
-// }: {
-//   setUser: Dispatch<SetStateAction<any>>;
-// }) => {
-//   const navigate = useNavigate();
-//   return useQuery({
-//     queryKey: ["session"],
-//     queryFn: async () => {
-//       let res = await axios.get(`${API_URL}/check-session`);
-//       return res.data
-//       // await axios
-//       //   .get(`${API_URL}/check-session`)
-//       //   .then((res) => {
-//       //     if (res.status === 200 || res.status === 304) {
-//       //       setUser(res.data);
-//       //       navigate("/");
-//       //     } else {
-//       //       console.log('no user api')
-//       //       setUser(null);
-//       //     }
-//       //   })
-//       //   .catch(() => {
-//       //     console.log('error')
-//       //     setUser(null);
-//       //   });
-//       // return null;
-//     },
-//     onError: () => {
-//       setUser(null);
-//     },
-//   });
-// };
-
-interface UserProps {
-  name: string;
-  bio: string;
-  pronouns: string;
-  birthday: string;
-}
-
-const profile = (credentials: UserProps) => {
-  return axios.post(`${API_URL}/profile`, credentials);
+const getGroups = async () => {
+  const res = await axios.get(`${API_URL}/groups/joined`);
+  return res.data;
 };
 
-export const useProfile = () => {
+export const useGroups = () => {
   const toast = useToast();
-  return useMutation({
-    mutationFn: profile,
-    onSuccess: () => {
-      window.location.href = "/";
-      toast({
-        title: "Success",
-        description: "Profile Created",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-        variant: "subtle",
-      });
-    },
-    onError: (
-      error: AxiosError<{
-        message: string;
-      }>
-    ) => {
+  return useQuery({
+    queryKey: ["groups"],
+    queryFn: getGroups,
+    onError: () => {
       toast({
         title: "Error",
-        description: error?.response?.data.message || "An error has occurred",
+        description: "An error has occurred while trying to get groups",
         status: "error",
         duration: 5000,
         isClosable: true,
-        position: "top-right",
-        variant: "subtle",
       });
     },
   });
