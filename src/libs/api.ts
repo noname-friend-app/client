@@ -257,7 +257,7 @@ export const useEditProfile = () => {
     onError: () => {
       toast({
         title: "Error",
-        description: "An error has occurred while trying to log out",
+        description: "An error has occurred updating your profile",
         status: "error",
         duration: 5000,
         isClosable: true,
