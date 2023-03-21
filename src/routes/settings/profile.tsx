@@ -20,7 +20,12 @@ const AccountSettings: React.FC = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    mutate({ name, bio, pronouns, birthday });
+    mutate({ 
+      name, 
+      bio, 
+      pronouns, 
+      // birthday: newDate(birthday) 
+    });
   };
 
   return (
@@ -60,13 +65,13 @@ const AccountSettings: React.FC = () => {
               w="330px"
               setState={setPronouns}
             />
-            <Input
+            {/* <Input
               value={birthday}
               formLabel="Birthday"
               w="330px"
               type="date"
               setState={setBirthday}
-            />
+            /> */}
             <Input value={bio} formLabel="Bio" w="330px" setState={setBio} />
             <DoinkButton w="330px" {...buttonProps} children="Save" />
           </VStack>
@@ -76,3 +81,6 @@ const AccountSettings: React.FC = () => {
   );
 };
 export default AccountSettings;
+function newDate(birthday: string): string {
+  throw new Error("Function not implemented.");
+}

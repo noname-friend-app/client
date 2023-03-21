@@ -229,7 +229,7 @@ export const useLogout = () => {
 interface editProfileProps {
   name: string;
   pronouns: string;
-  birthday: string;
+  // birthday: string;
   bio: string;
 }
 
