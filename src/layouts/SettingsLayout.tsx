@@ -28,13 +28,23 @@ const SettingsLayout: React.FC = () => {
             <Text fontWeight={300}>Manage your account settings here.</Text>
 
             <Text
+              textAlign={"left"}
+              as="button"
               color={isAccountPage ? "purple.100" : "white"}
               mt={4}
               fontWeight={600}
+              w={"120px"}
+              onClick={() => navigate("account")}
             >
               Account Settings
             </Text>
-            <Text color={isProfilePage ? "purple.100" : "white"}>
+            <Text
+              textAlign={"left"}
+              as="button"
+              color={isProfilePage ? "purple.100" : "white"}
+              w={"120px"}
+              onClick={() => navigate("profile")}
+            >
               Profile Settings
             </Text>
           </Flex>
