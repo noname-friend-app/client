@@ -44,7 +44,7 @@ const Modal: React.FC<Props> = ({
             <Button bg='none' color='none' {...secondaryBtnProps} w={100}   onClick={onClose}>
               cancel
             </Button>
-            <Button  onClick={action} {...primaryBtnProps} w={100}>
+            <Button  onClick={() => action()} {...primaryBtnProps} w={100}>
               {actionText}
             </Button>
           </ModalFooter>

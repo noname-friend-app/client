@@ -8,7 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
-import DoinkButton from "../../components/Buton";
+import Button from "../../components/Buton";
 import Input from "../../components/Input";
 import { useProfile } from "../../libs/api";
 import { UserContext } from "../../context/UserContext";
@@ -19,10 +19,18 @@ const CreateProfile: React.FC = () => {
   const [bio, setBio] = useState<string>("");
   const [birthday, setBirthday] = useState<string>("");
   const [pronouns, setPronouns] = useState<string>("");
-  const buttonProps = { type: "submit" };
-  const { mutate } = useProfile();
+  
+  const { mutate, isLoading } = useProfile();
   const { user } = useContext(UserContext);
 
+  const buttonProps = {
+    type: "submit",
+    isDisabled:
+      isLoading || name.length < 1 ||
+      bio.length < 1 ||
+      birthday.length < 1 ||
+      pronouns.length < 1,
+  };
   const handleSubmit = (e: any) => {
     e.preventDefault();
     mutate({ name, bio, pronouns, birthday });
@@ -62,7 +70,7 @@ const CreateProfile: React.FC = () => {
                 <Text fontWeight={"light"}>{user!.email}</Text>
               </Flex>
             </Flex>
-            
+
             {/* INPUTS */}
             <form style={{ width: "100%" }} onSubmit={handleSubmit}>
               <VStack w="100%" h="100%" spacing={8} justifyContent={"center"}>
@@ -95,9 +103,10 @@ const CreateProfile: React.FC = () => {
                   formLabel="Bio"
                   w="330px"
                   setState={setBio}
-                  isRequired={true}
                 />
-                <DoinkButton w="330px" {...buttonProps} children="Save" />
+                <Button w="330px" {...buttonProps}>
+                  Save
+                </Button>
               </VStack>
             </form>
           </Box>

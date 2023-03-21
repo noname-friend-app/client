@@ -1,6 +1,6 @@
 import { Flex, Center, Heading, VStack, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
-import DoinkButton from "../../components/Buton";
+import Button from "../../components/Buton";
 import Input from "../../components/Input";
 import LeftNav from "../../components/LeftNav";
 import Loading from "../../components/Loading";
@@ -29,7 +29,7 @@ const CreateGroup: React.FC = () => {
   return (
     <>
       <Flex p={5} w="100%" h="100vh">
-        <LeftNav />
+        <LeftNav profileOnly={data.groups.length === 0 ? true : false} />
         <Center
           flexDir={"column"}
           ml={3}
@@ -51,9 +51,9 @@ const CreateGroup: React.FC = () => {
               w={150}
             />
             <Heading size="md">or</Heading>
-            <DoinkButton onClick={onOpen} w={150}>
+            <Button _hover={{color: 'purple.100'}} color='white' bg='none' onClick={onOpen} w={150}>
               Create a new group
-            </DoinkButton>
+            </Button>
           </VStack>
         </Center>
       </Flex>
