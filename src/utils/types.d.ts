@@ -10,3 +10,19 @@ type Session = {
     birthday: string;
   };
 } | null;
+
+interface Group {
+  id: string;
+  name: string
+  description: string;
+  groupImageUrl: string 
+  joinCode: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface GroupsResponse {
+  message: string;
+  groups: Group[];
+  user: Session
+}

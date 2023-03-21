@@ -29,7 +29,7 @@ const CreateGroup: React.FC = () => {
   return (
     <>
       <Flex p={5} w="100%" h="100vh">
-        <LeftNav profileOnly={data.groups.length === 0 ? true : false} />
+        <LeftNav profileOnly={data!.groups.length === 0 ? true : false} />
         <Center
           flexDir={"column"}
           ml={3}
@@ -40,7 +40,7 @@ const CreateGroup: React.FC = () => {
         >
           <VStack spacing={8}>
             <Heading size="md">
-              {data.groups.length === 0
+              {data!.groups.length === 0
                 ? "Join your first group"
                 : "Join group"}
             </Heading>
