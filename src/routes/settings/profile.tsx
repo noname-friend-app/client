@@ -5,16 +5,7 @@ import Input from "../../components/Input";
 import { useLogin } from "../../libs/api";
 
 const AccountSettings: React.FC = () => {
-  // const [username, setUsername] = useState<string>("");
-  // const [password, setPassword] = useState<string>("");
-
-  // const navigate = useNavigate();
-  // // const { mutate, isLoading } = useLogin();
-
-  // const handleSubmit = (e: any) => {
-  //   e.preventDefault();
-  //   mutate({ username, email: username, password });
-  // };
+  
   return (
     <>
       <Flex
