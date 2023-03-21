@@ -8,14 +8,61 @@ axios.defaults.withCredentials = true;
 export const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 //MUTATIONS
-interface UserProps {
+interface CreateGroupProps {
+  name: string;
+  description: string;
+}
+
+const createGroup = async (groupDetails: CreateGroupProps) => {
+  try {
+    const res = await axios.post(`${API_URL}/groups/new`, groupDetails);
+    return res.data;
+  } catch (e: any) {
+    throw new Error(e.response?.data.message || "An error has occurred");
+  }
+};
+
+export const useCreateGroup = () => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  return useMutation({
+    mutationFn: createGroup,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["groups"]);
+      toast({
+        title: "Success",
+        description: "Group created",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+      navigate(`/groups/${data.group.id}`);
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+};
+
+interface ProfileProps {
   name: string;
   bio: string;
   pronouns: string;
   birthday: string;
 }
 
-const profile = (credentials: UserProps) => {
+const profile = (credentials: ProfileProps) => {
   return axios.post(`${API_URL}/profile`, credentials);
 };
 
@@ -53,7 +100,6 @@ export const useProfile = () => {
   });
 };
 
-
 interface SignupProps {
   email: string;
   username: string;
@@ -66,7 +112,7 @@ const signup = (credentials: SignupProps) => {
 
 export const useSignup = () => {
   const toast = useToast();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: signup,
     onSuccess: () => {
@@ -190,11 +236,21 @@ export const getSession = async () => {
 const getGroups = async () => {
   const res = await axios.get(`${API_URL}/groups/joined`);
   return res.data;
-}
+};
 
 export const useGroups = () => {
+  const toast = useToast();
   return useQuery({
-    queryKey: ['groups'],
+    queryKey: ["groups"],
     queryFn: getGroups,
-  })
-}
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "An error has occurred while trying to get groups",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+  });
+};

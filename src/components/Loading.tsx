@@ -8,7 +8,7 @@ const Loading = () => {
     <>
       <Flex
         color={color}
-        bg="#6096FD"
+        bg="purple.100"
         width="100%"
         h="100vh"
         justify={"center"}

@@ -3,8 +3,9 @@ import {
   FormLabel,
   Input as ChakraInput,
   Box,
+  Text
 } from "@chakra-ui/react";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 interface InputProps {
   formLabel: string;
@@ -23,12 +24,20 @@ const Input: React.FC<InputProps> = ({
   type = "text",
   isRequired = false,
 }) => {
+  const [error, setError] = useState<any>(false)
   return (
       <Box>
-        <FormControl variant="floating" id="first-name">
+        <FormControl color={error ? 'red.500' : 'white'} variant="floating" id="first-name">
           <ChakraInput
             placeholder=""
-            onChange={(e) => setState(e.target.value)}
+            onChange={(e) => {
+              setState(e.target.value)
+              if (isRequired && e.target.value.length < 1) {
+                setError(true)
+              } else {
+                setError(false)
+              }
+            }}
             variant="flushed"
             w={w}
             value={value}
@@ -36,6 +45,7 @@ const Input: React.FC<InputProps> = ({
             isRequired={isRequired}
           />
           <FormLabel>{formLabel}</FormLabel>
+          {error && <Text mt={2} color="red.500">This field is required</Text>}
         </FormControl>
       </Box>
   );
