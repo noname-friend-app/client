@@ -240,7 +240,7 @@ const getGroups = async () => {
 
 export const useGroups = () => {
   const toast = useToast();
-  return useQuery({
+  return useQuery<GroupsResponse>({
     queryKey: ["groups"],
     queryFn: getGroups,
     onError: () => {

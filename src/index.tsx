@@ -8,15 +8,18 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { UserProvider } from "./context/UserContext";
 import "./assets/css/styles.css";
 
-//routes
+//ROUTES
 import Dashboard from "./routes/Dashboard";
 import Login from "./routes/auth/Login";
 import Social from "./routes/Social";
 import Signup from "./routes/auth/Signup";
 import ProtectedRoute from "./libs/ProtectedRoute";
-import Layout from "./components/Layout";
 import CreateProfile from "./routes/auth/CreateProfile";
 import CreateGroup from "./routes/groups/CreateGroup";
+import Group from "./routes/groups";
+
+//LAYOUTS
+import Layout from "./components/Layout";
 
 const queryClient = new QueryClient();
 
@@ -41,9 +44,10 @@ root.render(
                 }
               >
                 <Route path="/" element={<Dashboard />} />
+                <Route path='/groups/:groupId'element={<Group />} />
                 <Route path="/social" element={<Social />} />
               </Route>
-              <Route path='/create-group' element={<CreateGroup />} />
+              <Route path='/groups/new' element={<CreateGroup />} />
               <Route
                 path="/create-profile"
                 element={

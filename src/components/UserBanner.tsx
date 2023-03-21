@@ -1,26 +1,28 @@
 import { Avatar, Flex, Heading, Icon, Text } from "@chakra-ui/react";
 import { useContext } from "react";
 import { LogOut, Settings } from "react-feather";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 import Logout from "./Logout";
 
-const UserBanner: React.FC = () => {
+interface Props {
+  h?: number | string;
+}
+
+const UserBanner: React.FC<Props> = ({ h }) => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const height = pathname === "/create-group" ? "100%" : 200;
   return (
     <>
       <Flex
         justifyContent={"start"}
         rounded={5}
         w={"100%"}
-        h={height}
+        h={h}
         bg="purple.200"
         p={4}
       >
-        <Flex flexDir={"column"} alignSelf={"start"}>
+        <Flex h='100%' justify={'space-between'} flexDir={"column"} alignSelf={"start"}>
           <Flex>
             <Avatar
               size={{ base: "sm", md: "md" }}
@@ -42,17 +44,20 @@ const UserBanner: React.FC = () => {
               onClick={() => navigate("/settings")}
               _hover={{ cursor: "pointer", color: "purple.100" }}
               mt={4}
+              alignSelf={{base: 'center', md: 'start'}}
             >
               <Icon as={Settings} />
               <Heading ml={3} display={{ base: "none", md: "flex" }} size="sm">
                 Settings
               </Heading>
             </Flex>
-            <Flex mt={3}>
+            <Flex alignSelf={{base: 'center', md: 'start'}} mt={3}>
               <Logout>
-                <Flex>
+                <Flex >
                   <Icon as={LogOut} />
-                  <Text ml={3} alignSelf={"center"}>Logout</Text>
+                  <Text display={{base: 'none', md: 'flex'}} ml={3} alignSelf={"center"}>
+                    Logout
+                  </Text>
                 </Flex>
               </Logout>
             </Flex>
