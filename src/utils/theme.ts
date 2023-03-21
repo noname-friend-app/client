@@ -1,6 +1,9 @@
 import { extendTheme } from "@chakra-ui/react";
+
+// Fonts
 import "@fontsource/akshar";
 import "@fontsource/akshar/300.css";
+import "@fontsource/akshar/500.css";
 import "@fontsource/akshar/600.css";
 
 
