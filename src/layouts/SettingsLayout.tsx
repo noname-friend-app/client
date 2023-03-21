@@ -16,7 +16,7 @@ const routes: Route[] = [
     label: "Profile Settings",
     path: "/settings/profile",
   },
-]
+];
 
 const SettingsLayout: React.FC = () => {
   const { pathname } = useLocation();
@@ -41,32 +41,42 @@ const SettingsLayout: React.FC = () => {
         <Flex bg="purple.200" borderRadius={15} h="100%" w="100%" p={10}>
           <Flex flexDir={"column"} w={300}>
             <Heading>Settings</Heading>
-            <Text mb={5} fontWeight={300}>Manage your account settings here.</Text>
+            <Text mb={5} fontWeight={300}>
+              Manage your account settings here.
+            </Text>
             {/* Logic for buttons, add the ability for us to create more settings pages easily */}
-           {routes.map((route, index) => (
-            <Text
-            key={index}
-            textAlign={"left"}
-            as="button"
-            w={"120px"}
-            _hover={{ color: "purple.100" }}
-            onClick={() => navigate(route.path)}
-            // Logic for highlighting the current page and the weight of the text
-            color={pathname === route.path || pathname+ '/' === route.path ? "purple.100" : "white"}
-            fontWeight={pathname === route.path || pathname + '/' === route.path ? "500" : "400"}
-          >
-            {route.label}
-          </Text>
-           ))}
+            {routes.map((route, index) => (
+              <Text
+                key={index}
+                textAlign={"left"}
+                as="button"
+                w={"120px"}
+                _hover={{ color: "purple.100" }}
+                onClick={() => navigate(route.path)}
+                // Logic for highlighting the current page and the weight of the text
+                color={
+                  pathname === route.path || pathname + "/" === route.path
+                    ? "purple.100"
+                    : "white"
+                }
+                fontWeight={
+                  pathname === route.path || pathname + "/" === route.path
+                    ? "500"
+                    : "400"
+                }
+              >
+                {route.label}
+              </Text>
+            ))}
           </Flex>
           {/* Settings for Outlet */}
-          <Center w={"100%"}>
+          <Flex w={"100%"} justify="center" align={"center"}>
             {pathname === "/settings" || pathname === "/settings/" ? (
               <Heading>Select an option on the left.</Heading>
             ) : (
               <Outlet />
             )}
-          </Center>
+          </Flex>
         </Flex>
       </Flex>
     </>
