@@ -15,7 +15,7 @@ const ProtectedRoute: React.FC<Props> = ({ children }) => {
     if (!user) {
       navigate("/login");
     } else {
-      if (!user.profile && (location.pathname !== "/create-profile" || !location.pathname.includes('settings'))) {
+      if (!user.profile && location.pathname !== "/create-profile") {
         navigate("/create-profile");
       }
     }
