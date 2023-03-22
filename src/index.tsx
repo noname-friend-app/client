@@ -18,8 +18,8 @@ import CreateProfile from "./routes/auth/CreateProfile";
 import SettingsLayout from "./layouts/SettingsLayout";
 import CreateGroup from "./routes/groups/CreateGroup";
 import Group from "./routes/groups";
-import AccountSettings from "./routes/settings/Account";
-import ProfileSettings from "./routes/settings/Profile";
+import AccountSettings from "./routes/settings/account";
+import ProfileSettings from "./routes/settings/profile";
 
 //LAYOUTS
 import Layout from "./layouts/index";
