@@ -1,7 +1,7 @@
 import { Avatar, Flex, VStack } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import Input from "../../components/Input";
-import DoinkButton from "../../components/Buton";
+import DoinkButton from "../../components/Button";
 import { UserContext } from "../../context/UserContext";
 import { useEditProfile } from "../../libs/api";
 

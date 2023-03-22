@@ -1,14 +1,64 @@
-import { Flex } from "@chakra-ui/react"
+import { Flex, Heading, Icon, Text, Link, Box } from "@chakra-ui/react";
+import { Link as RouterLink } from "react-router-dom";
+import { Tool } from "react-feather";
 
 const GroupInfoBanner: React.FC = () => {
-  
   return (
     <>
-    <Flex rounded={5} ml={3} bg='purple.200' w={'100%'} h={210}>
-      
-    </Flex>
+      <Flex
+        rounded={5}
+        ml={{ base: 0, md: 3 }}
+        bg="purple.200"
+        w={"100%"}
+        h={200}
+        justify={"space-between"}
+        flexDir={{base: 'column', md: 'row'}}
+        p={3}
+      >
+        {/* <Box w={"100%"} h={"100%"} p={3} bg="red"> */}
+        <Box w="100%">
+          <Flex w="100%" align={"center"} justify={{base: "space-between", md: 'start'}}>
+            <Heading noOfLines={1}>Test</Heading>
+            <Link to={"/"} as={RouterLink}>
+              <Icon
+                mt={2}
+                ml={2}
+                as={Tool}
+                w="20px"
+                h="20px"
+                borderRadius={5}
+                _hover={{ cursor: "pointer", color: "purple.100" }}
+              />
+            </Link>
+          </Flex>
+          <Text>Test</Text>
+         
+        </Box>
+        <Box
+            bg="purple.100"
+            w={{ base: "60px", md: "150px" }}
+            h={{ base: "60px", md: "100%" }}
+            borderRadius={5}
+            alignSelf={{ base: "end", md: "start" }}
+          />
+        {/* Add later */}
+        {/* <Flex
+            justify={"space-evenly"}
+            align="center"
+            bg="purple.300"
+            h="50px"
+            w="650px"
+            borderRadius={15}
+          >
+            <Text>12 Members</Text>
+            <Text>12 Members</Text>
+            <Text>12 Members</Text>
+            <Text>12 Members</Text>
+          </Flex> */}
+        {/* </Box> */}
+      </Flex>
     </>
-  )
-}
+  );
+};
 
-export default GroupInfoBanner
+export default GroupInfoBanner;

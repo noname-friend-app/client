@@ -1,6 +1,6 @@
 import { Heading } from "@chakra-ui/react";
 import { useLogout } from "../libs/api";
-import Button from "./Buton";
+import Button from "./Button";
 
 interface Props {
   asButton?: boolean;

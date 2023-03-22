@@ -7,7 +7,7 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import Button from "./Buton";
+import Button from "./Button";
 
 interface Props {
   isOpen: boolean;
