@@ -1,17 +1,17 @@
-import { Avatar, Flex, Heading, Text, VStack } from "@chakra-ui/react";
+import { Avatar, Flex, Text, VStack } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import Input from "../../components/Input";
 import DoinkButton from "../../components/Buton";
 import { UserContext } from "../../context/UserContext";
 import { useEditProfile } from "../../libs/api";
 
-const AccountSettings: React.FC = () => {
-  const [name, setName] = useState<any>("");
-  const [bio, setBio] = useState<string>("");
-  const [birthday, setBirthday] = useState<string>("");
-  const [pronouns, setPronouns] = useState<string>("");
-
+const ProfileSettings: React.FC = () => {
   const { user } = useContext(UserContext);
+
+  const [name, setName] = useState<string>(user!.profile!.name);
+  const [bio, setBio] = useState<string>(user!.profile!.bio);
+  const [pronouns, setPronouns] = useState<string>(user!.profile!.pronouns);
+
   const { mutate } = useEditProfile();
 
   const buttonProps = {
@@ -20,11 +20,11 @@ const AccountSettings: React.FC = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    mutate({ 
-      name, 
-      bio, 
-      pronouns, 
-      // birthday: newDate(birthday) 
+    mutate({
+      name,
+      bio,
+      pronouns,
+      birthday: user!.profile!.birthday,
     });
   };
 
@@ -38,12 +38,6 @@ const AccountSettings: React.FC = () => {
               "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
             }
           />
-          <Flex flexDir={"column"}>
-            <Text>{user!.profile!.name}</Text>
-            <Text>{user!.profile!.bio}</Text>
-            <Text>{user!.profile!.birthday}</Text>
-            <Text>{user!.profile!.pronouns}</Text>
-          </Flex>
         </Flex>
         <form style={{ width: "100%" }} onSubmit={handleSubmit}>
           <VStack
@@ -55,7 +49,7 @@ const AccountSettings: React.FC = () => {
           >
             <Input
               value={name}
-              formLabel=" Display Name"
+              formLabel="Display Name"
               w="330px"
               setState={setName}
             />
@@ -80,7 +74,4 @@ const AccountSettings: React.FC = () => {
     </>
   );
 };
-export default AccountSettings;
-function newDate(birthday: string): string {
-  throw new Error("Function not implemented.");
-}
+export default ProfileSettings;

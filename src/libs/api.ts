@@ -229,8 +229,8 @@ export const useLogout = () => {
 interface editProfileProps {
   name: string;
   pronouns: string;
-  // birthday: string;
   bio: string;
+  birthday: string;
 }
 
 const editProfile = (credentials: editProfileProps) => {

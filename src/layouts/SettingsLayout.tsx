@@ -1,6 +1,11 @@
-import { Flex, Center, Heading, Text } from "@chakra-ui/react";
+import { Flex, Heading, Text, Link } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link as RouterLink,
+  Outlet,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
 interface Route {
   label: string;
@@ -21,14 +26,6 @@ const routes: Route[] = [
 const SettingsLayout: React.FC = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const isAccountPage =
-    pathname === "/settings/account" || pathname === "/settings/account/"
-      ? true
-      : false;
-  const isProfilePage =
-    pathname === "/settings/profile" || pathname === "/settings/profile/"
-      ? true
-      : false;
 
   useEffect(() => {
     if (pathname === "/settings" || pathname === "/settings/") {
@@ -40,7 +37,11 @@ const SettingsLayout: React.FC = () => {
       <Flex h="100vh" w="100%" p={5}>
         <Flex bg="purple.200" borderRadius={15} h="100%" w="100%" p={10}>
           <Flex flexDir={"column"} w={300}>
-            <Heading>Settings</Heading>
+            <Link to={"/"} as={RouterLink}>
+              Back
+            </Link>
+
+            <Heading mt={5}>Settings</Heading>
             <Text mb={5} fontWeight={300}>
               Manage your account settings here.
             </Text>

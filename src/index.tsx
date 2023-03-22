@@ -16,10 +16,10 @@ import Signup from "./routes/auth/Signup";
 import ProtectedRoute from "./libs/ProtectedRoute";
 import CreateProfile from "./routes/auth/CreateProfile";
 import SettingsLayout from "./layouts/SettingsLayout";
-import AccountSettings from "./routes/settings/account";
-import ProfileSettings from "./routes/settings/profile";
 import CreateGroup from "./routes/groups/CreateGroup";
 import Group from "./routes/groups";
+import AccountSettings from "./routes/settings/Account";
+import ProfileSettings from "./routes/settings/Profile";
 
 //LAYOUTS
 import Layout from "./layouts/index";
