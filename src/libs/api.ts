@@ -55,6 +55,7 @@ export const useCreateGroup = () => {
   });
 };
 
+// CREATE PROFILE --------------------------------------------
 interface ProfileProps {
   name: string;
   bio: string;
@@ -100,6 +101,7 @@ export const useProfile = () => {
   });
 };
 
+// SIGNUP --------------------------------------------
 interface SignupProps {
   email: string;
   username: string;
@@ -146,6 +148,7 @@ export const useSignup = () => {
   });
 };
 
+// LOGIN --------------------------------------------
 interface LoginProps {
   email?: string;
   username?: string;
@@ -183,6 +186,8 @@ export const useLogin = () => {
   });
 };
 
+// LOGOUT --------------------------------------------
+
 const logout = () => {
   return axios.get(`${API_URL}/logout`);
 };
@@ -219,7 +224,92 @@ export const useLogout = () => {
   });
 };
 
-//QUERIES
+// EDIT SETTINGS --------------------------------------------
+
+interface editProfileProps {
+  name: string;
+  pronouns: string;
+  bio: string;
+  birthday: string;
+}
+
+const editProfile = (credentials: editProfileProps) => {
+  return axios.put(`${API_URL}/profile`, credentials);
+};
+
+export const useEditProfile = () => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: editProfile,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["session"]);
+      toast({
+        title: "Success",
+        description: "Profile Updated",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "An error has occurred updating your profile",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+};
+
+interface editAccountProps {
+  username: string;
+  email: string;
+  password: string;
+}
+
+const editAccount = (credentials: editAccountProps) => {
+  return axios.put(`${API_URL}/profile`, credentials);
+};
+
+export const useEditAccount = () => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: editAccount,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["session"]);
+      toast({
+        title: "Success",
+        description: "Account Updated",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "An error has occurred while trying to log out",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+};
+
+//QUERIES --------------------------------------------
 export const getSession = async () => {
   try {
     const res = await axios.get(`${API_URL}/check-session`);

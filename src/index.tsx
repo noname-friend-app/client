@@ -15,11 +15,14 @@ import Social from "./routes/Social";
 import Signup from "./routes/auth/Signup";
 import ProtectedRoute from "./libs/ProtectedRoute";
 import CreateProfile from "./routes/auth/CreateProfile";
+import SettingsLayout from "./layouts/SettingsLayout";
 import CreateGroup from "./routes/groups/CreateGroup";
 import Group from "./routes/groups";
+import AccountSettings from "./routes/settings/Account";
+import ProfileSettings from "./routes/settings/Profile";
 
 //LAYOUTS
-import Layout from "./components/Layout";
+import Layout from "./layouts/index";
 
 const queryClient = new QueryClient();
 
@@ -44,10 +47,10 @@ root.render(
                 }
               >
                 <Route path="/" element={<Dashboard />} />
-                <Route path='/groups/:groupId'element={<Group />} />
+                <Route path="/groups/:groupId" element={<Group />} />
                 <Route path="/social" element={<Social />} />
               </Route>
-              <Route path='/groups/new' element={<CreateGroup />} />
+              <Route path="/groups/new" element={<CreateGroup />} />
               <Route
                 path="/create-profile"
                 element={
@@ -56,6 +59,17 @@ root.render(
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <SettingsLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route path="/settings/account" element={<AccountSettings />} />
+                <Route path="/settings/profile" element={<ProfileSettings />} />
+              </Route>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>
