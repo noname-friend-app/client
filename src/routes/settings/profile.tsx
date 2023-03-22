@@ -1,4 +1,4 @@
-import { Avatar, Flex, Text, VStack } from "@chakra-ui/react";
+import { Avatar, Flex, VStack } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import Input from "../../components/Input";
 import DoinkButton from "../../components/Buton";

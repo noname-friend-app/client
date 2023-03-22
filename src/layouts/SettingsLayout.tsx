@@ -12,15 +12,17 @@ interface Route {
   path: string;
 }
 
+
 const routes: Route[] = [
-  {
-    label: "Account Settings",
-    path: "/settings/account",
-  },
   {
     label: "Profile Settings",
     path: "/settings/profile",
   },
+  // {
+  //   label: "Account Settings",
+  //   path: "/settings/account",
+  // },
+  // Commented out until route is added to update account info
 ];
 
 const SettingsLayout: React.FC = () => {
@@ -29,7 +31,7 @@ const SettingsLayout: React.FC = () => {
 
   useEffect(() => {
     if (pathname === "/settings" || pathname === "/settings/") {
-      navigate("/settings/account");
+      navigate("/settings/profile");
     }
   }, [pathname, navigate]);
   return (

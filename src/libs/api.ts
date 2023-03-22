@@ -269,7 +269,7 @@ export const useEditProfile = () => {
 };
 
 interface editAccountProps {
-  user: string;
+  username: string;
   email: string;
   password: string;
 }
