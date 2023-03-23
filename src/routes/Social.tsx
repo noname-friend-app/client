@@ -1,12 +1,14 @@
-import { Heading } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
+import GroupNav from "./groups/Nav";
 
-const Social:React.FC = () => {
+const Social: React.FC = () => {
   return (
     <>
-      <Heading mt={4}>Board</Heading>
+      <Flex p={4}  flexDir={'column'} w='100%' h='100%'>
+        <GroupNav />
+      </Flex>
     </>
   );
 };
-
 
 export default Social;
