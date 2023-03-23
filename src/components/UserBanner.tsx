@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { LogOut, Settings } from "react-feather";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import { useWindowDimensions } from "../libs/dimensions";
 import Logout from "./Logout";
 
 interface Props {
@@ -12,10 +13,11 @@ interface Props {
 const UserBanner: React.FC<Props> = ({ h }) => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
+  const {width } = useWindowDimensions()
   return (
     <>
       <Flex
-        justifyContent={"start"}
+        justifyContent={width > 569 ? 'start' : "center"}
         rounded={5}
         w={"100%"}
         h={h}

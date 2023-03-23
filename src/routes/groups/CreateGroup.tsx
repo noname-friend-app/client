@@ -1,6 +1,6 @@
-import { Flex, Center, Heading, VStack, } from "@chakra-ui/react";
+import { Flex, Center, Heading, VStack } from "@chakra-ui/react";
 import { useState } from "react";
-import CreateGroupModal from "../../components/CreateGroupModal";
+import CreateGroupModal from "../../components/groups/CreateGroupModal";
 import Input from "../../components/Input";
 import LeftNav from "../../components/LeftNav";
 import Loading from "../../components/Loading";

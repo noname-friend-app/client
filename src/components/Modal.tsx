@@ -33,9 +33,9 @@ const Modal: React.FC<Props> = ({
   const primaryBtnProps = {type: buttonType, isDisabled: actionDisabled}
   return (
     <>
-      <ChakraModal isOpen={isOpen} onClose={onClose}>
+      <ChakraModal size={{base: 'full', sm: 'lg'}} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent bg='purple.200'>
+        <ModalContent  bg='purple.200'>
           <ModalHeader>{title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>{children}</ModalBody>

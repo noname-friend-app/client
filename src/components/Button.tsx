@@ -2,6 +2,7 @@ import { Button as ChakraButton } from "@chakra-ui/react";
 
 interface ButtonProps {
   w?: string | number;
+  h?: string | number;
   bg?: string;
   color?: string;
   _hover?: any;
@@ -10,6 +11,7 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({
+  h = 45,
   w = "200px",
   bg = "white",
   color = "black",
@@ -28,6 +30,7 @@ const Button: React.FC<ButtonProps> = ({
         fontWeight={"light"}
         w={w}
         _hover={_hover}
+        h={h}
       >
         {children}
       </ChakraButton>
