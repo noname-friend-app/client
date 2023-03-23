@@ -26,3 +26,8 @@ interface GroupsResponse {
   groups: Group[];
   user: Session
 }
+
+interface GroupResponse {
+  message: string;
+  group: Group;
+}
