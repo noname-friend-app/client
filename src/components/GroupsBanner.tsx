@@ -10,7 +10,7 @@ import {
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGroups } from "../libs/api";
-import Button from "./Buton";
+import Button from "./Button";
 import CreateGroupModal from "./CreateGroupModal";
 
 const GroupsBanner: React.FC = () => {

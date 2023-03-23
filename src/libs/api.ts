@@ -344,3 +344,33 @@ export const useGroups = () => {
     },
   });
 };
+
+interface GroupProps {
+  id: string;
+}
+
+const getGroup = async ({ id }: GroupProps) => {
+  try {
+    const res = await axios.get(`${API_URL}/groups/${id}`);
+    return res.data;
+  } catch (e) {
+    return null;
+  }
+};
+
+export const useGroup = ({ id }: GroupProps) => {
+  const toast = useToast();
+  return useQuery<GroupResponse>({
+    queryKey: ["group", id],
+    queryFn: () => getGroup({ id }),
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "An error has occurred while trying to get group",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+  });
+};

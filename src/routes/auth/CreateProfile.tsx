@@ -8,7 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
-import Button from "../../components/Buton";
+import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { useProfile } from "../../libs/api";
 import { UserContext } from "../../context/UserContext";
