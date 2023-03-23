@@ -19,7 +19,7 @@ const TabCard: React.FC<Props> = ({ label, path, color, img }) => {
         rounded={10}
         alignSelf={"center"}
         w={{ base: "100%", sm: 200, lg: 300 }}
-        h={{ base: 120, sm: 200, md: 200 }}
+        h={{ base: 120, sm: 200, md: 200, }}
         bg={color}
         justify="center"
         _hover={{cursor: 'pointer'}}
@@ -36,7 +36,6 @@ const TabCard: React.FC<Props> = ({ label, path, color, img }) => {
         >
           <motion.div
             style={{ height: "100%" }}
-            // transition={{ delay: 1 }}
             animate={{
               x: hover ? 20 : 0,
               y: hover ? -20 : 0,

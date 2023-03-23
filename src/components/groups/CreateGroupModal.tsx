@@ -28,7 +28,7 @@ const CreateGroupModal: React.FC<Props> = ({ btnGhost }) => {
     <>
       <Button
         onClick={onOpen}
-        w={width > 569 ? '100%' : 8}
+        w={width > 569 ? "100%" : 8}
         h={width > 569 ? 45 : 8}
       >
         {width > 767 ? "Create group" : <Icon w={5} h={5} as={Plus} />}
@@ -43,20 +43,22 @@ const CreateGroupModal: React.FC<Props> = ({ btnGhost }) => {
           isLoadingCreatedGroup || name.length < 1 || description.length < 1
         }
       >
-        <VStack spacing={8} w="100%">
+        <VStack w="100%" spacing={8}>
           <Input
-            w={400}
+            w="100%"
             formLabel="Group name"
             value={name}
             setState={setName}
             isRequired={true}
+            // {...inputProp/s}
           />
           <Input
-            w={400}
+            w={"100%"}
             formLabel="Group description"
             value={description}
             setState={setDescription}
             isRequired={true}
+            // {...inputProps}
           />
         </VStack>
       </Modal>
