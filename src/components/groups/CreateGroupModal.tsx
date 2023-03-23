@@ -1,9 +1,11 @@
-import { useDisclosure, VStack } from "@chakra-ui/react";
-import { useCreateGroup } from "../libs/api";
-import Button from "./Button";
-import Modal from "./Modal";
-import Input from "./Input";
+import { useDisclosure, VStack, Icon } from "@chakra-ui/react";
+import { useCreateGroup } from "../../libs/api";
+import Button from "../Buton";
+import Modal from "../Modal";
+import Input from "../Input";
 import { useState } from "react";
+import { useWindowDimensions } from "../../libs/dimensions";
+import { Plus } from "react-feather";
 
 interface Props {
   btnGhost?: boolean;
@@ -21,14 +23,15 @@ const CreateGroupModal: React.FC<Props> = ({ btnGhost }) => {
       mutate({ name, description });
     }
   };
-
+  const { width } = useWindowDimensions();
   return (
     <>
       <Button
         onClick={onOpen}
-        w={150}
+        w={width > 569 ? '100%' : 8}
+        h={width > 569 ? 45 : 8}
       >
-        Create group
+        {width > 767 ? "Create group" : <Icon w={5} h={5} as={Plus} />}
       </Button>
       <Modal
         title="Create a new group"

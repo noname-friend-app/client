@@ -6,17 +6,21 @@ import {
   SkeletonText,
   Text,
   VStack,
+  Icon,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
+import { LogIn } from "react-feather";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useGroups } from "../libs/api";
-import Button from "./Button";
+import { useGroups } from "../../libs/api";
+import { useWindowDimensions } from "../../libs/dimensions";
+import Button from "../Buton";
 import CreateGroupModal from "./CreateGroupModal";
 
 const GroupsBanner: React.FC = () => {
   const { data, isLoading } = useGroups();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { width } = useWindowDimensions();
 
   useEffect(() => {
     if (!isLoading) {
@@ -40,7 +44,6 @@ const GroupsBanner: React.FC = () => {
         bg="purple.200"
         w="100%"
         h="100%"
-        mt={3}
         justifyContent="space-between"
         flexDir="column"
         p={3}
@@ -71,7 +74,7 @@ const GroupsBanner: React.FC = () => {
                   onClick={() => navigate(`/groups/${group.id}`)}
                   alignSelf={{ base: "center", md: "start" }}
                   key={index}
-                  _hover={{cursor: "pointer" }}
+                  _hover={{ cursor: "pointer" }}
                 >
                   <Avatar size="sm" />
                   <Text
@@ -97,8 +100,12 @@ const GroupsBanner: React.FC = () => {
           )}
         </Flex>
         <VStack spacing={3}>
-          <Button w="100%">
-            <Text display={{base: 'none', md: 'flex'}}>Join Group</Text>
+          <Button h={width > 569 ? 45 : 8} w={width > 569 ? "100%" : 8}>
+            {width >  767? (
+              <Text>Join Group</Text>
+            ) : (
+              <Icon w={5} h={5} as={LogIn} />
+            )}
           </Button>
           {/* <Button w="100%">
             <Text display={{base: 'none', md: 'flex'}}>Create Group</Text>

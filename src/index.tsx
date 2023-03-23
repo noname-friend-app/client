@@ -48,7 +48,7 @@ root.render(
               >
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/groups/:groupId" element={<Group />} />
-                <Route path="/social" element={<Social />} />
+                <Route path="/groups/:groupId/social" element={<Social />} />
               </Route>
               <Route path="/groups/new" element={<CreateGroup />} />
               <Route

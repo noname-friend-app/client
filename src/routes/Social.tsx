@@ -3,7 +3,7 @@ import { Heading } from "@chakra-ui/react";
 const Social:React.FC = () => {
   return (
     <>
-      <Heading>Social</Heading>
+      <Heading mt={4}>Board</Heading>
     </>
   );
 };

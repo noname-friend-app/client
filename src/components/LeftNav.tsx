@@ -1,19 +1,25 @@
-import { Flex } from "@chakra-ui/react"
-import GroupsBanner from "./GroupsBanner"
-import UserBanner from "./UserBanner"
+import { VStack } from "@chakra-ui/react";
+import { useWindowDimensions } from "../libs/dimensions";
+import GroupsBanner from "./groups/GroupsBanner";
+import UserBanner from "./UserBanner";
 
 interface Props {
-  profileOnly?: boolean
+  profileOnly?: boolean;
 }
-const LeftNav: React.FC<Props> = ({profileOnly}) => {
+const LeftNav: React.FC<Props> = ({ profileOnly }) => {
+  const { width } = useWindowDimensions();
   return (
     <>
-      <Flex flexDir={'column'} w={{base: 70,md: 200}} h='100%'>
-        <UserBanner h={profileOnly ? '100%' : 200} />
+      <VStack
+        spacing={4}
+        w={{ base: width > 569 ? 70 : "100%", md: 250 }}
+        h="100%"
+      >
+        <UserBanner h={profileOnly ? "100%" : width > 569 ? 250 : 120} />
         {!profileOnly && <GroupsBanner />}
-      </Flex>
+      </VStack>
     </>
-  )
-}
+  );
+};
 
-export default LeftNav
+export default LeftNav;
