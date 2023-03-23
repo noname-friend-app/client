@@ -7,13 +7,16 @@ import {
   Text,
   VStack,
   Icon,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { LogIn } from "react-feather";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGroups } from "../../libs/api";
 import { useWindowDimensions } from "../../libs/dimensions";
 import Button from "../Button";
+import Input from "../Input";
+import Modal from "../Modal";
 import CreateGroupModal from "./CreateGroupModal";
 
 const GroupsBanner: React.FC = () => {
@@ -21,6 +24,8 @@ const GroupsBanner: React.FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { width } = useWindowDimensions();
+  const [inviteCode, setInviteCode] = useState<string>("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (!isLoading) {
@@ -41,7 +46,7 @@ const GroupsBanner: React.FC = () => {
           !isLoading ? (data!.groups.length === 0 ? "none" : "flex") : "flex"
         }
         rounded={5}
-        bg="purple.200"
+        bg={width > 569 ? "purple.200" : "purple.300"}
         w="100%"
         h="100%"
         justifyContent="space-between"
@@ -68,9 +73,10 @@ const GroupsBanner: React.FC = () => {
               ))}
             </VStack>
           ) : (
-            <Flex flexDir="column" mt={4}>
+            <Flex flexDir="column">
               {data!.groups.map((group, index: number) => (
                 <Flex
+                  mt={4}
                   onClick={() => navigate(`/groups/${group.id}`)}
                   alignSelf={{ base: "center", md: "start" }}
                   key={index}
@@ -83,11 +89,13 @@ const GroupsBanner: React.FC = () => {
                     size="sm"
                     alignSelf={"center"}
                     fontWeight={
-                      pathname === `/groups/${group.id}` ? "bold" : "normal"
+                      pathname.includes(`/groups/${group.id}`)
+                        ? "bold"
+                        : "normal"
                     }
                     _hover={{ color: "purple.100", cursor: "pointer" }}
                     color={
-                      pathname === `/groups/${group.id}`
+                      pathname.includes(`/groups/${group.id}`)
                         ? "purple.100"
                         : "white"
                     }
@@ -100,8 +108,12 @@ const GroupsBanner: React.FC = () => {
           )}
         </Flex>
         <VStack spacing={3}>
-          <Button h={width > 569 ? 45 : 8} w={width > 569 ? "100%" : 8}>
-            {width >  767? (
+          <Button
+            onClick={onOpen}
+            h={width > 569 ? 45 : 8}
+            w={width > 569 ? "100%" : 8}
+          >
+            {width > 767 ? (
               <Text>Join Group</Text>
             ) : (
               <Icon w={5} h={5} as={LogIn} />
@@ -110,6 +122,22 @@ const GroupsBanner: React.FC = () => {
           <CreateGroupModal />
         </VStack>
       </Flex>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        title="Join Group"
+        actionText="Join Group"
+        action={() => null}
+        actionDisabled={inviteCode.length === 0}
+      >
+        <Input
+          w="100%"
+          isRequired
+          formLabel="Invite Code"
+          value={inviteCode}
+          setState={setInviteCode}
+        />
+      </Modal>
     </>
   );
 };

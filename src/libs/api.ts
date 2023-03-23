@@ -22,7 +22,7 @@ const createGroup = async (groupDetails: CreateGroupProps) => {
   }
 };
 
-export const useCreateGroup = () => {
+export const useCreateGroup = ({ onClose }: { onClose: () => void }) => {
   const toast = useToast();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -39,6 +39,7 @@ export const useCreateGroup = () => {
         position: "top-right",
         variant: "subtle",
       });
+      onClose();
       navigate(`/groups/${data.group.id}`);
     },
     onError: (error: Error) => {

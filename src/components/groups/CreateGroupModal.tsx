@@ -12,8 +12,8 @@ interface Props {
 }
 
 const CreateGroupModal: React.FC<Props> = ({ btnGhost }) => {
-  const { mutate, isLoading: isLoadingCreatedGroup } = useCreateGroup();
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const { mutate, isLoading: isLoadingCreatedGroup } = useCreateGroup({onClose});
 
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -21,6 +21,7 @@ const CreateGroupModal: React.FC<Props> = ({ btnGhost }) => {
   const handleSubmit = () => {
     if (name.length > 1 && description.length > 1) {
       mutate({ name, description });
+      onClose()
     }
   };
   const { width } = useWindowDimensions();
