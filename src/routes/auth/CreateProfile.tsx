@@ -19,14 +19,15 @@ const CreateProfile: React.FC = () => {
   const [bio, setBio] = useState<string>("");
   const [birthday, setBirthday] = useState<string>("");
   const [pronouns, setPronouns] = useState<string>("");
-  
+
   const { mutate, isLoading } = useProfile();
   const { user } = useContext(UserContext);
 
   const buttonProps = {
     type: "submit",
     isDisabled:
-      isLoading || name.length < 1 ||
+      isLoading ||
+      name.length < 1 ||
       bio.length < 1 ||
       birthday.length < 1 ||
       pronouns.length < 1,
@@ -54,9 +55,14 @@ const CreateProfile: React.FC = () => {
             Create Profile
           </Heading>
           {/* MAIN BOX */}
-          <Box w="430px" h="500" bg="purple.200" borderRadius={"15"}>
+          <Box
+            w={{ base: "100%", md: "430px" }}
+            h={{base: "auto", md: "500px"}}
+            bg="purple.200"
+            rounded={10}
+          >
             {/* PHOTO AND USERNAME AND EMAIL */}
-            <Flex justify={"center"} mt={"8"}>
+            <Flex justify={"center"} mt={"8"} mb={2}>
               <Avatar
                 size={"xl"}
                 src={
@@ -72,43 +78,45 @@ const CreateProfile: React.FC = () => {
             </Flex>
 
             {/* INPUTS */}
-            <form style={{ width: "100%" }} onSubmit={handleSubmit}>
-              <VStack w="100%" h="100%" spacing={8} justifyContent={"center"}>
-                <Input
-                  value={name}
-                  formLabel=" Display Name"
-                  w="330px"
-                  setState={setName}
-                  isRequired={true}
-                />
-                <Flex flexDir={"row"} justify="space-between" w="330px">
+            <Center w="100%" mb={5}>
+              <form style={{ width: "330px" }} onSubmit={handleSubmit}>
+                <VStack w="100%" h="100%" spacing={8} justifyContent={"center"} >
                   <Input
-                    value={pronouns}
-                    formLabel="Pronouns"
-                    w="75px"
-                    setState={setPronouns}
+                    value={name}
+                    formLabel=" Display Name"
+                    w="330px"
+                    setState={setName}
                     isRequired={true}
                   />
+                  <Flex flexDir={"row"} justify="space-between" w="100%">
+                    <Input
+                      value={pronouns}
+                      formLabel="Pronouns"
+                      w="75px"
+                      setState={setPronouns}
+                      isRequired={true}
+                    />
+                    <Input
+                      value={birthday}
+                      formLabel="Birthday"
+                      w="120px"
+                      type="date"
+                      setState={setBirthday}
+                      isRequired={true}
+                    />
+                  </Flex>
                   <Input
-                    value={birthday}
-                    formLabel="Birthday"
-                    w="120px"
-                    type="date"
-                    setState={setBirthday}
-                    isRequired={true}
+                    value={bio}
+                    formLabel="Bio"
+                    w="330px"
+                    setState={setBio}
                   />
-                </Flex>
-                <Input
-                  value={bio}
-                  formLabel="Bio"
-                  w="330px"
-                  setState={setBio}
-                />
-                <Button w="330px" {...buttonProps}>
-                  Save
-                </Button>
-              </VStack>
-            </form>
+                  <Button w="330px" {...buttonProps}>
+                    Save
+                  </Button>
+                </VStack>
+              </form>
+            </Center>
           </Box>
         </Center>
       </Flex>
