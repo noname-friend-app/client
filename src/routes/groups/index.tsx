@@ -1,7 +1,7 @@
 import { Center, Grid, GridItem, Heading } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import TabCard from "../../components/TabCard";
-import { nav } from "./Nav";
+import { nav } from "../../components/groups/Nav";
 
 const Groups: React.FC = () => {
   const { pathname } = useLocation();

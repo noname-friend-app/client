@@ -37,9 +37,10 @@ const GroupNav = () => {
   const { pathname } = useLocation();
   const { groupId } = useParams();
   return (
-    <HStack alignSelf={"center"}>
+    <HStack w={{base: '100%', sm: 'auto'}} alignSelf={"center"}>
       {nav.map((navItem, index) => (
         <Center
+        w={{base: '100%', sm: 'auto'}}
           color={pathname.includes(navItem.path) ? "purple.200" : "white"}
           key={index}
           _hover={{ bg: navItem.color, cursor: "pointer", color: "purple.200", marginTop: pathname.includes(navItem.path) ? 0 : -4 }}

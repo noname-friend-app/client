@@ -1,5 +1,5 @@
 import { Flex, Heading } from "@chakra-ui/react";
-import GroupNav from "./groups/Nav";
+import GroupNav from "../components/groups/Nav";
 
 const Events: React.FC = () => {
   return (
