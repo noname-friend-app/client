@@ -4,6 +4,7 @@ import {
   Center,
   Flex,
   Heading,
+  HStack,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -57,12 +58,13 @@ const CreateProfile: React.FC = () => {
           {/* MAIN BOX */}
           <Box
             w={{ base: "100%", md: "430px" }}
-            h={{base: "auto", md: "500px"}}
+            h={{ base: "auto", md: "500px" }}
             bg="purple.200"
             rounded={10}
+            p={8}
           >
             {/* PHOTO AND USERNAME AND EMAIL */}
-            <Flex justify={"center"} mt={"8"} mb={2}>
+            <Flex justify={"center"} mb={2}>
               <Avatar
                 size={"xl"}
                 src={
@@ -78,9 +80,9 @@ const CreateProfile: React.FC = () => {
             </Flex>
 
             {/* INPUTS */}
-            <Center w="100%" mb={5}>
+            <Center w="100%">
               <form style={{ width: "330px" }} onSubmit={handleSubmit}>
-                <VStack w="100%" h="100%" spacing={8} justifyContent={"center"} >
+                <VStack w="100%" h="100%" spacing={8} justifyContent={"center"}>
                   <Input
                     value={name}
                     formLabel=" Display Name"
@@ -88,23 +90,23 @@ const CreateProfile: React.FC = () => {
                     setState={setName}
                     isRequired={true}
                   />
-                  <Flex flexDir={"row"} justify="space-between" w="100%">
+                  <HStack w="100%">
                     <Input
                       value={pronouns}
                       formLabel="Pronouns"
-                      w="75px"
+                      w="100px"
                       setState={setPronouns}
                       isRequired={true}
                     />
                     <Input
                       value={birthday}
                       formLabel="Birthday"
-                      w="120px"
+                      w="100%"
                       type="date"
                       setState={setBirthday}
                       isRequired={true}
                     />
-                  </Flex>
+                  </HStack>
                   <Input
                     value={bio}
                     formLabel="Bio"
