@@ -15,7 +15,7 @@ const LeftNav: React.FC<Props> = ({ profileOnly }) => {
         w={{ base: width > 569 ? 70 : "100%", md: 250 }}
         h="100%"
       >
-        <UserBanner h={profileOnly ? "100%" : width > 569 ? 250 : 120} />
+        <UserBanner h={profileOnly ? "100%" : width > 569 ? 200 : 120} />
         {!profileOnly && <GroupsBanner />}
       </VStack>
     </>

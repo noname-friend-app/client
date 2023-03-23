@@ -1,8 +1,8 @@
 import { Flex, Heading, Icon, Text, Link, Box } from "@chakra-ui/react";
 import { Link as RouterLink, Navigate, useParams } from "react-router-dom";
 import { Tool } from "react-feather";
-import { useGroup } from "../libs/api";
-import Loading from "./Loading";
+import { useGroup } from "../../libs/api";
+import Loading from "../Loading";
 
 const GroupInfoBanner: React.FC = () => {
   const { groupId } = useParams();
@@ -16,7 +16,7 @@ const GroupInfoBanner: React.FC = () => {
     <>
       <Flex
         rounded={5}
-        ml={{ base: 0, md: 3 }}
+        // ml={{ base: 0, md: 3 }}
         bg="purple.200"
         w={"100%"}
         h={200}
@@ -24,7 +24,6 @@ const GroupInfoBanner: React.FC = () => {
         flexDir={{ base: "column", md: "row" }}
         p={3}
       >
-        {/* <Box w={"100%"} h={"100%"} p={3} bg="red"> */}
         <Box w="100%">
           <Flex
             w="100%"
@@ -67,7 +66,6 @@ const GroupInfoBanner: React.FC = () => {
             <Text>12 Members</Text>
             <Text>12 Members</Text>
           </Flex> */}
-        {/* </Box> */}
       </Flex>
     </>
   );

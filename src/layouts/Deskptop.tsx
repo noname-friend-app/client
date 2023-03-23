@@ -13,7 +13,6 @@ const DesktopLayout: React.FC = () => {
       <LeftNav />
       <Stack spacing={4} direction={"column"} w="100%" h="100%">
         {!isIndexPage && <GroupInfoBanner />}
-        {/* <VStack spacing={4} w="100%" h="100%"> */}
           <Flex
             bg="purple.200"
             rounded={10}
@@ -23,7 +22,6 @@ const DesktopLayout: React.FC = () => {
           >
             <Outlet />
           </Flex>
-        {/* </VStack> */}
       </Stack>
     </Stack>
     </>

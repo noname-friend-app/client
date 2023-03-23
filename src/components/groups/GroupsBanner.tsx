@@ -13,7 +13,7 @@ import { LogIn } from "react-feather";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGroups } from "../../libs/api";
 import { useWindowDimensions } from "../../libs/dimensions";
-import Button from "../Buton";
+import Button from "../Button";
 import CreateGroupModal from "./CreateGroupModal";
 
 const GroupsBanner: React.FC = () => {
@@ -107,9 +107,6 @@ const GroupsBanner: React.FC = () => {
               <Icon w={5} h={5} as={LogIn} />
             )}
           </Button>
-          {/* <Button w="100%">
-            <Text display={{base: 'none', md: 'flex'}}>Create Group</Text>
-          </Button> */}
           <CreateGroupModal />
         </VStack>
       </Flex>
