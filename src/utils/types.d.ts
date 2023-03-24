@@ -23,6 +23,7 @@ interface Group {
   createdAt: string;
   updatedAt: string;
   members: GroupMember[]
+  quotes?: Quote[]
 }
 
 interface GroupMember{
@@ -32,7 +33,7 @@ interface GroupMember{
   updatedAt: string;
   profileId: string;
   groupId: string;
-  profile: Session
+  profile: Profile
 }
 
 interface GroupsResponse {
@@ -44,4 +45,20 @@ interface GroupsResponse {
 interface GroupResponse {
   message: string;
   group: Group;
+}
+
+interface Quote {
+  id: string;
+  text: string;
+  saidAt: string;
+  updatedAt: string;
+  profileid: string;
+  groupdId: string;
+  profile: Profile
+}
+
+interface QuotesResponse {
+  message: string;
+  quotes: Quote[];
+  group: Group
 }

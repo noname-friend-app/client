@@ -8,6 +8,56 @@ axios.defaults.withCredentials = true;
 export const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 //MUTATIONS
+interface CreateQuoteProps {
+  text: string;
+  saidAt: string;
+  groupId: string;
+}
+
+const createQuote = async (quoteDetails: CreateQuoteProps) => {
+  try {
+    const res = await axios.post(
+      `${API_URL}/group/${quoteDetails.groupId}/quotes`,
+      quoteDetails
+    );
+    return res.data;
+  } catch (e: any) {
+    throw new Error(e.response?.data.message || "An error has occurred");
+  }
+};
+
+export const useCreateQuote = ({ onClose }: { onClose: () => void }) => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: createQuote,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["quotes"]);
+      toast({
+        title: "Success",
+        description: "Quote created",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+      onClose();
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+};
+
 interface JoinGroupProps {
   joinCode: string;
 }
@@ -19,7 +69,7 @@ const joinGroup = async (joinCode: JoinGroupProps) => {
   } catch (e: any) {
     throw new Error(e.response?.data.message || "An error has occurred");
   }
-}
+};
 
 export const useJoinGroup = () => {
   const toast = useToast();
@@ -37,7 +87,7 @@ export const useJoinGroup = () => {
         position: "top-right",
         variant: "subtle",
       });
-      window.location.href = `/groups/${data.group.id}`
+      window.location.href = `/groups/${data.group.id}`;
     },
     onError: (error: Error) => {
       toast({
@@ -51,7 +101,7 @@ export const useJoinGroup = () => {
       });
     },
   });
-}
+};
 
 interface CreateGroupProps {
   name: string;
@@ -70,7 +120,6 @@ const createGroup = async (groupDetails: CreateGroupProps) => {
 export const useCreateGroup = ({ onClose }: { onClose: () => void }) => {
   const toast = useToast();
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   return useMutation({
     mutationFn: createGroup,
     onSuccess: (data) => {
@@ -85,7 +134,7 @@ export const useCreateGroup = ({ onClose }: { onClose: () => void }) => {
         variant: "subtle",
       });
       onClose();
-      navigate(`/groups/${data.group.id}`);
+      window.location.href = `/groups/${data.group.id}`;
     },
     onError: (error: Error) => {
       toast({
@@ -356,6 +405,7 @@ export const useEditAccount = () => {
 };
 
 //QUERIES --------------------------------------------
+
 export const getSession = async () => {
   try {
     const res = await axios.get(`${API_URL}/check-session`);
@@ -409,6 +459,39 @@ export const useGroup = ({ id }: GroupProps) => {
   return useQuery<GroupResponse>({
     queryKey: ["group", id],
     queryFn: () => getGroup({ id }),
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "An error has occurred while trying to get group",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+  });
+};
+
+interface GroupQuote {
+  groupId: string;
+}
+
+const getGroupQuotes = async ({ groupId }: GroupQuote) => {
+  try {
+    const res = await axios.get(`${API_URL}/group/${groupId}/quotes`);
+    if (res.data.quotes.length === 0) {
+      return null;
+    }
+    return res.data;
+  } catch (e) {
+    return null;
+  }
+};
+
+export const useGroupQuotes = ({ groupId }: GroupQuote) => {
+  const toast = useToast();
+  return useQuery<QuotesResponse>({
+    queryKey: ["quotes", groupId],
+    queryFn: () => getGroupQuotes({ groupId }),
     onError: () => {
       toast({
         title: "Error",

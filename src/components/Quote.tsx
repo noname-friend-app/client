@@ -1,18 +1,22 @@
-import { Avatar, Flex, Heading, HStack, Text } from "@chakra-ui/react";
+import { Flex, Heading, HStack, Text } from "@chakra-ui/react";
+import ProfilePicture from "./ProfilePicture";
 
 interface Props {
-  profileImg?: string;
-  name?: string;
-  text?: string;
-  createdAt?: string;
+  userId: string;
+  name: string;
+  text: string;
+  saidAt: string;
 }
 
 const Quote: React.FC<Props> = ({
-  profileImg = "",
-  name = "Alex",
-  text = "Quandale Dingle here Quandale Dingle here Quandale Dingle here Quandale Dingle here Quandale Dingle here Quandale Dingle here Quandale Dingle here Quandale Dingle here",
-  createdAt = "06/07/2022",
+  userId,
+  name,
+  text,
+  saidAt = "06/07/2022",
 }) => {
+  const date = `${new Date(saidAt).getMonth()}/${new Date(
+    saidAt
+  ).getDate()}/${new Date(saidAt).getFullYear()}`;
   return (
     <Flex
       rounded={10}
@@ -22,15 +26,18 @@ const Quote: React.FC<Props> = ({
       minH={120}
       h="auto"
       p={3}
-      flexDir='column'
+      flexDir="column"
     >
       <HStack>
-        <Avatar size="sm" src={profileImg} name={name} />
+        <ProfilePicture seed={userId} size="sm" />
+
         <Heading size="sm">{name}</Heading>
-        <Flex rounded='full' w={1} h={1} bg='white' />
-        <Text color='gray.300' size='sm'>{createdAt}</Text>
       </HStack>
       <Text mt={4}>{text}</Text>
+      <HStack color="gray.300" fontSize={"sm"}>
+        <Text>Said: </Text>
+        <Text>{date}</Text>
+      </HStack>
     </Flex>
   );
 };
