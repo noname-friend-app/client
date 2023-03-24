@@ -1,12 +1,14 @@
-import { Flex, Heading } from "@chakra-ui/react";
+import { Center, Flex, Heading } from "@chakra-ui/react";
 import GroupNav from "../components/groups/Nav";
 
 const Events: React.FC = () => {
   return (
     <>
-      <Flex mt={4} flexDir={'column'} w='100%' h='100%'>
+      <Flex mt={4} flexDir={"column"} w="100%" h="100%">
         <GroupNav />
-        <Heading mt={4}>Events</Heading>
+        <Center mt={4} w="100%">
+          <Heading>Coming soon...</Heading>
+        </Center>
       </Flex>
     </>
   );

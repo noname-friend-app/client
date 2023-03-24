@@ -1,12 +1,14 @@
-import { Flex, Heading } from "@chakra-ui/react";
+import { Center, Flex, Heading } from "@chakra-ui/react";
 import GroupNav from "../components/groups/Nav";
 
 const Finance: React.FC = () => {
   return (
     <>
-      <Flex mt={4} flexDir={'column'} w='100%' h='100%'>
+      <Flex mt={4} flexDir={"column"} w="100%" h="100%">
         <GroupNav />
-        <Heading mt={4}>Finance</Heading>
+        <Center mt={4} w="100%">
+          <Heading>Coming soon...</Heading>
+        </Center>
       </Flex>
     </>
   );

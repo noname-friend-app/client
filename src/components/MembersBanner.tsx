@@ -31,7 +31,7 @@ const MembersBanner: React.FC = () => {
           <VStack w={"100%"} h={"100%"} spacing={4} mt={4}>
             {data.group.members.map((member, index: number) => (
               <Flex align={"center"} w="100%" key={index}>
-                <ProfilePicture seed={member.profile!.id} size="sm" />
+                <ProfilePicture seed={member.profile!.user!.id} size="sm" />
                 <Text ml={2}>{member.profile.name.split(" ")}</Text>
               </Flex>
             ))}

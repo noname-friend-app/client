@@ -12,7 +12,11 @@ const Login: React.FC = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    mutate({ username, email: username, password });
+    if (username.includes('@')) {
+      mutate({ email: username, password });
+    } else {
+      mutate({ username, password });
+    }
   };
 
   return (
@@ -55,7 +59,7 @@ const Login: React.FC = () => {
                     variant={"flushed"}
                     color="white"
                     borderColor={"white"}
-                    placeholder="Username/Email"
+                    placeholder="Username or Email"
                   />
                   <Input
                     value={password}
