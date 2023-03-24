@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/react": "^2.5.1",
+    "@dicebear/collection": "^5.3.4",
+    "@dicebear/core": "^5.3.4",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fontsource/akshar": "^4.5.4",

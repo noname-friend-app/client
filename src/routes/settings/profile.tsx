@@ -17,6 +17,7 @@ const ProfileSettings: React.FC = () => {
   const buttonProps = {
     type: "submit",
   };
+  
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -30,8 +31,16 @@ const ProfileSettings: React.FC = () => {
 
   return (
     <>
-      <Flex w="400px" h="500px" flexDir={"column"} align="center">
-        <Flex mb={5}>
+      <Flex
+        w={{ base: "100%", md: "400px" }}
+        h="500px"
+        flexDir={"column"}
+        align="center"
+      >
+        <Flex 
+        mb={4} 
+        mt={4}
+        >
           <Avatar
             size={"xl"}
             src={
@@ -40,23 +49,17 @@ const ProfileSettings: React.FC = () => {
           />
         </Flex>
         <form style={{ width: "100%" }} onSubmit={handleSubmit}>
-          <VStack
-            w="100%"
-            h="100%"
-            spacing={8}
-            justifyContent={"center"}
-            fontWeight={400}
-          >
+          <VStack w="100%" h="100%" spacing={8} fontWeight={400}>
             <Input
               value={name}
               formLabel="Display Name"
-              w="330px"
+              w="100%"
               setState={setName}
             />
             <Input
               value={pronouns}
               formLabel="Pronouns"
-              w="330px"
+              w="100px"
               setState={setPronouns}
             />
             {/* <Input
@@ -66,8 +69,13 @@ const ProfileSettings: React.FC = () => {
               type="date"
               setState={setBirthday}
             /> */}
-            <Input value={bio} formLabel="Bio" w="330px" setState={setBio} />
-            <DoinkButton w="330px" {...buttonProps} children="Save" />
+            <Input
+              value={bio}
+              formLabel="Bio"
+              w="100%"
+              setState={setBio}
+            />
+            <DoinkButton w="100%" {...buttonProps} children="Save" />
           </VStack>
         </form>
       </Flex>
