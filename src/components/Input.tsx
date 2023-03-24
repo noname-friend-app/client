@@ -14,6 +14,7 @@ interface InputProps {
   w?: string | number | object
   type?: string;
   isRequired?: boolean;
+  length?: number;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -23,6 +24,7 @@ const Input: React.FC<InputProps> = ({
   w = "100px",
   type = "text",
   isRequired = false,
+  length,
   ...rest
 }) => {
   const [error, setError] = useState<any>(false)
@@ -33,7 +35,11 @@ const Input: React.FC<InputProps> = ({
           {...rest}
             placeholder=""
             onChange={(e) => {
-              setState(e.target.value)
+              if (length) {
+                if (e.target.value.length <= length) {
+                  setState(e.target.value);
+                }
+              }
               if (isRequired && e.target.value.length < 1) {
                 setError(true)
               } else {
