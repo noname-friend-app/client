@@ -18,11 +18,11 @@ const DesktopLayout: React.FC = () => {
         <LeftNav profileOnly={profileOnly} />
         <Stack spacing={4} direction={"column"} w="100%" h="100%">
           {!isIndexPage && !profileOnly ? <GroupInfoBanner /> : null}
-          <HStack h={"100%"} w={"100%"} spacing={4}>
+          <HStack  overflow="hidden" h={"100%"} w={"100%"} spacing={4}>
             <Flex
               bg="purple.200"
               rounded={10}
-              overflowY="hidden"
+              overflowY="scroll"
               w="100%"
               h={"100%"}
             >

@@ -2,6 +2,7 @@ import { Flex, Heading, Image } from "@chakra-ui/react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useWindowDimensions } from "../libs/dimensions";
 interface Props {
   label: string;
   path: string;
@@ -11,7 +12,8 @@ interface Props {
 
 const TabCard: React.FC<Props> = ({ label, path, color, img }) => {
   const [hover, setHover] = useState<boolean>(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { width } = useWindowDimensions();
 
   return (
     <>
@@ -19,10 +21,10 @@ const TabCard: React.FC<Props> = ({ label, path, color, img }) => {
         rounded={10}
         alignSelf={"center"}
         w={{ base: "100%", sm: 200, lg: 300 }}
-        h={{ base: 120, sm: 200, md: 200, }}
+        h={{ base: 120, sm: 200, md: 200 }}
         bg={color}
         justify="center"
-        _hover={{cursor: 'pointer'}}
+        _hover={{ cursor: "pointer" }}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         onClick={() => navigate(path)}
@@ -37,8 +39,8 @@ const TabCard: React.FC<Props> = ({ label, path, color, img }) => {
           <motion.div
             style={{ height: "100%" }}
             animate={{
-              x: hover ? 20 : 0,
-              y: hover ? -20 : 0,
+              x: hover && width > 569 ? 20 : 0,
+              y: hover && width > 569 ? -20 : 0,
             }}
           >
             <Image rounded={10} src={img} w={"100%"} h={"100%"} />

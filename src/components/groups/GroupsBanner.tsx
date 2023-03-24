@@ -83,7 +83,7 @@ const GroupsBanner: React.FC = () => {
                   key={index}
                   _hover={{ cursor: "pointer" }}
                 >
-                  <Avatar size="sm" />
+                  <Avatar rounded={5} name={group.name} size="sm" />
                   <Text
                     display={{ base: "none", md: "flex" }}
                     ml={3}
