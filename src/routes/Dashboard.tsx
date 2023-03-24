@@ -1,15 +1,13 @@
-import { Heading } from "@chakra-ui/react";
-import { useContext } from "react";
-import Logout from "../components/Logout";
-import { UserContext } from "../context/UserContext";
+import { Center, Heading } from "@chakra-ui/react";
 
 const Dashboard: React.FC = () => {
-  const {user} = useContext(UserContext);
 
   return (
     <>
-      {/* <Heading>{user!.profile!.name}</Heading> */}
-      {/* <Logout /> */}
+    <Center w='100%' h='100%'>
+    <Heading size='sm'>Select a group from the left or create a new one</Heading>
+
+    </Center>
     </>
   );
 };
