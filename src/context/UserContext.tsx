@@ -1,3 +1,4 @@
+import { Center } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useEffect, useState } from "react";
 import Loading from "../components/Loading";
@@ -44,7 +45,13 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   return (
     <UserContext.Provider value={{ user, loading, setUser }}>
-      {loading ? <Loading /> : children}
+      {loading ? (
+        <Center w="100%" h="100vh">
+          <Loading />
+        </Center>
+      ) : (
+        children
+      )}
     </UserContext.Provider>
   );
 };

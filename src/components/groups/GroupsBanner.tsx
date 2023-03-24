@@ -45,7 +45,7 @@ const GroupsBanner: React.FC = () => {
         display={
           !isLoading ? (data!.groups.length === 0 ? "none" : "flex") : "flex"
         }
-        rounded={5}
+        rounded={10}
         bg={width > 569 ? "purple.200" : "purple.300"}
         w="100%"
         h="100%"
