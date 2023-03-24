@@ -32,7 +32,7 @@ const UserBanner: React.FC<Props> = ({ h }) => {
           alignSelf={"start"}
         >
           <Flex>
-            <ProfilePicture seed={user!.username} />
+            <ProfilePicture seed={user!.id} />
             <Heading
               display={{ base: "none", md: "flex" }}
               size="lg"

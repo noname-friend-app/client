@@ -65,7 +65,7 @@ const CreateProfile: React.FC = () => {
           >
             {/* PHOTO AND USERNAME AND EMAIL */}
             <Flex justify={"center"} mb={2}>
-              <ProfilePicture seed={user!.username} size="lg" />
+              <ProfilePicture seed={user!.id} size="lg" />
               <Flex flexDir={"column"} justify={"center"} ml={2}>
                 <Text fontSize={"30px"} fontWeight="bold">
                   {user!.username}

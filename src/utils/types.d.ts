@@ -2,14 +2,16 @@ type Session = {
   id: string;
   username: string;
   email: string;
-  profile?: {
+  profile?: Profile
+} | null;
+
+interface Profile  {
     id: string;
     name: string;
     bio: string;
     pronouns: string;
     birthday: string;
-  };
-} | null;
+}
 
 interface Group {
   id: string;
@@ -19,6 +21,17 @@ interface Group {
   joinCode: string;
   createdAt: string;
   updatedAt: string;
+  members: GroupMember[]
+}
+
+interface GroupMember{
+  id: string;
+  role: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  groupId: string;
+  user: Session
 }
 
 interface GroupsResponse {
