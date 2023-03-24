@@ -38,7 +38,7 @@ const ProfileSettings: React.FC = () => {
         align="center"
       >
         <Flex mb={4} mt={4}>
-          <ProfilePicture seed={user!.username} size="xl" />
+          <ProfilePicture seed={user!.id} size="xl" />
         </Flex>
         <form style={{ width: "100%" }} onSubmit={handleSubmit}>
           <VStack w="100%" h="100%" spacing={8} fontWeight={400}>
