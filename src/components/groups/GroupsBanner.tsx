@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { LogIn } from "react-feather";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useGroups } from "../../libs/api";
+import { useGroups, useJoinGroup } from "../../libs/api";
 import { useWindowDimensions } from "../../libs/dimensions";
 import Button from "../Button";
 import Input from "../Input";
@@ -26,6 +26,7 @@ const GroupsBanner: React.FC = () => {
   const { width } = useWindowDimensions();
   const [inviteCode, setInviteCode] = useState<string>("");
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { mutate, isLoading: isJoining } = useJoinGroup();
 
   useEffect(() => {
     if (!isLoading) {
@@ -127,15 +128,15 @@ const GroupsBanner: React.FC = () => {
         onClose={onClose}
         title="Join Group"
         actionText="Join Group"
-        action={() => null}
-        actionDisabled={inviteCode.length === 0}
+        action={() => mutate({ joinCode: inviteCode })}
+        actionDisabled={inviteCode.length === 0 || isJoining}
       >
         <Input
-          w="100%"
-          isRequired
-          formLabel="Invite Code"
           value={inviteCode}
+          formLabel="Invite code"
           setState={setInviteCode}
+          w={"100%"}
+          // length={6}
         />
       </Modal>
     </>
