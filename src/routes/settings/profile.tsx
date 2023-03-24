@@ -1,9 +1,10 @@
-import { Avatar, Flex, VStack } from "@chakra-ui/react";
+import { Flex, VStack } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import Input from "../../components/Input";
 import DoinkButton from "../../components/Button";
 import { UserContext } from "../../context/UserContext";
 import { useEditProfile } from "../../libs/api";
+import ProfilePicture from "../../components/ProfilePicture";
 
 const ProfileSettings: React.FC = () => {
   const { user } = useContext(UserContext);
@@ -17,7 +18,6 @@ const ProfileSettings: React.FC = () => {
   const buttonProps = {
     type: "submit",
   };
-  
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -37,16 +37,8 @@ const ProfileSettings: React.FC = () => {
         flexDir={"column"}
         align="center"
       >
-        <Flex 
-        mb={4} 
-        mt={4}
-        >
-          <Avatar
-            size={"xl"}
-            src={
-              "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-            }
-          />
+        <Flex mb={4} mt={4}>
+          <ProfilePicture seed={user!.username} size="xl" />
         </Flex>
         <form style={{ width: "100%" }} onSubmit={handleSubmit}>
           <VStack w="100%" h="100%" spacing={8} fontWeight={400}>
@@ -69,12 +61,7 @@ const ProfileSettings: React.FC = () => {
               type="date"
               setState={setBirthday}
             /> */}
-            <Input
-              value={bio}
-              formLabel="Bio"
-              w="100%"
-              setState={setBio}
-            />
+            <Input value={bio} formLabel="Bio" w="100%" setState={setBio} />
             <DoinkButton w="100%" {...buttonProps} children="Save" />
           </VStack>
         </form>

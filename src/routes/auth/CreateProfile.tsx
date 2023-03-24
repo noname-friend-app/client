@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Center,
   Flex,
@@ -14,6 +13,7 @@ import Input from "../../components/Input";
 import { useProfile } from "../../libs/api";
 import { UserContext } from "../../context/UserContext";
 import Logout from "../../components/Logout";
+import ProfilePicture from "../../components/ProfilePicture";
 
 const CreateProfile: React.FC = () => {
   const [name, setName] = useState<any>("");
@@ -65,12 +65,7 @@ const CreateProfile: React.FC = () => {
           >
             {/* PHOTO AND USERNAME AND EMAIL */}
             <Flex justify={"center"} mb={2}>
-              <Avatar
-                size={"xl"}
-                src={
-                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
-                }
-              />
+              <ProfilePicture seed={user!.username} size="lg" />
               <Flex flexDir={"column"} justify={"center"} ml={2}>
                 <Text fontSize={"30px"} fontWeight="bold">
                   {user!.username}
