@@ -16,6 +16,7 @@ const MembersBanner: React.FC = () => {
   return (
     <>
       <Flex
+        display={{base: 'none', md: 'flex'}}
         bg="purple.200"
         rounded={10}
         overflowY="scroll"

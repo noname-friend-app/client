@@ -36,15 +36,15 @@ const GroupInfoBanner: React.FC = () => {
         bg="purple.200"
         w={"100%"}
         h={200}
-        justify={"space-between"}
-        flexDir={{ base: "column", md: "row" }}
+        // justify={"space-between"}
+        // flexDir={{ base: "column", md: "row" }}
         p={3}
       >
         <Box w="100%">
           <Flex
             w="100%"
             align={"center"}
-            justify={{ base: "space-between", md: "start" }}
+            // justify={{ base: "space-between", md: "start" }}
           >
             <Heading noOfLines={1}>{data!.group.name}</Heading>
             <Link to={"/"} as={RouterLink}>
@@ -70,7 +70,7 @@ const GroupInfoBanner: React.FC = () => {
           w={{ base: "60px", md: "150px" }}
           h={{ base: "60px", md: "100%" }}
           borderRadius={5}
-          alignSelf={{ base: "end", md: "start" }}
+          // alignSelf={{ base: "end", md: "start" }}
         />
         {/* Add later */}
         {/* <Flex
