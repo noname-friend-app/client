@@ -1,16 +1,25 @@
 import { Flex, Heading, Icon, Text, Link, Box } from "@chakra-ui/react";
-import { Link as RouterLink, Navigate, useParams } from "react-router-dom";
+import {
+  Link as RouterLink,
+  Navigate,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import { Tool } from "react-feather";
 import { useGroup } from "../../libs/api";
 import Loading from "../Loading";
 
 const GroupInfoBanner: React.FC = () => {
+  const { pathname } = useLocation();
   const { groupId } = useParams();
   const { data, isLoading } = useGroup({ id: groupId || "" });
-
   if (isLoading) return <Loading />;
 
-  if (!data) return <Navigate to="/404" />;
+  if (pathname === "/") return null;
+
+  if (!data) {
+    return <Navigate to="/404" />;
+  }
 
   return (
     <>
@@ -43,7 +52,11 @@ const GroupInfoBanner: React.FC = () => {
               />
             </Link>
           </Flex>
-          <Text>{data.group.description}</Text>
+          <Text flexDir="row">
+            Invite Code:{" "}
+            <span style={{ fontWeight: "bold" }}>{data.group.joinCode}</span>
+          </Text>
+          <Text color={"gray.400"}>{data.group.description}</Text>
         </Box>
         <Box
           bg="purple.100"

@@ -13,18 +13,23 @@ interface Props {
 const UserBanner: React.FC<Props> = ({ h }) => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
-  const {width } = useWindowDimensions()
+  const { width } = useWindowDimensions();
   return (
     <>
       <Flex
-        justifyContent={width > 569 ? 'start' : "center"}
+        justifyContent={width > 569 ? "start" : "center"}
         rounded={5}
         w={"100%"}
         h={h}
-        bg="purple.200"
+        bg={width > 569 ? "purple.200" : "purple.300"}
         p={4}
       >
-        <Flex h='100%' justify={'space-between'} flexDir={"column"} alignSelf={"start"}>
+        <Flex
+          h="100%"
+          justify={"space-between"}
+          flexDir={"column"}
+          alignSelf={"start"}
+        >
           <Flex>
             <Avatar
               size={{ base: "sm", md: "md" }}
@@ -46,18 +51,22 @@ const UserBanner: React.FC<Props> = ({ h }) => {
               onClick={() => navigate("/settings")}
               _hover={{ cursor: "pointer", color: "purple.100" }}
               mt={4}
-              alignSelf={{base: 'center', md: 'start'}}
+              alignSelf={{ base: "center", md: "start" }}
             >
               <Icon as={Settings} />
               <Heading ml={3} display={{ base: "none", md: "flex" }} size="sm">
                 Settings
               </Heading>
             </Flex>
-            <Flex alignSelf={{base: 'center', md: 'start'}} mt={3}>
+            <Flex alignSelf={{ base: "center", md: "start" }} mt={3}>
               <Logout>
-                <Flex >
+                <Flex>
                   <Icon as={LogOut} />
-                  <Text display={{base: 'none', md: 'flex'}} ml={3} alignSelf={"center"}>
+                  <Text
+                    display={{ base: "none", md: "flex" }}
+                    ml={3}
+                    alignSelf={"center"}
+                  >
                     Logout
                   </Text>
                 </Flex>

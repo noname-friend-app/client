@@ -55,8 +55,9 @@ root.render(
                 <Route path="/groups/:groupId/events" element={<Events />} />
                 <Route path="/groups/:groupId/shopping" element={<Shopping />} />
                 <Route path="/groups/:groupId/finance" element={<Finance />} />
-              </Route>
               <Route path="/groups/new" element={<CreateGroup />} />
+                
+              </Route>
               <Route
                 path="/create-profile"
                 element={

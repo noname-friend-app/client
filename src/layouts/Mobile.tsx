@@ -11,8 +11,9 @@ const MobileLayout: React.FC = () => {
 
   return (
     <>
-      <Flex w="100%" h="100vh">
+      <Flex w="100%" h="auto">
         <motion.div
+          style={{ position: "fixed", left: 0, zIndex: 2, height:'100vh' }}
           animate={{
             width: open ? 80 : 0,
           }}
@@ -22,12 +23,15 @@ const MobileLayout: React.FC = () => {
         >
           <motion.div
             initial={{ display: "none" }}
-            style={{ width: "100%", height: "100%" }}
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
             animate={{
               display: open ? "block" : "none",
             }}
           >
-            <Flex bg="purple.200" w={"100%"} h="100%">
+            <Flex bg="purple.300" w={"100%"} h="100%">
               <LeftNav />
             </Flex>
           </motion.div>
@@ -37,10 +41,11 @@ const MobileLayout: React.FC = () => {
           onClick={() => {
             if (open) setOpen(false);
           }}
-          bg="purple.300"
+          bg="purple.200"
           p={4}
           w="100%"
-          h="100%"
+          minH="100vh"
+          h="auto"
           flexDir={"column"}
         >
           <Icon
