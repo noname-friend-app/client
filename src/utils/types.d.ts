@@ -32,7 +32,7 @@ interface GroupMember{
   updatedAt: string;
   profileId: string;
   groupId: string;
-  profile: Session
+  profile: Profile
 }
 
 interface GroupsResponse {

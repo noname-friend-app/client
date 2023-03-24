@@ -19,7 +19,7 @@ const joinGroup = async (joinCode: JoinGroupProps) => {
   } catch (e: any) {
     throw new Error(e.response?.data.message || "An error has occurred");
   }
-}
+};
 
 export const useJoinGroup = () => {
   const toast = useToast();
@@ -37,7 +37,7 @@ export const useJoinGroup = () => {
         position: "top-right",
         variant: "subtle",
       });
-      window.location.href = `/groups/${data.group.id}`
+      window.location.href = `/groups/${data.group.id}`;
     },
     onError: (error: Error) => {
       toast({
@@ -51,7 +51,7 @@ export const useJoinGroup = () => {
       });
     },
   });
-}
+};
 
 interface CreateGroupProps {
   name: string;
@@ -70,7 +70,6 @@ const createGroup = async (groupDetails: CreateGroupProps) => {
 export const useCreateGroup = ({ onClose }: { onClose: () => void }) => {
   const toast = useToast();
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   return useMutation({
     mutationFn: createGroup,
     onSuccess: (data) => {
@@ -85,7 +84,7 @@ export const useCreateGroup = ({ onClose }: { onClose: () => void }) => {
         variant: "subtle",
       });
       onClose();
-      navigate(`/groups/${data.group.id}`);
+      window.location.href = `/groups/${data.group.id}`;
     },
     onError: (error: Error) => {
       toast({
