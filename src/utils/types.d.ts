@@ -11,6 +11,7 @@ interface Profile  {
     bio: string;
     pronouns: string;
     birthday: string;
+    user?: Session
 }
 
 interface Group {
@@ -29,9 +30,9 @@ interface GroupMember{
   role: string;
   createdAt: string;
   updatedAt: string;
-  userId: string;
+  profileId: string;
   groupId: string;
-  user: Session
+  profile: Session
 }
 
 interface GroupsResponse {
