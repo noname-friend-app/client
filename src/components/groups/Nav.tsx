@@ -18,7 +18,7 @@ export const nav = [
     secondaryColor: "#ABABAB",
   },
   {
-    label: "Finannce",
+    label: "Finance",
     path: "finance",
     color: "#95F2D9",
     img: require("../../assets/images/finance.jpg"),
