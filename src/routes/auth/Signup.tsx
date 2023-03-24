@@ -2,33 +2,44 @@
 import { Button, Flex, Heading, Input, Text, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSignup } from '../../libs/api';
+import { useSignup } from "../../libs/api";
 
 const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfirm, setPasswordConfirm] = useState<string>("");
-  const toast = useToast()
-  const navigate = useNavigate()
-  const {mutate} = useSignup()
+  const toast = useToast();
+  const navigate = useNavigate();
+  const { mutate } = useSignup();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     if (password !== passwordConfirm) {
       toast({
-        title: 'Passwords do not match',
-        status: 'error',
-        duration: 3000,
+        title: "Passwords do not match",
+        status: "error",
+        duration: 5000,
         isClosable: true,
-      })
+        position: 'top-right',
+        variant: 'subtle'
+      });
+    } else if (username.includes("@")) {
+      toast({
+        title: "Username cannot contain '@' symbol",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: 'top-right',
+        variant: 'subtle'
+      });
     } else {
-      mutate({email, username, password})
+      mutate({ email, username, password });
     }
-  }
+  };
   return (
     <>
-    <Flex w="100%" h="100vh" p={{ base: 3, md: 5 }} bg="purple.300">
+      <Flex w="100%" h="100vh" p={{ base: 3, md: 5 }} bg="purple.300">
         <Flex
           className="area"
           w="50%"

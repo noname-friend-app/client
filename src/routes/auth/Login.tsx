@@ -12,7 +12,11 @@ const Login: React.FC = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    mutate({ username, email: username, password });
+    if (username.includes('@')) {
+      mutate({ email: username, password });
+    } else {
+      mutate({ username, password });
+    }
   };
 
   return (
