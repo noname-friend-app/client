@@ -19,7 +19,7 @@ const UserBanner: React.FC<Props> = ({ h }) => {
     <>
       <Flex
         justifyContent={width > 569 ? "start" : "center"}
-        rounded={5}
+        rounded={10}
         w={"100%"}
         h={h}
         bg={width > 569 ? "purple.200" : "purple.300"}

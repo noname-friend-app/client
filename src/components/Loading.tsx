@@ -3,14 +3,14 @@ import React from "react";
 import { ScaleLoader } from "react-spinners";
 
 const Loading = () => {
-  const color = useColorModeValue('#F2F2F2', '#171923')
+  const color = useColorModeValue('#F2F2F2', 'white')
   return (
     <>
       <Flex
         color={color}
-        bg="purple.100"
+        bg="purple.200"
         width="100%"
-        h="100vh"
+        h="100%"
         justify={"center"}
         align="center"
       >

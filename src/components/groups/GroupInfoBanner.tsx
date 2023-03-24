@@ -1,4 +1,4 @@
-import { Flex, Heading, Icon, Text, Link, Box } from "@chakra-ui/react";
+import { Flex, Heading, Icon, Text, Link, Box, Center } from "@chakra-ui/react";
 import {
   Link as RouterLink,
   Navigate,
@@ -13,7 +13,14 @@ const GroupInfoBanner: React.FC = () => {
   const { pathname } = useLocation();
   const { groupId } = useParams();
   const { data, isLoading } = useGroup({ id: groupId || "" });
-  if (isLoading) return <Loading />;
+
+  if (isLoading) {
+    return (
+      <Center rounded={5} bg="purple.200" w={"100%"} h={200} >
+        <Loading />
+      </Center>
+    );
+  }
 
   if (pathname === "/") return null;
 

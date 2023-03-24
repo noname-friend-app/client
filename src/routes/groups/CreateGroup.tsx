@@ -1,16 +1,23 @@
 import { Center, Heading, VStack } from "@chakra-ui/react";
 import { useState } from "react";
+import Button from "../../components/Button";
 import CreateGroupModal from "../../components/groups/CreateGroupModal";
 import Input from "../../components/Input";
 import Loading from "../../components/Loading";
-import { useGroups } from "../../libs/api";
+import { useGroups, useJoinGroup } from "../../libs/api";
 
 const CreateGroup: React.FC = () => {
   const { data, isLoading } = useGroups();
-
+  const { mutate, isLoading: isJoining } = useJoinGroup();
   const [inviteCode, setInviteCode] = useState<string>("");
 
-  if (isLoading) return <Loading />;
+  if (isLoading) {
+    return (
+      <Center w="100%" h="100vh">
+        <Loading />
+      </Center>
+    );
+  }
 
   return (
     <>
@@ -26,12 +33,23 @@ const CreateGroup: React.FC = () => {
           <Heading size="md">
             {data!.groups.length === 0 ? "Join your first group" : "Join group"}
           </Heading>
-          <Input
-            value={inviteCode}
-            formLabel="Invite code"
-            setState={setInviteCode}
-            w={'100%'}
-          />
+          <form>
+            <VStack>
+              <Input
+                value={inviteCode}
+                formLabel="Invite code"
+                setState={setInviteCode}
+                w={"100%"}
+                length={6}
+              />
+              <Button
+                onClick={() => mutate({ joinCode: inviteCode })}
+                isDisabled={inviteCode.length !== 6 || isJoining}
+              >
+                Join
+              </Button>
+            </VStack>
+          </form>
           <Heading size="md">or</Heading>
           <CreateGroupModal />
         </VStack>

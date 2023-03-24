@@ -8,6 +8,51 @@ axios.defaults.withCredentials = true;
 export const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 //MUTATIONS
+interface JoinGroupProps {
+  joinCode: string;
+}
+
+const joinGroup = async (joinCode: JoinGroupProps) => {
+  try {
+    const res = await axios.post(`${API_URL}/groups/join`, joinCode);
+    return res.data;
+  } catch (e: any) {
+    throw new Error(e.response?.data.message || "An error has occurred");
+  }
+}
+
+export const useJoinGroup = () => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: joinGroup,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["groups"]);
+      toast({
+        title: "Success",
+        description: "Joined group",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+      window.location.href = `/groups/${data.group.id}`
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+}
+
 interface CreateGroupProps {
   name: string;
   description: string;
