@@ -1,4 +1,4 @@
-import { Flex, VStack, Text, Heading } from "@chakra-ui/react";
+import { Flex, VStack, Text, Heading, Center } from "@chakra-ui/react";
 import { useLocation, useParams } from "react-router-dom";
 import { useGroup } from "../libs/api";
 import Loading from "./Loading";
@@ -26,14 +26,16 @@ const MembersBanner: React.FC = () => {
         align={"center"}
       >
         <Heading display={{ base: "none", md: "flex" }}>Members</Heading>
-        <VStack w={"100%"} h={"100%"} spacing={3} mt={4}>
-          {data.group.members.map((member, index: number) => (
-            <Flex align={"center"} w="100%" justify={"center"} key={index}>
-              <ProfilePicture seed={member.user!.id} size="sm" />
-              <Text ml={2}>{member.user!.profile!.name.split(" ")}</Text>
-            </Flex>
-          ))}
-        </VStack>
+        <Center>
+          <VStack w={"100%"} h={"100%"} spacing={4} mt={4}>
+            {data.group.members.map((member, index: number) => (
+              <Flex align={"center"} w="100%" key={index}>
+                <ProfilePicture seed={member.user!.id} size="sm" />
+                <Text ml={2}>{member.user!.profile!.name.split(" ")}</Text>
+              </Flex>
+            ))}
+          </VStack>
+        </Center>
       </Flex>
     </>
   );
