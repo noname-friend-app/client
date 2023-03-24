@@ -1,4 +1,4 @@
-import { Flex, Heading, Icon, Text, Link, Box, Center } from "@chakra-ui/react";
+import { Flex, Heading, Icon, Text, Link, Box, Center, Avatar } from "@chakra-ui/react";
 import {
   Link as RouterLink,
   Navigate,
@@ -65,8 +65,8 @@ const GroupInfoBanner: React.FC = () => {
           </Text>
           <Text color={"gray.400"}>{data.group.description}</Text>
         </Box>
-        <Box
-          bg="purple.100"
+        <Avatar
+          name={data.group.name}
           w={{ base: "60px", md: "150px" }}
           h={{ base: "60px", md: "100%" }}
           borderRadius={5}
