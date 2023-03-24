@@ -59,7 +59,7 @@ const Login: React.FC = () => {
                     variant={"flushed"}
                     color="white"
                     borderColor={"white"}
-                    placeholder="Username/Email"
+                    placeholder="Username or Email"
                   />
                   <Input
                     value={password}
