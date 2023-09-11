@@ -13,6 +13,7 @@ const MembersBanner: React.FC = () => {
   if (pathname === "/") return null;
 
   if (!data) return null;
+
   return (
     <>
       <Flex
