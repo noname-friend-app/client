@@ -1,4 +1,4 @@
-import { Flex, VStack, Text, Heading, Center } from "@chakra-ui/react";
+import { Flex, VStack, Text, Heading, Center, useToast } from "@chakra-ui/react";
 import { useLocation, useParams } from "react-router-dom";
 import { useGroup } from "../libs/api";
 import Loading from "./Loading";
@@ -7,11 +7,22 @@ import ProfilePicture from "./ProfilePicture";
 const MembersBanner: React.FC = () => {
   const { pathname } = useLocation();
   const { groupId } = useParams();
-  const { data, isLoading } = useGroup({ id: groupId || "" });
+  const { data, isLoading, isError } = useGroup({ id: groupId || "" });
+  const toast = useToast();
+
   if (isLoading) return <Loading />;
 
   if (pathname === "/") return null;
 
+  if (isError){
+    toast({
+      title: "Error",
+      description: "An error has occurred while trying to get group",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
+  }
   if (!data) return null;
 
   return (
