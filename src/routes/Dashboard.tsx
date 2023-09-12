@@ -4,7 +4,9 @@ const Dashboard: React.FC = () => {
   return (
     <>
       <Center w="100%" h="100%">
-        <Heading></Heading>
+        <Heading size="sm">
+          Select a group from the left or create a new one
+        </Heading>
       </Center>
     </>
   );

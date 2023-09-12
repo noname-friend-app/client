@@ -1,5 +1,4 @@
-import { Stack, Flex, HStack, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { Stack, Flex, HStack } from "@chakra-ui/react";
 import { useLocation, Outlet } from "react-router-dom";
 import GroupInfoBanner from "../components/groups/GroupInfoBanner";
 import LeftNav from "../components/LeftNav";
@@ -7,9 +6,6 @@ import MembersBanner from "../components/MembersBanner";
 
 const DesktopLayout: React.FC = () => {
   const { pathname } = useLocation();
-  useEffect(() => {
-    console.log(pathname);
-  }, [pathname]);
 
   let isIndexPage = pathname === "/";
   const profileOnly = pathname === "/groups/new";
