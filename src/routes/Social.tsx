@@ -63,7 +63,13 @@ const Social = () => {
             </Center>
           ) : data && data.quotes.length > 0 ? (
             data!.quotes.map((quote, index) => (
-              <Quote key={index} userId={quote.profile.user!.id} name={quote.profile.name} text={quote.text} saidAt={quote.saidAt} />
+              <Quote
+                key={index}
+                userId={quote.profile.user!.id}
+                name={quote.profile.name}
+                text={quote.text}
+                saidAt={quote.saidAt}
+              />
             ))
           ) : (
             <Center w="100%" h="100%">
