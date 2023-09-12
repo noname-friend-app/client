@@ -474,5 +474,3 @@ export const useGroupQuotes = ({ groupId }: GroupQuote) => {
     queryFn: () => getGroupQuotes({ groupId }),
   });
 };
-
-// export const useComments = 
