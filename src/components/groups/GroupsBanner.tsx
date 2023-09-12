@@ -8,6 +8,7 @@ import {
   VStack,
   Icon,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { LogIn } from "react-feather";
@@ -26,7 +27,8 @@ const GroupsBanner: React.FC = () => {
   const { width } = useWindowDimensions();
   const [inviteCode, setInviteCode] = useState<string>("");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { mutate, isLoading: isJoining } = useJoinGroup();
+  const toast = useToast();
+  const { mutate, isPending: isJoiningGroup, isError } = useJoinGroup();
 
   useEffect(() => {
     if (!isLoading) {
@@ -39,6 +41,16 @@ const GroupsBanner: React.FC = () => {
       }
     }
   }, [data, isLoading, navigate, pathname]);
+
+  if (isError) {
+    toast({
+      title: "Error",
+      description: "An error has occurred while trying to get groups",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
+  }
 
   return (
     <>
@@ -129,7 +141,7 @@ const GroupsBanner: React.FC = () => {
         title="Join Group"
         actionText="Join Group"
         action={() => mutate({ joinCode: inviteCode })}
-        actionDisabled={inviteCode.length === 0 || isJoining}
+        actionDisabled={inviteCode.length === 0 || isJoiningGroup}
       >
         <Input
           value={inviteCode}

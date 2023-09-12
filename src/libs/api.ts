@@ -32,7 +32,7 @@ export const useCreateQuote = ({ onClose }: { onClose: () => void }) => {
   return useMutation({
     mutationFn: createQuote,
     onSuccess: () => {
-      queryClient.invalidateQueries(["quotes"]);
+      queryClient.invalidateQueries({queryKey: ["quotes"]});
       toast({
         title: "Success",
         description: "Quote created",
@@ -77,7 +77,7 @@ export const useJoinGroup = () => {
   return useMutation({
     mutationFn: joinGroup,
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["groups"]);
+      queryClient.invalidateQueries({queryKey: ["groups"]});
       toast({
         title: "Success",
         description: "Joined group",
@@ -123,7 +123,7 @@ export const useCreateGroup = ({ onClose }: { onClose: () => void }) => {
   return useMutation({
     mutationFn: createGroup,
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["groups"]);
+      queryClient.invalidateQueries({queryKey: ["groups"]});
       toast({
         title: "Success",
         description: "Group created",
@@ -213,7 +213,7 @@ export const useSignup = () => {
   return useMutation({
     mutationFn: signup,
     onSuccess: () => {
-      queryClient.invalidateQueries(["session"]);
+      queryClient.invalidateQueries({queryKey: ["session"]});
       window.location.href = "/";
       toast({
         title: "Success",
@@ -260,7 +260,7 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: login,
     onSuccess: () => {
-      queryClient.invalidateQueries(["session"]);
+      queryClient.invalidateQueries( {queryKey: ["session"]});
       window.location.href = "/";
     },
     onError: (
@@ -291,9 +291,10 @@ export const useLogout = () => {
   const toast = useToast();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  return useMutation(logout, {
+  return useMutation({
+    mutationFn: logout,
     onSuccess: () => {
-      queryClient.invalidateQueries(["session"]);
+      queryClient.invalidateQueries({queryKey: ["session"]});
       navigate("/login");
       toast({
         title: "Success",
@@ -338,7 +339,7 @@ export const useEditProfile = () => {
   return useMutation({
     mutationFn: editProfile,
     onSuccess: () => {
-      queryClient.invalidateQueries(["session"]);
+      queryClient.invalidateQueries({queryKey: ["session"]});
       toast({
         title: "Success",
         description: "Profile Updated",
@@ -379,7 +380,7 @@ export const useEditAccount = () => {
   return useMutation({
     mutationFn: editAccount,
     onSuccess: () => {
-      queryClient.invalidateQueries(["session"]);
+      queryClient.invalidateQueries({queryKey: ["session"]});
       toast({
         title: "Success",
         description: "Account Updated",
@@ -425,19 +426,9 @@ const getGroups = async () => {
 };
 
 export const useGroups = () => {
-  const toast = useToast();
   return useQuery<GroupsResponse>({
     queryKey: ["groups"],
     queryFn: getGroups,
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "An error has occurred while trying to get groups",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    },
   });
 };
 
@@ -455,19 +446,9 @@ const getGroup = async ({ id }: GroupProps) => {
 };
 
 export const useGroup = ({ id }: GroupProps) => {
-  const toast = useToast();
   return useQuery<GroupResponse>({
     queryKey: ["group", id],
     queryFn: () => getGroup({ id }),
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "An error has occurred while trying to get group",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    },
   });
 };
 
@@ -488,18 +469,8 @@ const getGroupQuotes = async ({ groupId }: GroupQuote) => {
 };
 
 export const useGroupQuotes = ({ groupId }: GroupQuote) => {
-  const toast = useToast();
   return useQuery<QuotesResponse>({
     queryKey: ["quotes", groupId],
     queryFn: () => getGroupQuotes({ groupId }),
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "An error has occurred while trying to get group",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    },
   });
 };

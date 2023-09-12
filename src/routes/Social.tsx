@@ -4,6 +4,7 @@ import {
   Heading,
   HStack,
   useDisclosure,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -16,16 +17,27 @@ import Modal from "../components/Modal";
 import Quote from "../components/Quote";
 import { useCreateQuote, useGroupQuotes } from "../libs/api";
 
-const Social: React.FC = () => {
+const Social = () => {
+  const toast = useToast();
   const { groupId } = useParams();
   const btnProps = { alignSelf: "center" };
   const [quote, setQuote] = useState<string>("");
   const [saidAt, setSaidAt] = useState<string>("");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { mutate, isLoading: isCreatingQuote } = useCreateQuote({ onClose });
-  const { data, isLoading: isLoadingQuotes } = useGroupQuotes({
+  const { mutate, isPending: isCreatingQuote } = useCreateQuote({ onClose });
+  const { data, isLoading: isLoadingQuotes, isError } = useGroupQuotes({
     groupId: groupId!,
   });
+  
+  if (isError){  
+    toast({
+      title: "Error",
+      description: "An error has occurred while trying to get group",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
+  }
 
   return (
     <>

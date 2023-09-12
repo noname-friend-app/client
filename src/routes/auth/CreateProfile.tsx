@@ -21,13 +21,13 @@ const CreateProfile: React.FC = () => {
   const [birthday, setBirthday] = useState<string>("");
   const [pronouns, setPronouns] = useState<string>("");
 
-  const { mutate, isLoading } = useProfile();
+  const { mutate, isPending } = useProfile();
   const { user } = useContext(UserContext);
 
   const buttonProps = {
     type: "submit",
     isDisabled:
-      isLoading ||
+      isPending ||
       name.length < 1 ||
       bio.length < 1 ||
       birthday.length < 1 ||

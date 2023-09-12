@@ -8,7 +8,7 @@ import { useGroups, useJoinGroup } from "../../libs/api";
 
 const CreateGroup: React.FC = () => {
   const { data, isLoading } = useGroups();
-  const { mutate, isLoading: isJoining } = useJoinGroup();
+  const { mutate, isPending: isJoining } = useJoinGroup();
   const [inviteCode, setInviteCode] = useState<string>("");
 
   if (isLoading) {
