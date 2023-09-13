@@ -60,7 +60,7 @@ interface Quote {
 interface QuotesResponse {
   message: string;
   quotes: Quote[];
-  group: Group
+  group: Group;
 }
 
 interface ListResponse {
@@ -163,4 +163,19 @@ interface ListItem {
 interface ListItemsResponse {
   message: string;
   listItems: ListItem[]
+}
+
+interface Comment {
+  id: string;
+  text: string;
+  createdAt: string;
+  updatedAt: string;
+  profileId: string;
+  quoteId: string;
+  profile?: Profile
+}
+interface CommentsResponse {
+  quote: Quote;
+  comments: Comment[];
+
 }

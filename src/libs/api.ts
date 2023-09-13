@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 
-export const API_URL = process.env.REACT_APP_API_URL;
+export const API_URL = process.env.REACT_APP_API_URL;;
 
 //MUTATIONS
 interface CreateListItemProps {
@@ -838,6 +838,33 @@ export const useGroupQuotes = ({ groupId }: GroupQuote) => {
     queryFn: () => getGroupQuotes({ groupId }),
   });
 };
+
+interface GetCommentsProps {
+  quoteId: Quote["id"];
+  groupId: Group["id"];
+}
+
+const getComments = async ({ quoteId, groupId }: GetCommentsProps) => {
+  try {
+    const res = await axios.get(
+      `${API_URL}/group/${groupId}/quote/${quoteId}/comments`
+    );
+    if (res.data.quotes.length === 0) {
+      return null;
+    }
+    return res.data;
+  } catch (e) {
+    return null;
+  }
+};
+
+export const useComments = ({ quoteId, groupId }: GetCommentsProps) => {
+  return useQuery<QuotesResponse>({
+    queryKey: ["comments", quoteId],
+    queryFn: () => getComments({ groupId, quoteId })
+  })
+}
+
 
 const getLists = async ({ groupId }: { groupId: string }) => {
   const res = await axios.get(`${API_URL}/group/${groupId}/lists`);
