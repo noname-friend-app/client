@@ -1,11 +1,11 @@
 import { Flex, Heading, HStack, Text, Link, Divider } from "@chakra-ui/react";
 import ProfilePicture from "./ProfilePicture";
-import Comment from "./Comments";
 
 // For Comments
 import { Link as RouterLink } from "react-router-dom";
 import { useComments } from "../libs/api";
 import { useParams } from "react-router-dom";
+import Comment from "./Comments";
 
 interface Props {
   userId: string;
@@ -24,13 +24,14 @@ const Quote: React.FC<Props> = ({
     saidAt
   ).getDate()}/${new Date(saidAt).getFullYear()}`;
 
-  // For Comments
+  // Comments Logic
   const { groupId } = useParams();
   const { quoteId } = useParams();
   const { data } = useComments({
     quoteId: quoteId!,
     groupId: groupId!,
   });
+
   return (
     <>
       <Flex
@@ -54,13 +55,14 @@ const Quote: React.FC<Props> = ({
           <Text>{date}</Text>
         </HStack>
       </Flex>
+      {/* COMMENTS */}
       <Flex
-        // bg="yellow"
+        bg="yellow"
         w={"100%"}
         h={"auto"}
         flexDir={"column"}
       >
-        <Flex
+        {/* <Flex
           w={10}
           h={10}
           ml={5}
@@ -69,12 +71,22 @@ const Quote: React.FC<Props> = ({
           borderTop={"none"}
           borderRight={"none"}
           borderBottomLeftRadius={"10"}
-        ></Flex>
-        {/* {data!.comments.map((index, comment) => (
-        
-      ))}
-        <Comment />
-         */}
+        /> */}
+
+        {data && data.comments.length > 0 ? (
+          data!.comments.map((comment, index) => (
+            <Comment
+              key={index}
+              text={comment.text}
+              // Ask clarification for ?
+              commentName={comment.profile?.name}
+              createdAt={comment.createdAt}
+            />
+          ))
+        ) : (
+          <></>
+        )}
+
         <Flex
           // bg="blue.300"
           ml={20}
