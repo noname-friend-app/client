@@ -80,7 +80,7 @@ const Social = () => {
       </Flex>
       <Modal
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={onClose} 
         title="New Quote"
         action={() => mutate({ text: quote, saidAt, groupId: groupId! })}
         actionText="Add Quote"

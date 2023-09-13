@@ -1,7 +1,11 @@
 import { Flex, Heading, HStack, Text, Link, Divider } from "@chakra-ui/react";
 import ProfilePicture from "./ProfilePicture";
 import Comment from "./Comments";
+
+// For Comments
 import { Link as RouterLink } from "react-router-dom";
+import { useComments } from "../libs/api";
+import { useParams } from "react-router-dom";
 
 interface Props {
   userId: string;
@@ -19,6 +23,14 @@ const Quote: React.FC<Props> = ({
   const date = `${new Date(saidAt).getMonth()}/${new Date(
     saidAt
   ).getDate()}/${new Date(saidAt).getFullYear()}`;
+
+  // For Comments
+  const { groupId } = useParams();
+  const { quoteId } = useParams();
+  const { data } = useComments({
+    quoteId: quoteId!,
+    groupId: groupId!,
+  });
   return (
     <>
       <Flex
@@ -48,8 +60,21 @@ const Quote: React.FC<Props> = ({
         h={"auto"}
         flexDir={"column"}
       >
-        <Comment />
+        <Flex
+          w={10}
+          h={10}
+          ml={5}
+          mb={5}
+          border="1px"
+          borderTop={"none"}
+          borderRight={"none"}
+          borderBottomLeftRadius={"10"}
+        ></Flex>
+        {/* {data!.comments.map((index, comment) => (
         
+      ))}
+        <Comment />
+         */}
         <Flex
           // bg="blue.300"
           ml={20}

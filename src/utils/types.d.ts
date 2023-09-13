@@ -72,6 +72,7 @@ interface Comment {
   quoteId: string;
   profile?: Profile
 }
+
 interface CommentsResponse {
   quote: Quote;
   comments: Comment[];
