@@ -652,7 +652,7 @@ const getComments = async ({ quoteId, groupId }: GetCommentsProps) => {
 };
 
 export const useComments = ({ quoteId, groupId }: GetCommentsProps) => {
-  return useQuery<QuotesResponse>({
+  return useQuery<CommentsResponse>({
     queryKey: ["comments", quoteId],
     queryFn: () => getComments({ groupId, quoteId })
   })

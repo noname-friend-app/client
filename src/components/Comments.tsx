@@ -1,32 +1,23 @@
-import { Flex, Input } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 
-const Comment = () => {
+
+interface Props {
+  text: string;
+  createdAt: string;
+  name: string;
+}
+
+const Comment: React.FC<Props> = ({ text, createdAt, name }) => {
   return (
     <Flex
       // bg="green"
       align={"center"}
       justify={"left"}
-      // bg='red'
       ml={5}
     >
-      <Flex
-        w={10}
-        h={10}
-        mr={5}
-        mb={5}
-        border="1px"
-        borderTop={"none"}
-        borderRight={"none"}
-        borderBottomLeftRadius={"10"}
-      ></Flex>
-      <Input
-        value={"test"}
-        variant={"flushed"}
-        color="white"
-        borderColor={"white"}
-        placeholder="Username or Email"
-        w={"200px"}
-      />
+      <Text variant={"flushed"} color="white" borderColor={"white"} w={"200px"}>
+        {text}
+      </Text>
     </Flex>
   );
 };
