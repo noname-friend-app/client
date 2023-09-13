@@ -189,7 +189,7 @@ export const useCreateQuote = ({ onClose }: { onClose: () => void }) => {
   return useMutation({
     mutationFn: createQuote,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ["quotes"]});
+      queryClient.invalidateQueries({ queryKey: ["quotes"] });
       toast({
         title: "Success",
         description: "Quote created",
@@ -234,7 +234,7 @@ export const useJoinGroup = () => {
   return useMutation({
     mutationFn: joinGroup,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({queryKey: ["groups"]});
+      queryClient.invalidateQueries({ queryKey: ["groups"] });
       toast({
         title: "Success",
         description: "Joined group",
@@ -280,7 +280,7 @@ export const useCreateGroup = ({ onClose }: { onClose: () => void }) => {
   return useMutation({
     mutationFn: createGroup,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({queryKey: ["groups"]});
+      queryClient.invalidateQueries({ queryKey: ["groups"] });
       toast({
         title: "Success",
         description: "Group created",
@@ -370,7 +370,7 @@ export const useSignup = () => {
   return useMutation({
     mutationFn: signup,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ["session"]});
+      queryClient.invalidateQueries({ queryKey: ["session"] });
       window.location.href = "/";
       toast({
         title: "Success",
@@ -417,7 +417,7 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: login,
     onSuccess: () => {
-      queryClient.invalidateQueries( {queryKey: ["session"]});
+      queryClient.invalidateQueries({ queryKey: ["session"] });
       window.location.href = "/";
     },
     onError: (
@@ -451,7 +451,7 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ["session"]});
+      queryClient.invalidateQueries({ queryKey: ["session"] });
       navigate("/login");
       toast({
         title: "Success",
@@ -496,7 +496,7 @@ export const useEditProfile = () => {
   return useMutation({
     mutationFn: editProfile,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ["session"]});
+      queryClient.invalidateQueries({ queryKey: ["session"] });
       toast({
         title: "Success",
         description: "Profile Updated",
@@ -537,7 +537,7 @@ export const useEditAccount = () => {
   return useMutation({
     mutationFn: editAccount,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ["session"]});
+      queryClient.invalidateQueries({ queryKey: ["session"] });
       toast({
         title: "Success",
         description: "Account Updated",
@@ -631,6 +631,33 @@ export const useGroupQuotes = ({ groupId }: GroupQuote) => {
     queryFn: () => getGroupQuotes({ groupId }),
   });
 };
+
+interface GetCommentsProps {
+  quoteId: Quote["id"];
+  groupId: Group["id"];
+}
+
+const getComments = async ({ quoteId, groupId }: GetCommentsProps) => {
+  try {
+    const res = await axios.get(
+      `${API_URL}/group/${groupId}/quote/${quoteId}/comments`
+    );
+    if (res.data.quotes.length === 0) {
+      return null;
+    }
+    return res.data;
+  } catch (e) {
+    return null;
+  }
+};
+
+export const useComments = ({ quoteId, groupId }: GetCommentsProps) => {
+  return useQuery<QuotesResponse>({
+    queryKey: ["comments", quoteId],
+    queryFn: () => getComments({ groupId, quoteId })
+  })
+}
+
 
 const getLists = async ({ groupId }: { groupId: string }) => {
   const res = await axios.get(`${API_URL}/group/${groupId}/lists`);
