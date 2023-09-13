@@ -58,6 +58,21 @@ export const useCreateQuote = ({ onClose }: { onClose: () => void }) => {
   });
 };
 
+// interface CreateCommentProps {
+//   text: string;
+//   createdAt: string;
+//   quoteId: Quote["id"];
+//   groupId: Group["id"];
+// }
+
+// const createComment = async (commentDetails: CreateCommentProps) => {
+//   try {
+//     const res = await axios.post(
+//       `${API_URL}/group/${commentDetails.groupId}/i`
+//     )
+//   }
+// }
+
 interface JoinGroupProps {
   joinCode: string;
 }

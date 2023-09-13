@@ -1,11 +1,8 @@
 import { Flex, Heading, HStack, Text, Link, Divider } from "@chakra-ui/react";
+import Comment from "./comments/Comment";
 import ProfilePicture from "./ProfilePicture";
 
 // For Comments
-import { Link as RouterLink } from "react-router-dom";
-import { useComments } from "../libs/api";
-import { useParams } from "react-router-dom";
-import Comment from "./Comments";
 
 interface Props {
   userId: string;
@@ -23,14 +20,6 @@ const Quote: React.FC<Props> = ({
   const date = `${new Date(saidAt).getMonth()}/${new Date(
     saidAt
   ).getDate()}/${new Date(saidAt).getFullYear()}`;
-
-  // Comments Logic
-  const { groupId } = useParams();
-  const { quoteId } = useParams();
-  const { data } = useComments({
-    quoteId: quoteId!,
-    groupId: groupId!,
-  });
 
   return (
     <>
@@ -55,14 +44,11 @@ const Quote: React.FC<Props> = ({
           <Text>{date}</Text>
         </HStack>
       </Flex>
-      {/* COMMENTS */}
+      {/* COMMENTS  ---------------- */}
       <Flex
-        bg="yellow"
-        w={"100%"}
-        h={"auto"}
-        flexDir={"column"}
+        w="100%"
       >
-        {/* <Flex
+        <Flex
           w={10}
           h={10}
           ml={5}
@@ -71,39 +57,8 @@ const Quote: React.FC<Props> = ({
           borderTop={"none"}
           borderRight={"none"}
           borderBottomLeftRadius={"10"}
-        /> */}
-
-        {data && data.comments.length > 0 ? (
-          data!.comments.map((comment, index) => (
-            <Comment
-              key={index}
-              text={comment.text}
-              // Ask clarification for ?
-              commentName={comment.profile?.name}
-              createdAt={comment.createdAt}
-            />
-          ))
-        ) : (
-          <></>
-        )}
-
-        <Flex
-          // bg="blue.300"
-          ml={20}
-          fontSize={"13px"}
-        >
-          <Link as={RouterLink} color={"purple.100"} pr={2}>
-            Reply
-          </Link>
-          <Divider orientation="vertical" pr={2} />
-          <Link as={RouterLink} color={"purple.100"} pr={2}>
-            Show More Comments
-          </Link>
-          <Divider orientation="vertical" pr={2} />
-          <Link as={RouterLink} color={"purple.100"} pr={2}>
-            View All Comments
-          </Link>
-        </Flex>
+        />
+        <Comment />
       </Flex>
     </>
   );
