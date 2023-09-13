@@ -56,7 +56,7 @@ const Social = () => {
             New Quote
           </Button>
         </HStack>
-        <VStack mt={4} spacing={4}>
+        <VStack mt={4} spacing={4} >
           {isLoadingQuotes ? (
             <Center w="100%" h="100%">
               <Loading />
