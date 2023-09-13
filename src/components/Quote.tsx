@@ -1,5 +1,5 @@
 import { Flex, Heading, HStack, Text, Link, Divider } from "@chakra-ui/react";
-import Comment from "./comments/Comment";
+import Comment from "./comments/Comments";
 import ProfilePicture from "./ProfilePicture";
 
 // For Comments

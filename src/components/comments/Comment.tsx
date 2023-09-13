@@ -1,65 +1,25 @@
-import { Link as RouterLink } from "react-router-dom";
-import { useComments } from "../../libs/api";
-import { useParams } from "react-router-dom";
-import Comments from ".././comments/Comments";
-import { Flex, Link, Divider } from "@chakra-ui/react";
+import { Divider, Flex, HStack, Text } from "@chakra-ui/react";
 
-const Comment = () => {
-  // Comments Logic
-  const { groupId } = useParams();
-  const { quoteId } = useParams();
-  const { data } = useComments({
-    quoteId: quoteId!,
-    groupId: groupId!,
-  });
+interface Props {
+  text: string;
+  createdAt: string;
+  commentName?: string;
+}
 
+const Comment: React.FC<Props> = ({ text, createdAt, commentName }) => {
   return (
     <>
-      <Flex
-        w={"90%"}
-        h={"auto"}
-        flexDir={"column"}
-        ml={5}
-      >
-        
-
-        {/* {data && data.comments.length > 0 ? (
-          data!.comments.map((comment, index) => (
-            <Comments
-              key={index}
-              text={comment.text}
-              // Ask clarification for ?
-              commentName={comment.profile?.name}
-              createdAt={comment.createdAt}
-            />
-          ))
-        ) : (
-          <></>
-        )} */}
-          <Comments
-              text={"Test"}
-              // Ask clarification for ?
-              commentName={"Alex"}
-              createdAt={'10/12/1312'}
-            />
-
-        <Flex
-          ml={5}
-          fontSize={"13px"}
-        >
-          <Link as={RouterLink} color={"purple.100"}  pr={2}>
-            Add Comment
-          </Link>
-          <Divider orientation="vertical" pr={2} />
-          <Link as={RouterLink} color={"purple.100"} pr={2}>
-            Show More Comments
-          </Link>
-          <Divider orientation="vertical" pr={2} />
-          <Link as={RouterLink} color={"purple.100"} pr={2}>
-            View All Comments
-          </Link>
+      <Flex  ml={5} flexDir="column">
+        <Flex>
+          <Text fontSize={10}>{createdAt}</Text>
         </Flex>
+        <HStack align={"center"} spacing={"4"}>
+          <Text >{commentName}</Text>
+          <Flex w={2} h={2} bg={"white"} borderRadius={"10"} ></Flex>
+          <Text>{text}</Text>
+        </HStack>
       </Flex>
+      <Divider mb={2} />
     </>
   );
 };
