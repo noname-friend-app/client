@@ -2,6 +2,8 @@ import { VStack } from "@chakra-ui/react";
 import { useWindowDimensions } from "../libs/dimensions";
 import GroupsBanner from "./groups/GroupsBanner";
 import UserBanner from "./UserBanner";
+import { Suspense } from "react";
+import GroupsBannerSkeleton from "./skeletons/GroupsBanner";
 
 interface Props {
   profileOnly?: boolean;
@@ -16,7 +18,11 @@ const LeftNav: React.FC<Props> = ({ profileOnly }) => {
         h="100%"
       >
         <UserBanner h={profileOnly ? "100%" : width > 569 ? 200 : 120} />
-        {!profileOnly && <GroupsBanner />}
+        {!profileOnly && (
+          <Suspense fallback={<GroupsBannerSkeleton />}>
+            <GroupsBanner />
+          </Suspense>
+        )}
       </VStack>
     </>
   );

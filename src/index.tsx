@@ -4,8 +4,7 @@ import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./utils/theme";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { UserProvider } from "./context/UserContext";
+import { UserProviderWrapper } from "./context/UserContext";
 import "./assets/css/styles.css";
 
 //ROUTES
@@ -25,9 +24,9 @@ import ProfileSettings from "./routes/settings/profile";
 import Layout from "./layouts/index";
 import Events from "./routes/Events";
 import Finance from "./routes/Finance";
+import Providers from "./libs/providers";
 import Lists from "./routes/Lists";
 
-const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -36,10 +35,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
+      <Providers >
         <ColorModeScript initialColorMode={theme.config.initalColorMode} />
         <Router>
-          <UserProvider>
+          <UserProviderWrapper>
             <Routes>
               <Route
                 path="/"
@@ -55,8 +54,7 @@ root.render(
                 <Route path="/groups/:groupId/events" element={<Events />} />
                 <Route path="/groups/:groupId/lists" element={<Lists />} />
                 <Route path="/groups/:groupId/finance" element={<Finance />} />
-              <Route path="/groups/new" element={<CreateGroup />} />
-                
+                <Route path="/groups/new" element={<CreateGroup />} />
               </Route>
               <Route
                 path="/create-profile"
@@ -80,9 +78,9 @@ root.render(
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>
-          </UserProvider>
+          </UserProviderWrapper>
         </Router>
-      </QueryClientProvider>
+      </Providers>
     </ChakraProvider>
   </React.StrictMode>
 );

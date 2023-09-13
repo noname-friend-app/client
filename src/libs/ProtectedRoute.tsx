@@ -11,6 +11,7 @@ const ProtectedRoute: React.FC<Props> = ({ children }) => {
   const { user } = useContext(UserContext);
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!user) {
       navigate("/login");

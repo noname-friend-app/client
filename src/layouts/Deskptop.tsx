@@ -2,7 +2,7 @@ import { Stack, Flex, HStack } from "@chakra-ui/react";
 import { useLocation, Outlet } from "react-router-dom";
 import GroupInfoBanner from "../components/groups/GroupInfoBanner";
 import LeftNav from "../components/LeftNav";
-import MembersBanner from "../components/MembersBanner";
+import MembersBanner from "../components/groups/MembersBanner";
 
 const DesktopLayout: React.FC = () => {
   const { pathname } = useLocation();
@@ -14,7 +14,7 @@ const DesktopLayout: React.FC = () => {
     <>
       <Stack spacing={4} p={4} direction={"row"} w="100%" h="100vh">
         <LeftNav profileOnly={profileOnly} />
-        <Stack spacing={4} direction={"column"} w="100%" h="100%">
+        {/* <Stack spacing={4} direction={"column"} w="100%" h="100%">
           {!isIndexPage && !profileOnly ? <GroupInfoBanner /> : null}
           <HStack  overflow="hidden" h={"100%"} w={"100%"} spacing={4}>
             <Flex
@@ -28,7 +28,7 @@ const DesktopLayout: React.FC = () => {
             </Flex>
             {!isIndexPage && !profileOnly ? <MembersBanner /> : null}
           </HStack>
-        </Stack>
+        </Stack> */}
       </Stack>
     </>
   );

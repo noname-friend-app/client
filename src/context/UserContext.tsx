@@ -1,59 +1,59 @@
 import { Center } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
-import { createContext, useEffect, useState } from "react";
+import { Suspense, createContext, useEffect, useState } from "react";
 import Loading from "../components/Loading";
-import { getSession } from "../libs/api";
+import { useSession } from "../libs/api";
 
 interface UserContextProps {
   user: Session;
   setUser: (user: Session) => void;
-  loading: boolean;
 }
 
 const UserContext = createContext<UserContextProps>({
   user: null,
   setUser: () => {},
-  loading: true,
 });
 
 interface UserProviderProps {
   children: JSX.Element;
 }
 
-const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<Session | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const { data, isLoading } = useQuery({
-    queryKey: ["session"],
-    queryFn: getSession,
-  });
-
-  useEffect(() => {
-    if (!isLoading) {
-      if (data) {
-        if (data.user) {
-          setUser(data.user);
-        } else {
-          setUser(null);
-        }
-      } else {
-        setUser(null);
-      }
-      setLoading(false);
-    }
-  }, [data, isLoading]);
-
+const UserProviderWrapper = ({
+  children,
+}: {
+  children: React.ReactElement;
+}) => {
   return (
-    <UserContext.Provider value={{ user, loading, setUser }}>
-      {loading ? (
+    <Suspense
+      fallback={
         <Center w="100%" h="100vh">
           <Loading />
         </Center>
-      ) : (
-        children
-      )}
-    </UserContext.Provider>
+      }
+    >
+      <UserProvider>{children}</UserProvider>
+    </Suspense>
   );
 };
 
-export { UserProvider, UserContext };
+const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<Session | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const { data } = useSession();
+
+  useEffect(() => {
+    if (data) {
+      setUser(data.user);
+      setLoading(false);
+    }
+  }, [data]);
+
+  if (loading) return <Loading />;
+
+  return (
+      <UserContext.Provider value={{ user, setUser }}>
+        {children}
+      </UserContext.Provider>
+  );
+};
+
+export { UserProvider, UserProviderWrapper, UserContext };

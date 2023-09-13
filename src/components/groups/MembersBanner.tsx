@@ -1,29 +1,36 @@
-import { Flex, VStack, Text, Heading, Center, useToast } from "@chakra-ui/react";
+import {
+  Flex,
+  VStack,
+  Text,
+  Heading,
+  Center,
+} from "@chakra-ui/react";
 import { useLocation, useParams } from "react-router-dom";
-import { useGroup } from "../libs/api";
-import Loading from "./Loading";
-import ProfilePicture from "./ProfilePicture";
+import { useGroup } from "../../libs/api";
+import ProfilePicture from "../ProfilePicture";
+import { Suspense } from "react";
+import MembersBannerSkeleton from "../skeletons/MembersBannerSkeleton";
 
 const MembersBanner: React.FC = () => {
   const { pathname } = useLocation();
   const { groupId } = useParams();
-  const { data, isLoading, isError } = useGroup({ id: groupId || "" });
-  const toast = useToast();
+  const { data } = useGroup({ id: groupId || "" });
+  // const toast = useToast();
 
-  if (isLoading) return <Loading />;
+  // if (isLoading) return <Loading />;
 
   if (pathname === "/") return null;
 
-  if (isError){
-    toast({
-      title: "Error",
-      description: "An error has occurred while trying to get group",
-      status: "error",
-      duration: 5000,
-      isClosable: true,
-    });
-  }
-  if (!data) return null;
+  // if (isError){
+  //   toast({
+  //     title: "Error",
+  //     description: "An error has occurred while trying to get group",
+  //     status: "error",
+  //     duration: 5000,
+  //     isClosable: true,
+  //   });
+  // }
+  // if (!data) return null;
 
   return (
     <>
@@ -41,12 +48,14 @@ const MembersBanner: React.FC = () => {
         <Heading display={{ base: "none", md: "flex" }}>Members</Heading>
         <Center>
           <VStack w={"100%"} h={"100%"} spacing={4} mt={4}>
-            {data.group.members.map((member, index: number) => (
+            {/* <Suspense fallback={<MembersBannerSkeleton />}>
+              {data.group.members.map((member, index: number) => (
               <Flex align={"center"} w="100%" key={index}>
                 <ProfilePicture seed={member.profile.id} size="sm" />
                 <Text ml={2}>{member.profile.name.split(" ")[0]}</Text>
               </Flex>
             ))}
+            </Suspense> */}
           </VStack>
         </Center>
       </Flex>

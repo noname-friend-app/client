@@ -1,11 +1,11 @@
 import axios, { AxiosError } from "axios";
-import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { useQueryClient, useMutation,  useSuspenseQuery } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 
-export const API_URL = process.env.REACT_APP_API_URL;;
+export const API_URL = process.env.REACT_APP_API_URL;
 
 //MUTATIONS
 interface CreateListItemProps {
@@ -626,13 +626,20 @@ export const getSession = async () => {
   }
 };
 
+export const useSession = () => {
+  return useSuspenseQuery({
+    queryKey: ["session"],
+    queryFn: getSession,
+  });
+}
+
 const getGroups = async () => {
   const res = await axios.get(`${API_URL}/groups/joined`);
   return res.data;
 };
 
 export const useGroups = () => {
-  return useQuery<GroupsResponse>({
+  return useSuspenseQuery<GroupsResponse>({
     queryKey: ["groups"],
     queryFn: getGroups,
   });
@@ -652,7 +659,7 @@ const getGroup = async ({ id }: GroupProps) => {
 };
 
 export const useGroup = ({ id }: GroupProps) => {
-  return useQuery<GroupResponse>({
+  return useSuspenseQuery<GroupResponse>({
     queryKey: ["group", id],
     queryFn: () => getGroup({ id }),
   });
@@ -675,7 +682,7 @@ const getGroupQuotes = async ({ groupId }: GroupQuote) => {
 };
 
 export const useGroupQuotes = ({ groupId }: GroupQuote) => {
-  return useQuery<QuotesResponse>({
+  return useSuspenseQuery<QuotesResponse>({
     queryKey: ["quotes", groupId],
     queryFn: () => getGroupQuotes({ groupId }),
   });
