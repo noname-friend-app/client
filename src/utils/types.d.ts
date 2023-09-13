@@ -2,44 +2,44 @@ type Session = {
   id: string;
   username: string;
   email: string;
-  profile?: Profile
+  profile?: Profile;
 } | null;
 
-interface Profile  {
-    id: string;
-    name: string;
-    bio: string;
-    pronouns: string;
-    birthday: string;
-    user?: Session
+interface Profile {
+  id: string;
+  name: string;
+  bio: string;
+  pronouns: string;
+  birthday: string;
+  user?: Session;
 }
 
 interface Group {
   id: string;
-  name: string
+  name: string;
   description: string;
-  groupImageUrl: string 
+  groupImageUrl: string;
   joinCode: string;
   createdAt: string;
   updatedAt: string;
-  members: GroupMember[]
-  quotes?: Quote[]
+  members: GroupMember[];
+  quotes?: Quote[];
 }
 
-interface GroupMember{
+interface GroupMember {
   id: string;
   role: string;
   createdAt: string;
   updatedAt: string;
   profileId: string;
   groupId: string;
-  profile: Profile
+  profile: Profile;
 }
 
 interface GroupsResponse {
   message: string;
   groups: Group[];
-  user: Session
+  user: Session;
 }
 
 interface GroupResponse {
@@ -54,11 +54,26 @@ interface Quote {
   updatedAt: string;
   profileid: string;
   groupdId: string;
-  profile: Profile
+  profile: Profile;
 }
 
 interface QuotesResponse {
   message: string;
   quotes: Quote[];
-  group: Group
+  group: Group;
+}
+
+interface Comment {
+  id: string;
+  text: string;
+  createdAt: string;
+  updatedAt: string;
+  profileId: string;
+  quoteId: string;
+  profile?: Profile
+}
+interface CommentsResponse {
+  quote: Quote;
+  comments: Comment[];
+
 }
