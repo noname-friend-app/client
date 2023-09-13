@@ -4,10 +4,13 @@ import { Flex, Text } from "@chakra-ui/react";
 interface Props {
   text: string;
   createdAt: string;
-  name: string;
+  commentName?: string;
 }
 
-const Comment: React.FC<Props> = ({ text, createdAt, name }) => {
+const Comment: React.FC<Props> = ({ 
+  text, 
+  createdAt, 
+  commentName }) => {
   return (
     <Flex
       // bg="green"
