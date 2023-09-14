@@ -5,6 +5,7 @@ import LeftNav from "../components/LeftNav";
 import MembersBanner from "../components/groups/MembersBanner";
 import { Suspense } from "react";
 import GroupInfoBannerSkeleton from "../components/skeletons/GroupInfoBanner";
+import MembersBannerSkeleton from "../components/skeletons/MembersBanner";
 
 const DesktopLayout: React.FC = () => {
   const { pathname } = useLocation();
@@ -33,7 +34,7 @@ const DesktopLayout: React.FC = () => {
               <Outlet />
             </Flex>
             {!isIndexPage && !profileOnly ? (
-              <Suspense>
+              <Suspense fallback={<MembersBannerSkeleton />}>
                 <MembersBanner />
               </Suspense>
             ) : null}

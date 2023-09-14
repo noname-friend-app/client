@@ -26,7 +26,7 @@ const UserProviderWrapper = ({
     <Suspense
       fallback={
         <Center w="100%" h="100vh">
-          {/* <Loading /> */}
+          <Loading />
         </Center>
       }
     >
