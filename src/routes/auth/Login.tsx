@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Flex, Heading, Input, Text } from "@chakra-ui/react";
-import { useLogin } from "../../libs/api";
+import { useLogin } from "../../libs/api/mutations";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>("");

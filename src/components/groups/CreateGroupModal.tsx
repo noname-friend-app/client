@@ -1,5 +1,5 @@
 import { useDisclosure, VStack, Icon } from "@chakra-ui/react";
-import { useCreateGroup } from "../../libs/api";
+import { useCreateGroup } from "../../libs/api/mutations";
 import Button from "../Button";
 import Modal from "../Modal";
 import Input from "../Input";

@@ -1,75 +1,54 @@
 import {
   Center,
-  Flex,
   Heading,
   HStack,
   useDisclosure,
-  useToast,
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from "../components/Button";
-import GroupNav from "../components/groups/Nav";
 import Input from "../components/Input";
-import Loading from "../components/Loading";
 import Modal from "../components/Modal";
 import Quote from "../components/Quote";
-import { useCreateQuote, useGroupQuotes } from "../libs/api";
+import { useCreateQuote } from "../libs/api/mutations";
+import { useGroupQuotes } from "../libs/api/queries";
+import SocialLayout from "../layouts/Social";
 
 const Social = () => {
-  const toast = useToast();
   const { groupId } = useParams();
   const btnProps = { alignSelf: "center" };
   const [quote, setQuote] = useState<string>("");
   const [saidAt, setSaidAt] = useState<string>("");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { mutate, isLoading: isCreatingQuote } = useCreateQuote({ onClose });
-  const { data, isLoading: isLoadingQuotes, isError } = useGroupQuotes({
-    groupId: groupId!,
-  });
-  
-  if (isError){  
-    toast({
-      title: "Error",
-      description: "An error has occurred while trying to get group",
-      status: "error",
-      duration: 5000,
-      isClosable: true,
-    });
-  }
+  const { mutate, isPending: isCreatingQuote } = useCreateQuote({ onClose });
+  const { data } = useGroupQuotes({ groupId: groupId! });
 
   return (
     <>
-      <Flex
-        pb={200}
-        px={{ base: 0, sm: 4 }}
-        mt={4}
-        flexDir={"column"}
-        w="100%"
-        h="100%"
-      >
-        <GroupNav />
+      <SocialLayout>
         <HStack mt={4}>
           <Heading alignSelf={"center"}>Social</Heading>
           <Button onClick={onOpen} {...btnProps} h={10} w={24}>
             New Quote
           </Button>
         </HStack>
-        <VStack mt={4} spacing={4} >
-          {isLoadingQuotes ? (
-            <Center w="100%" h="100%">
-              <Loading />
-            </Center>
-          ) : data && data.quotes.length > 0 ? (
+        <VStack mt={4} spacing={4}>
+          {data && data.quotes.length > 0 ? (
             data!.quotes.map((quote, index) => (
               <Quote
+               
                 key={index}
+               
                 userId={quote.profile.user!.id}
+               
                 name={quote.profile.name}
+               
                 text={quote.text}
+               
                 saidAt={quote.saidAt}
                 id={quote.id}
+             
               />
             ))
           ) : (
@@ -78,7 +57,7 @@ const Social = () => {
             </Center>
           )}
         </VStack>
-      </Flex>
+      </SocialLayout>
       <Modal
         isOpen={isOpen}
         onClose={onClose} 

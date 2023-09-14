@@ -1,9 +1,25 @@
-import { Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
-const MembersLayout: React.FC = () => {
+interface IProps {
+  children: React.ReactNode;
+}
+
+const MembersLayout: React.FC<IProps> = ({children}: IProps) => {
   return (
     <>
-      <Text>Members Layout</Text>
+      <Flex
+        display={{ base: "none", md: "flex" }}
+        bg="purple.200"
+        rounded={10}
+        overflowY="scroll"
+        w="240px"
+        h={"100%"}
+        p={4}
+        flexDir="column"
+        align={"center"}
+      >
+        {children}
+      </Flex>
     </>
   );
 }

@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import Input from "../../components/Input";
 import DoinkButton from "../../components/Button";
 import { UserContext } from "../../context/UserContext";
-import { useEditProfile } from "../../libs/api";
+import { useEditProfile } from "../../libs/api/mutations";
 import ProfilePicture from "../../components/ProfilePicture";
 
 const ProfileSettings: React.FC = () => {

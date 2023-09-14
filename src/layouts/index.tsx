@@ -1,4 +1,3 @@
-import { Text } from "@chakra-ui/react";
 import { useWindowDimensions } from "../libs/dimensions";
 import DesktopLayout from "./Deskptop";
 import MobileLayout from "./Mobile";

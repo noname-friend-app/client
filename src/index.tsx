@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Suspense} from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
@@ -14,7 +14,7 @@ import Social from "./routes/Social";
 import Signup from "./routes/auth/Signup";
 import ProtectedRoute from "./libs/ProtectedRoute";
 import CreateProfile from "./routes/auth/CreateProfile";
-import SettingsLayout from "./layouts/SettingsLayout";
+import SettingsLayout from "./layouts/Settings";
 import CreateGroup from "./routes/groups/CreateGroup";
 import Group from "./routes/groups";
 import AccountSettings from "./routes/settings/account";
@@ -25,7 +25,7 @@ import Layout from "./layouts/index";
 import Events from "./routes/Events";
 import Finance from "./routes/Finance";
 import Providers from "./libs/providers";
-import Lists from "./routes/Lists";
+import SocialSkeleton from "./components/skeletons/Social";import Lists from "./routes/Lists";
 
 
 const root = ReactDOM.createRoot(
@@ -50,7 +50,14 @@ root.render(
               >
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/groups/:groupId" element={<Group />} />
-                <Route path="/groups/:groupId/social" element={<Social />} />
+                <Route
+                  path="/groups/:groupId/social"
+                  element={
+                    <Suspense fallback={<SocialSkeleton />}>
+                      <Social />
+                    </Suspense>
+                  }
+                />
                 <Route path="/groups/:groupId/events" element={<Events />} />
                 <Route path="/groups/:groupId/lists" element={<Lists />} />
                 <Route path="/groups/:groupId/finance" element={<Finance />} />

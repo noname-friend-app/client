@@ -1,7 +1,7 @@
 import { Center } from "@chakra-ui/react";
 import { Suspense, createContext, useEffect, useState } from "react";
 import Loading from "../components/Loading";
-import { useSession } from "../libs/api";
+import { useSession } from "../libs/api/queries";
 
 interface UserContextProps {
   user: Session;
@@ -26,7 +26,7 @@ const UserProviderWrapper = ({
     <Suspense
       fallback={
         <Center w="100%" h="100vh">
-          <Loading />
+          {/* <Loading /> */}
         </Center>
       }
     >
@@ -44,10 +44,16 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     if (data) {
       setUser(data.user);
       setLoading(false);
+    } else {
+      setLoading(false);
     }
   }, [data]);
 
-  if (loading) return <Loading />;
+  // useEffect(() => console.log(user), [user])
+
+  if (loading) return <Center w='100%' h='100vh'>
+    <Loading />
+  </Center>
 
   return (
       <UserContext.Provider value={{ user, setUser }}>

@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { useQueryClient, useMutation,  useSuspenseQuery } from "@tanstack/react-query";
+import { useQueryClient, useMutation, } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,162 +8,6 @@ axios.defaults.withCredentials = true;
 export const API_URL = process.env.REACT_APP_API_URL;
 
 //MUTATIONS
-interface CreateListItemProps {
-  text: string;
-  listId: string;
-  groupId: string;
-}
-
-const addListItem = async (listItemDetails: CreateListItemProps) => {
-  try {
-    const res = await axios.post(
-      `${API_URL}/group/${listItemDetails.groupId}/list/${listItemDetails.listId}/item`,
-      listItemDetails
-    );
-    return res.data;
-  } catch (e: any) {
-    throw new Error(e.response?.data.message || "An error has occurred");
-  }
-};
-
-export const useAddListItem = ({
-  listId,
-  closeListItemModal,
-  groupId,
-}: {
-  groupId: string;
-  listId: string;
-  closeListItemModal: () => void;
-}) => {
-  const toast = useToast();
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: addListItem,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        predicate: (query: any) =>
-          query.queryKey[0] === "listItems" &&
-          query.queryKey[1]?.listId === listId,
-      });
-      toast({
-        title: "Success",
-        description: "Item created",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-        variant: "subtle",
-      });
-      closeListItemModal();
-    },
-    onError: (error: Error) => {
-      toast({
-        title: "Error",
-        description: error.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-        variant: "subtle",
-      });
-    },
-  });
-};
-
-interface UpdateListItemCompletedProps {
-  listId: string;
-  itemId: string;
-  checked: boolean;
-}
-
-const updateListItemCompleted = async (
-  listItemDetails: UpdateListItemCompletedProps
-) => {
-  try {
-    const res = await axios.put(
-      `${API_URL}/list/${listItemDetails.listId}/item/${listItemDetails.itemId}/complete`,
-      listItemDetails
-    );
-    return res.data;
-  } catch (e: any) {
-    throw new Error(e.response?.data.message || "An error has occurred");
-  }
-};
-
-export const useUpdateListItemCompleted = ({ listId }: { listId: string }) => {
-  const toast = useToast();
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: updateListItemCompleted,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        predicate: (query: any) =>
-          query.queryKey[0] === "listItems" &&
-          query.queryKey[1]?.listId === listId,
-      });
-    },
-    onError: (error: Error) => {
-      toast({
-        title: "Error",
-        description: error.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-        variant: "subtle",
-      });
-    },
-  });
-};
-
-interface CreateListProps {
-  name: string;
-  groupId: string;
-}
-
-const createList = async (listDetails: CreateListProps) => {
-  try {
-    const res = await axios.post(
-      `${API_URL}/group/${listDetails.groupId}/list`,
-      listDetails
-    );
-    return res.data;
-  } catch (e: any) {
-    throw new Error(e.response?.data.message || "An error has occurred");
-  }
-};
-
-export const useCreateList = ({ onClose }: { onClose: () => void }) => {
-  const toast = useToast();
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: createList,
-    onSuccess: () => {
-      queryClient.invalidateQueries(["lists"]);
-      toast({
-        title: "Success",
-        description: "List created",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-        variant: "subtle",
-      });
-      onClose();
-    },
-    onError: (error: Error) => {
-      toast({
-        title: "Error",
-        description: error.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-        variant: "subtle",
-      });
-    },
-  });
-};
 interface CreateQuoteProps {
   text: string;
   saidAt: string;
@@ -199,56 +43,6 @@ export const useCreateQuote = ({ onClose }: { onClose: () => void }) => {
         variant: "subtle",
       });
       onClose();
-    },
-    onError: (error: Error) => {
-      toast({
-        title: "Error",
-        description: error.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-        variant: "subtle",
-      });
-    },
-  });
-};
-
-interface CreateCommentProps {
-  text: string;
-  createdAt: string;
-  quoteId: Quote["id"];
-  groupId: Group["id"];
-}
-
-const createComment = async (commentDetails: CreateCommentProps) => {
-  try {
-    const res = await axios.post(
-      `${API_URL}/group/${commentDetails.groupId}/quotes/${commentDetails.quoteId}/comments`,
-      commentDetails
-    );
-    return res.data
-  } catch (e: any) {
-    throw new Error(e.response?.data.message || 'An error has occured')
-  }
-};
-
-export const useCreateComment = () => {
-  const toast = useToast();
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: createComment,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["comments"] });
-      toast({
-        title: "Success",
-        description: "Comment created",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "top-right",
-        variant: "subtle",
-      });
     },
     onError: (error: Error) => {
       toast({
@@ -357,21 +151,21 @@ export const useCreateGroup = ({ onClose }: { onClose: () => void }) => {
 };
 
 // CREATE PROFILE --------------------------------------------
-interface ProfileProps {
+interface CreateProfileProps {
   name: string;
   bio: string;
   pronouns: string;
   birthday: string;
 }
 
-const profile = (credentials: ProfileProps) => {
+const createProfile = (credentials: CreateProfileProps) => {
   return axios.post(`${API_URL}/profile`, credentials);
 };
 
-export const useProfile = () => {
+export const useCreateProfile = () => {
   const toast = useToast();
   return useMutation({
-    mutationFn: profile,
+    mutationFn: createProfile,
     onSuccess: () => {
       window.location.href = "/";
       toast({
@@ -606,172 +400,6 @@ export const useEditAccount = () => {
         isClosable: true,
         position: "top-right",
         variant: "subtle",
-      });
-    },
-  });
-};
-
-//QUERIES --------------------------------------------
-
-export const getSession = async () => {
-  try {
-    const res = await axios.get(`${API_URL}/check-session`);
-    if (res.status === 200 || res.status === 304) {
-      return res.data;
-    } else {
-      return null;
-    }
-  } catch (e) {
-    return null;
-  }
-};
-
-export const useSession = () => {
-  return useSuspenseQuery({
-    queryKey: ["session"],
-    queryFn: getSession,
-  });
-}
-
-const getGroups = async () => {
-  const res = await axios.get(`${API_URL}/groups/joined`);
-  return res.data;
-};
-
-export const useGroups = () => {
-  return useSuspenseQuery<GroupsResponse>({
-    queryKey: ["groups"],
-    queryFn: getGroups,
-  });
-};
-
-interface GroupProps {
-  id: string;
-}
-
-const getGroup = async ({ id }: GroupProps) => {
-  try {
-    const res = await axios.get(`${API_URL}/groups/${id}`);
-    return res.data;
-  } catch (e) {
-    return null;
-  }
-};
-
-export const useGroup = ({ id }: GroupProps) => {
-  return useSuspenseQuery<GroupResponse>({
-    queryKey: ["group", id],
-    queryFn: () => getGroup({ id }),
-  });
-};
-
-interface GroupQuote {
-  groupId: string;
-}
-
-const getGroupQuotes = async ({ groupId }: GroupQuote) => {
-  try {
-    const res = await axios.get(`${API_URL}/group/${groupId}/quotes`);
-    if (res.data.quotes.length === 0) {
-      return null;
-    }
-    return res.data;
-  } catch (e) {
-    return null;
-  }
-};
-
-export const useGroupQuotes = ({ groupId }: GroupQuote) => {
-  return useSuspenseQuery<QuotesResponse>({
-    queryKey: ["quotes", groupId],
-    queryFn: () => getGroupQuotes({ groupId }),
-  });
-};
-
-interface GetCommentsProps {
-  quoteId: Quote["id"];
-  groupId: Group["id"];
-}
-
-const getComments = async ({ quoteId, groupId }: GetCommentsProps) => {
-  try {
-    const res = await axios.get(
-      `${API_URL}/group/${groupId}/quotes/${quoteId}/comments`
-    );
-    if (res.data.comments.length === 0) {
-      return null;
-    }
-    // console.log(res.data)
-    return res.data;
-  } catch (e) {
-    return null;
-  }
-};
-
-export const useComments = ({ quoteId, groupId }: GetCommentsProps) => {
-  return useQuery<CommentsResponse>({
-    queryKey: ["comments", quoteId],
-    queryFn: () => getComments({ groupId, quoteId })
-  })
-}
-
-
-const getLists = async ({ groupId }: { groupId: string }) => {
-  const res = await axios.get(`${API_URL}/group/${groupId}/lists`);
-  return res.data;
-};
-
-export const useLists = ({ groupId }: { groupId: string }) => {
-  const toast = useToast();
-  return useQuery<ListResponse>({
-    queryKey: ["lists", groupId],
-    queryFn: () => getLists({ groupId }),
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "An error has occurred while trying to get lists",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-    },
-  });
-};
-
-const getListItems = async ({
-  listId,
-  groupId,
-}: {
-  listId: string;
-  groupId: string;
-}) => {
-  const res = await axios.get(
-    `${API_URL}/group/${groupId}/list/${listId}/items`
-  );
-  return res.data;
-};
-
-export const useListItems = ({
-  listId,
-  groupId,
-  enabled,
-}: {
-  listId: string;
-  groupId: string;
-  enabled: boolean;
-}) => {
-  const toast = useToast();
-  return useQuery<ListItemsResponse>({
-    enabled,
-    queryKey: ["listItems", { listId }],
-    queryFn: () => getListItems({ listId, groupId }),
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "An error has occurred while trying to get list items",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
       });
     },
   });

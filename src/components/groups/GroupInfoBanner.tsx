@@ -5,7 +5,6 @@ import {
   Text,
   Link,
   Box,
-  Center,
   Avatar,
 } from "@chakra-ui/react";
 import {
@@ -14,39 +13,19 @@ import {
   useParams,
 } from "react-router-dom";
 import { Tool } from "react-feather";
-import { useGroup } from "../../libs/api";
-import Loading from "../Loading";
-import { Suspense } from "react";
+import { useGroup } from "../../libs/api/queries";
+import GroupInfoLayout from "../../layouts/grid/GroupInfo";
 
 const GroupInfoBanner: React.FC = () => {
   const { pathname } = useLocation();
   const { groupId } = useParams();
   const { data } = useGroup({ id: groupId || "" });
 
-  // if (isLoading) {
-  //   return (
-  //     <Center rounded={5} bg="purple.200" w={"100%"} h={200} >
-  //       <Loading />
-  //     </Center>
-  //   );
-  // }
-
   if (pathname === "/") return null;
-
-  // if (!data) {
-  //   return <Navigate to="/404" />;
-  // }
 
   return (
     <>
-      <Suspense
-        fallback={
-          <Center rounded={5} bg="purple.200" w={"100%"} h={200}>
-            <Loading />
-          </Center>
-        }
-      >
-        <Flex rounded={5} bg="purple.200" w={"100%"} h={200} p={3}>
+        <GroupInfoLayout>
           <Box w="100%">
             <Flex w="100%" align={"center"}>
               <Heading noOfLines={1}>{data!.group.name}</Heading>
@@ -89,8 +68,8 @@ const GroupInfoBanner: React.FC = () => {
             <Text>12 Members</Text>
             <Text>12 Members</Text>
           </Flex> */}
-        </Flex>
-      </Suspense>
+        {/* </Flex> */}
+        </GroupInfoLayout>
     </>
   );
 };

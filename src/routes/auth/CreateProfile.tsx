@@ -10,7 +10,7 @@ import {
 import { useContext, useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
-import { useProfile } from "../../libs/api";
+import { useCreateProfile } from "../../libs/api/mutations";
 import { UserContext } from "../../context/UserContext";
 import Logout from "../../components/Logout";
 import ProfilePicture from "../../components/ProfilePicture";
@@ -21,13 +21,13 @@ const CreateProfile: React.FC = () => {
   const [birthday, setBirthday] = useState<string>("");
   const [pronouns, setPronouns] = useState<string>("");
 
-  const { mutate, isLoading } = useProfile();
+  const { mutate, isPending } = useCreateProfile();
   const { user } = useContext(UserContext);
 
   const buttonProps = {
     type: "submit",
     isDisabled:
-      isLoading ||
+      isPending ||
       name.length < 1 ||
       bio.length < 1 ||
       birthday.length < 1 ||

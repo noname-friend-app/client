@@ -1,11 +1,17 @@
-import { Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
-const GroupInfoLayout: React.FC = () => {
+interface IProps {
+  children: React.ReactNode;
+}
+
+const GroupInfoLayout: React.FC<IProps> = ({ children }) => {
   return (
     <>
-      <Text>Group Info Layout</Text>
+      <Flex rounded={5} bg="purple.200" w={"100%"} h={200} p={3}>
+        {children}
+      </Flex>
     </>
   );
-}
+};
 
 export default GroupInfoLayout;

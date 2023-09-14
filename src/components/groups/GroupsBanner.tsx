@@ -10,7 +10,8 @@ import {
 import { useEffect, useState } from "react";
 import { LogIn } from "react-feather";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useGroups, useJoinGroup } from "../../libs/api";
+import { useGroups } from "../../libs/api/queries";
+import { useJoinGroup } from "../../libs/api/mutations";
 import { useWindowDimensions } from "../../libs/dimensions";
 import Button from "../Button";
 import Input from "../Input";
