@@ -25,8 +25,9 @@ import Layout from "./layouts/index";
 import Events from "./routes/Events";
 import Finance from "./routes/Finance";
 import Providers from "./libs/providers";
-import SocialSkeleton from "./components/skeletons/Social";import Lists from "./routes/Lists";
-
+import SocialSkeleton from "./components/skeletons/Social";
+import CreateGroupSkeleton from "./components/skeletons/CreaetGroup";
+import Lists from "./routes/Lists";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -61,7 +62,14 @@ root.render(
                 <Route path="/groups/:groupId/events" element={<Events />} />
                 <Route path="/groups/:groupId/lists" element={<Lists />} />
                 <Route path="/groups/:groupId/finance" element={<Finance />} />
-                <Route path="/groups/new" element={<CreateGroup />} />
+                <Route
+                  path="/groups/new"
+                  element={
+                    <Suspense fallback={<CreateGroupSkeleton />}>
+                      <CreateGroup />
+                    </Suspense>
+                  }
+                />
               </Route>
               <Route
                 path="/create-profile"

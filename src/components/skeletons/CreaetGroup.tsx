@@ -1,13 +1,10 @@
 import CreateGroupLayout from "../../layouts/grid/CreateGroup";
+import Loading from "../Loading";
 
-interface IProps {
-  children: React.ReactNode;
-}
-
-const CreateGroupSkeleton: React.FC<IProps> = ({children}: IProps) => {
+const CreateGroupSkeleton = () => {
   return (
     <CreateGroupLayout>
-      {children}
+      <Loading />
     </CreateGroupLayout>
   )
 }

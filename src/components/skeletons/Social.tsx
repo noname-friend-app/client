@@ -1,4 +1,4 @@
-import { Flex, Heading, Skeleton, VStack } from "@chakra-ui/react";
+import {  Heading, Skeleton, VStack } from "@chakra-ui/react";
 import SocialLayout from "../../layouts/Social";
 
 const SocialSkeleton: React.FC = () => {
