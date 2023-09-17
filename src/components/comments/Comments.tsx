@@ -2,7 +2,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useComments } from "../../libs/api";
 import { useParams } from "react-router-dom";
 import Comment from "./Comment";
-import { Flex, Link, Divider, Textarea } from "@chakra-ui/react";
+import { Flex, Link, Divider, Textarea, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import Button from "../Button";
 
@@ -40,12 +40,12 @@ const Comments = () => {
         />
         <Flex
           display={displayTextBox ? "flex" : "none"}
-          flexDir={"column"}
+          flexDir={"row"}
           ml={5}
         >
-          <Textarea mb={2} placeholder="Add your comment here"/>
+          <Input variant={'flushed'} mb={2} placeholder="Add your comment here"/>
 
-          <Button w={"60px"} h={"30px"} >
+          <Button w={"60px"} h={"40px"} >
             Reply
           </Button>
           
