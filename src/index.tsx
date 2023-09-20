@@ -23,9 +23,9 @@ import ProfileSettings from "./routes/settings/profile";
 
 //LAYOUTS
 import Layout from "./layouts/index";
-import Shopping from "./routes/Shopping";
 import Events from "./routes/Events";
 import Finance from "./routes/Finance";
+import Lists from "./routes/Lists";
 
 const queryClient = new QueryClient();
 
@@ -53,7 +53,7 @@ root.render(
                 <Route path="/groups/:groupId" element={<Group />} />
                 <Route path="/groups/:groupId/social" element={<Social />} />
                 <Route path="/groups/:groupId/events" element={<Events />} />
-                <Route path="/groups/:groupId/shopping" element={<Shopping />} />
+                <Route path="/groups/:groupId/lists" element={<Lists />} />
                 <Route path="/groups/:groupId/finance" element={<Finance />} />
               <Route path="/groups/new" element={<CreateGroup />} />
                 

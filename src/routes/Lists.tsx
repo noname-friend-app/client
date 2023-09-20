@@ -1,7 +1,7 @@
 import { Center, Flex, Heading } from "@chakra-ui/react";
 import GroupNav from "../components/groups/Nav";
 
-const Shopping: React.FC = () => {
+const Lists: React.FC = () => {
   return (
     <>
       <Flex mt={4} flexDir={"column"} w="100%" h="100%">
@@ -14,4 +14,4 @@ const Shopping: React.FC = () => {
   );
 };
 
-export default Shopping;
+export default Lists;
