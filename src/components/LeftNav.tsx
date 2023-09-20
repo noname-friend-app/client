@@ -10,7 +10,7 @@ const LeftNav: React.FC<Props> = ({ profileOnly }) => {
   const { width } = useWindowDimensions();
   return (
     <>
-      <VStack
+      <VStack 
         spacing={4}
         w={{ base: width > 569 ? 20 : "100%", md: 250 }}
         h="100%"

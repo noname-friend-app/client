@@ -25,18 +25,16 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <>
       <ChakraButton
-        {...rest}
-        isDisabled={isDisabled}
-        onClick={onClick}
-        bg={bg}
-        color={color}
-        fontWeight={"light"}
-        w={w}
-        _hover={_hover}
-        h={h}
-      >
-        {children}
-      </ChakraButton>
+       {...rest}
+       isDisabled={isDisabled}
+       onClick={onClick}
+       bg={bg}
+       color={color}
+       fontWeight={"light"}
+       w={w}
+       _hover={_hover}
+       h={h}
+      >hisj</ChakraButton>
     </>
   );
 };
