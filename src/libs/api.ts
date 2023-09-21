@@ -215,20 +215,55 @@ export const useCreateQuote = ({ onClose }: { onClose: () => void }) => {
   });
 };
 
-// interface CreateCommentProps {
-//   text: string;
-//   createdAt: string;
-//   quoteId: Quote["id"];
-//   groupId: Group["id"];
-// }
+interface CreateCommentProps {
+  text: string;
+  createdAt: string;
+  quoteId: Quote["id"];
+  groupId: Group["id"];
+}
 
-// const createComment = async (commentDetails: CreateCommentProps) => {
-//   try {
-//     const res = await axios.post(
-//       `${API_URL}/group/${commentDetails.groupId}/i`
-//     )
-//   }
-// }
+const createComment = async (commentDetails: CreateCommentProps) => {
+  try {
+    const res = await axios.post(
+      `${API_URL}/group/${commentDetails.groupId}/quotes/${commentDetails.quoteId}/comments`,
+      commentDetails
+    );
+    return res.data
+  } catch (e: any) {
+    throw new Error(e.response?.data.message || 'An error has occured')
+  }
+};
+
+export const useCreateComment = () => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: createComment,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
+      toast({
+        title: "Success",
+        description: "Comment created",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+};
 
 interface JoinGroupProps {
   joinCode: string;
@@ -655,9 +690,10 @@ interface GetCommentsProps {
 const getComments = async ({ quoteId, groupId }: GetCommentsProps) => {
   try {
     const res = await axios.get(
-      `${API_URL}/group/${groupId}/quote/${quoteId}/comments`
+      `${API_URL}/group/${groupId}/quotes/${quoteId}/comments`
     );
-    if (res.data.quotes.length === 0) {
+    console.log(res.data)
+    if (res.data.comments.length === 0) {
       return null;
     }
     return res.data;

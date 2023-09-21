@@ -1,4 +1,5 @@
-import { Flex, Heading, HStack, Text, Link, Divider } from "@chakra-ui/react";
+import { Flex, Heading, HStack, Text } from "@chakra-ui/react";
+import Comments from "./comments/Comments";
 import Comment from "./comments/Comments";
 import ProfilePicture from "./ProfilePicture";
 
@@ -9,6 +10,7 @@ interface Props {
   name: string;
   text: string;
   saidAt: string;
+  id: string;
 }
 
 const Quote: React.FC<Props> = ({
@@ -16,6 +18,7 @@ const Quote: React.FC<Props> = ({
   name,
   text,
   saidAt = "06/07/2022",
+  id,
 }) => {
   const date = `${new Date(saidAt).getMonth()}/${new Date(
     saidAt
@@ -42,23 +45,12 @@ const Quote: React.FC<Props> = ({
         <HStack color="gray.300" fontSize={"sm"}>
           <Text>Said: </Text>
           <Text>{date}</Text>
+          <Text>{id}</Text>
         </HStack>
       </Flex>
       {/* COMMENTS  ---------------- */}
-      <Flex
-        w="100%"
-      >
-        <Flex
-          w={10}
-          h={10}
-          ml={5}
-          mb={5}
-          border="1px"
-          borderTop={"none"}
-          borderRight={"none"}
-          borderBottomLeftRadius={"10"}
-        />
-        <Comment />
+      <Flex w="100%">
+        <Comments id={id} />
       </Flex>
     </>
   );

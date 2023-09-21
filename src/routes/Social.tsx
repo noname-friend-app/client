@@ -69,6 +69,7 @@ const Social = () => {
                 name={quote.profile.name}
                 text={quote.text}
                 saidAt={quote.saidAt}
+                id={quote.id}
               />
             ))
           ) : (
