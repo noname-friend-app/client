@@ -60,23 +60,31 @@ interface Quote {
 interface QuotesResponse {
   message: string;
   quotes: Quote[];
+  group: Group
+}
+
+interface ListResponse {
+  lists: List[];
   group: Group;
 }
 
-interface Comment {
+interface List {
   id: string;
-  text: string;
+  name: string;
   createdAt: string;
   updatedAt: string;
+  groupId: string;
   profileId: string;
-  quoteId: string;
-  profile?: Profile
+  listItems: ListItem[]
 }
 
-interface CommentsResponse {
-  quote: Quote;
-  comments: Comment[];
-
+interface ListItem {
+  id: string;
+  text: string;
+  checked: boolean;
+  createdAt: string;
+  updatedAt: string;
+  listId: string;
 }
 
 

@@ -8,6 +8,56 @@ axios.defaults.withCredentials = true;
 export const API_URL = process.env.REACT_APP_API_URL;
 
 //MUTATIONS
+
+interface CreateListProps {
+  name: string;
+  groupId: string;
+}
+
+const createList = async (listDetails: CreateListProps) => {
+  try {
+    const res = await axios.post(
+      `${API_URL}/group/${listDetails.groupId}/lists`,
+      listDetails
+    );
+    return res.data;
+  } catch (e: any) {
+    throw new Error(e.response?.data.message || "An error has occurred");
+  }
+}
+
+export const useCreateList = ({onClose}: {onClose: () => void}) => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: createList,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["lists"]);
+      toast({
+        title: "Success",
+        description: "List created",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      })
+      onClose();
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      })
+    }
+  })
+}
+
 interface CreateListItemProps {
   text: string;
   listId: string;
@@ -681,6 +731,28 @@ export const useGroupQuotes = ({ groupId }: GroupQuote) => {
     queryFn: () => getGroupQuotes({ groupId }),
   });
 };
+
+const getLists = async ({groupId}: {groupId: number}) => {
+  const res = await axios.get(`${API_URL}/group/${groupId}/lists`);
+  return res.data;
+}
+
+export const useLists = ({groupId}: {groupId: number}) => {
+  const toast = useToast();
+  return useQuery<ListResponse>({
+    queryKey: ["lists", groupId],
+    queryFn: () => getLists({groupId}),
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "An error has occurred while trying to get lists",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+  });
+}
 
 interface GetCommentsProps {
   quoteId: Quote["id"];

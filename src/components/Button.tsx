@@ -34,11 +34,7 @@ const Button: React.FC<ButtonProps> = ({
        w={w}
        _hover={_hover}
        h={h}
-<<<<<<< HEAD
       >{children}</ChakraButton>
-=======
-      >hisj</ChakraButton>
->>>>>>> 4a6143e (upgraded chakra version)
     </>
   );
 };
