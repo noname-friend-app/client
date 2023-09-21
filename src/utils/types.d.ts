@@ -62,3 +62,27 @@ interface QuotesResponse {
   quotes: Quote[];
   group: Group
 }
+
+interface ListResponse {
+  lists: List[];
+  group: Group;
+}
+
+interface List {
+  id: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  groupId: string;
+  profileId: string;
+  listItems: ListItem[]
+}
+
+interface ListItem {
+  id: string;
+  text: string;
+  checked: boolean;
+  createdAt: string;
+  updatedAt: string;
+  listId: string;
+}

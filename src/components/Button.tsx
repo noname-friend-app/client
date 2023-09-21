@@ -34,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
        w={w}
        _hover={_hover}
        h={h}
-      >hisj</ChakraButton>
+      >{children}</ChakraButton>
     </>
   );
 };
