@@ -51,14 +51,17 @@ const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
 
   // useEffect(() => console.log(user), [user])
 
-  if (loading) return <Center w='100%' h='100vh'>
-    <Loading />
-  </Center>
+  if (loading)
+    return (
+      <Center w="100%" h="100vh">
+        <Loading />
+      </Center>
+    );
 
   return (
-      <UserContext.Provider value={{ user, setUser }}>
-        {children}
-      </UserContext.Provider>
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

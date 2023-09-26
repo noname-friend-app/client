@@ -9,15 +9,18 @@ import { ErrorBoundary } from "react-error-boundary";
 import Button from "../components/Button";
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
-  const [queryClient] = useState(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: 0,
-        suspense: true,
-        gcTime: 0
-      },
-    },
-  }));
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: 0,
+            suspense: true,
+            gcTime: 0,
+          },
+        },
+      })
+  );
   return (
     <QueryClientProvider client={queryClient}>
       <QueryErrorResetBoundary>
@@ -31,7 +34,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
                 <Text style={{ whiteSpace: "normal" }}>{error.message}</Text>
               </Center>
             )}
-          >{children}</ErrorBoundary>
+          >
+            {children}
+          </ErrorBoundary>
         )}
       </QueryErrorResetBoundary>
     </QueryClientProvider>
