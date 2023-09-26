@@ -9,10 +9,6 @@ import {
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Plus } from "react-feather";
 import { useAddListItem, useListItems } from "../libs/api";
-<<<<<<< HEAD
-=======
-import Loading from "./Loading";
->>>>>>> 9bbeb1f (finished lists mvp)
 import ListItemCard from "./ListItemCard";
 import Modal from "./Modal";
 import Input from "./Input";
@@ -65,7 +61,6 @@ const ListCard: React.FC<IProps> = ({
       </HStack>
       {displayListItems ? (
         isLoading ? null : data && data.listItems.length > 0 ? (
-<<<<<<< HEAD
           data.listItems
             .sort((a, b) => {
               return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1;
@@ -73,11 +68,6 @@ const ListCard: React.FC<IProps> = ({
             .map((listItem, index) => (
               <ListItemCard index={index} key={index} listItem={listItem} />
             ))
-=======
-          data.listItems.map((listItem, index) => (
-            <ListItemCard index={index} key={index} listItem={listItem} />
-          ))
->>>>>>> 9bbeb1f (finished lists mvp)
         ) : (
           <Text>No list items</Text>
         )
