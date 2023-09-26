@@ -86,3 +86,8 @@ interface ListItem {
   updatedAt: string;
   listId: string;
 }
+
+interface ListItemsResponse {
+  message: string;
+  listItems: ListItem[]
+}

@@ -5,9 +5,116 @@ import { useNavigate } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 
-export const API_URL = process.env.REACT_APP_API_URL
+export const API_URL = process.env.REACT_APP_API_URL;
 
 //MUTATIONS
+interface CreateListItemProps {
+  text: string;
+  listId: string;
+  groupId: string;
+}
+
+const addListItem = async (listItemDetails: CreateListItemProps) => {
+  try {
+    const res = await axios.post(
+      `${API_URL}/group/${listItemDetails.groupId}/list/${listItemDetails.listId}/item`,
+      listItemDetails
+    );
+    return res.data;
+  } catch (e: any) {
+    throw new Error(e.response?.data.message || "An error has occurred");
+  }
+};
+
+export const useAddListItem = ({
+  listId,
+  closeListItemModal,
+  groupId,
+}: {
+  groupId: string;
+  listId: string;
+  closeListItemModal: () => void;
+}) => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: addListItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        predicate: (query: any) =>
+          query.queryKey[0] === "listItems" &&
+          query.queryKey[1]?.listId === listId,
+      });
+      toast({
+        title: "Success",
+        description: "Item created",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+      closeListItemModal();
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+};
+
+interface UpdateListItemCompletedProps {
+  listId: string;
+  itemId: string;
+  checked: boolean;
+}
+
+const updateListItemCompleted = async (
+  listItemDetails: UpdateListItemCompletedProps
+) => {
+  try {
+    const res = await axios.put(
+      `${API_URL}/list/${listItemDetails.listId}/item/${listItemDetails.itemId}/complete`,
+      listItemDetails
+    );
+    return res.data;
+  } catch (e: any) {
+    throw new Error(e.response?.data.message || "An error has occurred");
+  }
+};
+
+export const useUpdateListItemCompleted = ({ listId }: { listId: string }) => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updateListItemCompleted,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        predicate: (query: any) =>
+          query.queryKey[0] === "listItems" &&
+          query.queryKey[1]?.listId === listId,
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+};
 
 interface CreateListProps {
   name: string;
@@ -17,16 +124,16 @@ interface CreateListProps {
 const createList = async (listDetails: CreateListProps) => {
   try {
     const res = await axios.post(
-      `${API_URL}/group/${listDetails.groupId}/lists`,
+      `${API_URL}/group/${listDetails.groupId}/list`,
       listDetails
     );
     return res.data;
   } catch (e: any) {
     throw new Error(e.response?.data.message || "An error has occurred");
   }
-}
+};
 
-export const useCreateList = ({onClose}: {onClose: () => void}) => {
+export const useCreateList = ({ onClose }: { onClose: () => void }) => {
   const toast = useToast();
   const queryClient = useQueryClient();
   return useMutation({
@@ -41,7 +148,7 @@ export const useCreateList = ({onClose}: {onClose: () => void}) => {
         isClosable: true,
         position: "top-right",
         variant: "subtle",
-      })
+      });
       onClose();
     },
     onError: (error: Error) => {
@@ -53,10 +160,10 @@ export const useCreateList = ({onClose}: {onClose: () => void}) => {
         isClosable: true,
         position: "top-right",
         variant: "subtle",
-      })
-    }
-  })
-}
+      });
+    },
+  });
+};
 
 interface CreateQuoteProps {
   text: string;
@@ -525,16 +632,16 @@ export const useGroupQuotes = ({ groupId }: GroupQuote) => {
   });
 };
 
-const getLists = async ({groupId}: {groupId: number}) => {
+const getLists = async ({ groupId }: { groupId: string }) => {
   const res = await axios.get(`${API_URL}/group/${groupId}/lists`);
   return res.data;
-}
+};
 
-export const useLists = ({groupId}: {groupId: number}) => {
+export const useLists = ({ groupId }: { groupId: string }) => {
   const toast = useToast();
   return useQuery<ListResponse>({
     queryKey: ["lists", groupId],
-    queryFn: () => getLists({groupId}),
+    queryFn: () => getLists({ groupId }),
     onError: () => {
       toast({
         title: "Error",
@@ -545,4 +652,43 @@ export const useLists = ({groupId}: {groupId: number}) => {
       });
     },
   });
-}
+};
+
+const getListItems = async ({
+  listId,
+  groupId,
+}: {
+  listId: string;
+  groupId: string;
+}) => {
+  const res = await axios.get(
+    `${API_URL}/group/${groupId}/list/${listId}/items`
+  );
+  return res.data;
+};
+
+export const useListItems = ({
+  listId,
+  groupId,
+  enabled,
+}: {
+  listId: string;
+  groupId: string;
+  enabled: boolean;
+}) => {
+  const toast = useToast();
+  return useQuery<ListItemsResponse>({
+    enabled,
+    queryKey: ["listItems", { listId }],
+    queryFn: () => getListItems({ listId, groupId }),
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "An error has occurred while trying to get list items",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+  });
+};
