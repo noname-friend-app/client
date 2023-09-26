@@ -28,7 +28,7 @@ const GroupsBanner: React.FC = () => {
   const [inviteCode, setInviteCode] = useState<string>("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
-  const { mutate, isPending: isJoiningGroup, isError } = useJoinGroup();
+  const { mutate, isLoading: isJoiningGroup, isError } = useJoinGroup();
 
   useEffect(() => {
     if (!isLoading) {

@@ -14,7 +14,7 @@ interface Props {
 
 const CreateGroupModal: React.FC<Props> = ({ btnGhost }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const { mutate, isPending: isLoadingCreatedGroup } = useCreateGroup({
+  const { mutate, isLoading: isLoadingCreatedGroup } = useCreateGroup({
     onClose,
   });
   const { pathname } = useLocation();

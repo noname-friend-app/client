@@ -25,10 +25,10 @@ export const nav = [
     secondaryColor: "#C5EAE0",
   },
   {
-    label: "Shopping List",
-    path: "shopping",
+    label: "Lists",
+    path: "lists",
     color: "#9D8DF1",
-    img: require("../../assets/images/shopping.jpg"),
+    img: require("../../assets/images/lists.jpg"),
     secondaryColor: "#B6A9F9",
   },
 ];

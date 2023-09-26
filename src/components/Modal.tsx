@@ -16,8 +16,8 @@ interface Props {
   children: React.ReactNode;
   actionText: string;
   action: () => void;
-  buttonType?: string
-  actionDisabled?: boolean
+  buttonType?: string;
+  actionDisabled?: boolean;
 }
 const Modal: React.FC<Props> = ({
   isOpen,
@@ -27,24 +27,34 @@ const Modal: React.FC<Props> = ({
   action,
   actionText,
   buttonType,
-  actionDisabled = false
+  actionDisabled = false,
 }) => {
-  const secondaryBtnProps = {variant: 'ghost', colorScheme:"blue", mr:3, }
-  const primaryBtnProps = {type: buttonType, isDisabled: actionDisabled}
+  const secondaryBtnProps = { variant: "ghost", colorScheme: "blue", mr: 3 };
+  const primaryBtnProps = { type: buttonType, isDisabled: actionDisabled };
   return (
     <>
-      <ChakraModal size={{base: 'full', sm: 'lg'}} isOpen={isOpen} onClose={onClose}>
+      <ChakraModal
+        size={{ base: "full", sm: "lg" }}
+        isOpen={isOpen}
+        onClose={onClose}
+      >
         <ModalOverlay />
-        <ModalContent  bg='purple.200'>
+        <ModalContent bg="purple.200">
           <ModalHeader>{title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>{children}</ModalBody>
 
           <ModalFooter>
-            <Button bg='none' color='none' {...secondaryBtnProps} w={100}   onClick={onClose}>
+            <Button
+              bg="none"
+              color="none"
+              {...secondaryBtnProps}
+              w={100}
+              onClick={onClose}
+            >
               cancel
             </Button>
-            <Button  onClick={() => action()} {...primaryBtnProps} w={100}>
+            <Button onClick={() => action()} {...primaryBtnProps} w={100}>
               {actionText}
             </Button>
           </ModalFooter>
