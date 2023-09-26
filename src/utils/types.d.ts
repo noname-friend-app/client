@@ -87,6 +87,7 @@ interface ListItem {
   listId: string;
 }
 
+<<<<<<< HEAD
 
 interface ListResponse {
   lists: List[];
@@ -157,6 +158,8 @@ interface ListItem {
   listId: string;
 }
 
+=======
+>>>>>>> 9bbeb1f (finished lists mvp)
 interface ListItemsResponse {
   message: string;
   listItems: ListItem[]
