@@ -24,7 +24,7 @@ const Social = () => {
   const [quote, setQuote] = useState<string>("");
   const [saidAt, setSaidAt] = useState<string>("");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { mutate, isPending: isCreatingQuote } = useCreateQuote({ onClose });
+  const { mutate, isLoading: isCreatingQuote } = useCreateQuote({ onClose });
   const { data, isLoading: isLoadingQuotes, isError } = useGroupQuotes({
     groupId: groupId!,
   });
