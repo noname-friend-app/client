@@ -56,14 +56,21 @@ const Social = () => {
             New Quote
           </Button>
         </HStack>
-        <VStack mt={4} spacing={4}>
+        <VStack mt={4} spacing={4} >
           {isLoadingQuotes ? (
             <Center w="100%" h="100%">
               <Loading />
             </Center>
           ) : data && data.quotes.length > 0 ? (
             data!.quotes.map((quote, index) => (
-              <Quote key={index} userId={quote.profile.user!.id} name={quote.profile.name} text={quote.text} saidAt={quote.saidAt} />
+              <Quote
+                key={index}
+                userId={quote.profile.user!.id}
+                name={quote.profile.name}
+                text={quote.text}
+                saidAt={quote.saidAt}
+                id={quote.id}
+              />
             ))
           ) : (
             <Center w="100%" h="100%">
@@ -74,7 +81,7 @@ const Social = () => {
       </Flex>
       <Modal
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={onClose} 
         title="New Quote"
         action={() => mutate({ text: quote, saidAt, groupId: groupId! })}
         actionText="Add Quote"
