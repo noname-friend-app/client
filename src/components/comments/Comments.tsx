@@ -27,7 +27,7 @@ const Comments: React.FC<Props> = ({ id }: Props) => {
   // console.log(id);
 
   const [text, setText] = useState<string>("");
-  const [createdAt, setCreatedAt] = useState<string>("");
+  const [createdAt] = useState<string>("");
 
   const { mutate } = useCreateComment();
   // console.log(id);
