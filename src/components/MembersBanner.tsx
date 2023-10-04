@@ -7,8 +7,9 @@ import ProfilePicture from "./ProfilePicture";
 const MembersBanner: React.FC = () => {
   const { pathname } = useLocation();
   const { groupId } = useParams();
-  const { data, isLoading } = useGroup({ id: groupId || "" });
-  
+  const { data, isLoading, isError } = useGroup({ id: groupId || "" });
+  const toast = useToast();
+
   if (isLoading) return <Loading />;
 
   if (pathname === "/") return null;
@@ -23,7 +24,6 @@ const MembersBanner: React.FC = () => {
     });
   }
   if (!data) return null;
-  
 
   return (
     <>
