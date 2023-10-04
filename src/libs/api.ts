@@ -689,11 +689,12 @@ interface GetCommentsProps {
 const getComments = async ({ quoteId, groupId }: GetCommentsProps) => {
   try {
     const res = await axios.get(
-      `${API_URL}/group/${groupId}/quote/${quoteId}/comments`
+      `${API_URL}/group/${groupId}/quotes/${quoteId}/comments`
     );
-    if (res.data.quotes.length === 0) {
+    if (res.data.comments.length === 0) {
       return null;
     }
+    // console.log(res.data)
     return res.data;
   } catch (e) {
     return null;

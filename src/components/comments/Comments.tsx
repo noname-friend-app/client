@@ -2,7 +2,7 @@ import { Link as RouterLink } from "react-router-dom";
 import { useComments, useCreateComment } from "../../libs/api";
 import { useParams } from "react-router-dom";
 import Comment from "./Comment";
-import { Flex, Link, Divider } from "@chakra-ui/react";
+import { Flex, Link, Divider, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import Button from "../Button";
 import Input from "../Input";
@@ -22,17 +22,15 @@ const Comments: React.FC<Props> = ({ id }: Props) => {
     groupId: groupId!,
   });
 
-  // console.log(quoteId);
-  // console.log(groupId);
-  // console.log(id);
-
   const [text, setText] = useState<string>("");
   const [createdAt] = useState<string>("");
 
   const { mutate } = useCreateComment();
-  // console.log(id);
-
-  // console.log(data)
+  
+  // useEffect(() => {
+  //  console.log(data)
+  // }, [data])
+  
   return (
     <>
       {data && data.comments && (
@@ -48,6 +46,7 @@ const Comments: React.FC<Props> = ({ id }: Props) => {
        />
       )}
       <Flex w={"90%"} h={"auto"} flexDir={"column"} ml={5}>
+        
         {data && data.comments.length > 0 ? (
           data!.comments.map((comment, index) => (
             <Comment
@@ -100,14 +99,14 @@ const Comments: React.FC<Props> = ({ id }: Props) => {
           >
             Add Comment
           </Link>
-          <Divider orientation="vertical" pr={2} />
-          <Link as={RouterLink} color={"purple.100"} pr={2}>
+          {/* <Divider orientation="vertical" pr={2} /> */}
+          {/* <Link as={RouterLink} color={"purple.100"} pr={2}>
             Show More Comments
           </Link>
           <Divider orientation="vertical" pr={2} />
           <Link as={RouterLink} color={"purple.100"} pr={2}>
             View All Comments
-          </Link>
+          </Link> */}
         </Flex>
       </Flex>
     </>
