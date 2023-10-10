@@ -1,6 +1,6 @@
 import { Divider, HStack, Icon, Text } from "@chakra-ui/react";
 import { CheckSquare, Square } from "react-feather";
-import { useUpdateListItemCompleted } from "../libs/api";
+import { useUpdateListItemCompleted } from "../libs/api/mutations";
 
 interface IProps {
   listItem: ListItem;

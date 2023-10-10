@@ -1,5 +1,5 @@
 import { Heading } from "@chakra-ui/react";
-import { useLogout } from "../libs/api";
+import { useLogout } from "../libs/api/mutations";
 import Button from "./Button";
 
 interface Props {

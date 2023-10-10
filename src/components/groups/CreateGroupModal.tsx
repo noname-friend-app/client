@@ -1,5 +1,5 @@
 import { useDisclosure, VStack, Icon } from "@chakra-ui/react";
-import { useCreateGroup } from "../../libs/api";
+import { useCreateGroup } from "../../libs/api/mutations";
 import Button from "../Button";
 import Modal from "../Modal";
 import Input from "../Input";
@@ -14,7 +14,7 @@ interface Props {
 
 const CreateGroupModal: React.FC<Props> = ({ btnGhost }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const { mutate, isLoading: isLoadingCreatedGroup } = useCreateGroup({
+  const { mutate, isPending: isLoadingCreatedGroup } = useCreateGroup({
     onClose,
   });
   const { pathname } = useLocation();

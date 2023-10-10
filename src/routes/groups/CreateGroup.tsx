@@ -1,34 +1,20 @@
-import { Center, Heading, VStack } from "@chakra-ui/react";
+import {  Heading, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import Button from "../../components/Button";
 import CreateGroupModal from "../../components/groups/CreateGroupModal";
 import Input from "../../components/Input";
-import Loading from "../../components/Loading";
-import { useGroups, useJoinGroup } from "../../libs/api";
+import { useJoinGroup } from "../../libs/api/mutations";
+import { useGroups } from "../../libs/api/queries";
+import CreateGroupLayout from "../../layouts/grid/CreateGroup";
 
 const CreateGroup: React.FC = () => {
-  const { data, isLoading } = useGroups();
-  const { mutate, isLoading: isJoining } = useJoinGroup();
+  const { data } = useGroups();
+  const { mutate, isPending: isJoining } = useJoinGroup();
   const [inviteCode, setInviteCode] = useState<string>("");
-
-  if (isLoading) {
-    return (
-      <Center w="100%" h="100vh">
-        <Loading />
-      </Center>
-    );
-  }
 
   return (
     <>
-      <Center
-        flexDir={"column"}
-        ml={{ base: 0, sm: 4 }}
-        bg="purple.200"
-        rounded={5}
-        w="100%"
-        h="100%"
-      >
+      <CreateGroupLayout>
         <VStack spacing={8}>
           <Heading size="md">
             {data!.groups.length === 0 ? "Join your first group" : "Join group"}
@@ -53,7 +39,7 @@ const CreateGroup: React.FC = () => {
           <Heading size="md">or</Heading>
           <CreateGroupModal />
         </VStack>
-      </Center>
+      </CreateGroupLayout>
     </>
   );
 };

@@ -8,7 +8,8 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Plus } from "react-feather";
-import { useAddListItem, useListItems } from "../libs/api";
+import { useAddListItem } from "../libs/api/mutations";
+import { useListItems } from "../libs/api/queries";
 import ListItemCard from "./ListItemCard";
 import Modal from "./Modal";
 import Input from "./Input";
@@ -32,7 +33,7 @@ const ListCard: React.FC<IProps> = ({
     onClose: closeListItemModal,
   } = useDisclosure();
 
-  const { mutate: addListItem, isLoading: isAddingListItem } = useAddListItem({
+  const { mutate: addListItem, isPending: isAddingListItem } = useAddListItem({
     closeListItemModal,
     listId: id,
     groupId,

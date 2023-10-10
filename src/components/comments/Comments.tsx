@@ -1,5 +1,6 @@
 import { Link as RouterLink } from "react-router-dom";
-import { useComments, useCreateComment } from "../../libs/api";
+import { useComments,  } from "../../libs/api/queries";
+import { useCreateComment } from "../../libs/api/mutations";
 import { useParams } from "react-router-dom";
 import Comment from "./Comment";
 import { Flex, Link, Divider, Text } from "@chakra-ui/react";

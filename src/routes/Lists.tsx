@@ -4,7 +4,8 @@ import Button from "../components/Button";
 import Modal from "../components/Modal";
 import Input from "../components/Input";
 import { useState } from "react";
-import { useCreateList, useLists } from "../libs/api";
+import { useCreateList } from "../libs/api/mutations";
+import { useLists } from "../libs/api/queries";
 import { useParams } from "react-router-dom";
 import ListCard from "../components/ListCard";
 
@@ -13,7 +14,7 @@ const Lists: React.FC = () => {
   const { groupId } = useParams();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {data, isLoading: isLoadingLists} = useLists({groupId: groupId!})
-  const { mutate: createList, isLoading: isCreatingList } = useCreateList({
+  const { mutate: createList, isPending: isCreatingList } = useCreateList({
     onClose,
   });
 
