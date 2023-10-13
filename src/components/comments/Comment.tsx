@@ -9,13 +9,13 @@ interface Props {
 const Comment: React.FC<Props> = ({ text, createdAt, commentName }) => {
   return (
     <>
-      <Flex  ml={5} flexDir="column">
+      <Flex ml={5} flexDir="column">
         <Flex>
           <Text fontSize={10}>{createdAt}</Text>
         </Flex>
         <HStack align={"center"} spacing={"4"}>
-          <Text >{commentName}</Text>
-          <Flex w={2} h={2} bg={"white"} borderRadius={"10"} ></Flex>
+          <Text>{commentName}</Text>
+          <Flex w={1.5} h={1.5} bg={"white"} borderRadius={"10"} />
           <Text>{text}</Text>
         </HStack>
       </Flex>

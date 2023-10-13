@@ -3,8 +3,8 @@ import { useComments,  } from "../../libs/api/queries";
 import { useCreateComment } from "../../libs/api/mutations";
 import { useParams } from "react-router-dom";
 import Comment from "./Comment";
-import { Flex, Link, Divider, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { Flex, Link } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import Button from "../Button";
 import Input from "../Input";
 
@@ -22,16 +22,10 @@ const Comments: React.FC<Props> = ({ id }: Props) => {
     quoteId: id,
     groupId: groupId!,
   });
-
   const [text, setText] = useState<string>("");
   const [createdAt] = useState<string>("");
 
   const { mutate } = useCreateComment();
-  
-  // useEffect(() => {
-  //  console.log(data)
-  // }, [data])
-  
   return (
     <>
       {data && data.comments && (
@@ -47,7 +41,6 @@ const Comments: React.FC<Props> = ({ id }: Props) => {
        />
       )}
       <Flex w={"90%"} h={"auto"} flexDir={"column"} ml={5}>
-        
         {data && data.comments.length > 0 ? (
           data!.comments.map((comment, index) => (
             <Comment
@@ -61,15 +54,9 @@ const Comments: React.FC<Props> = ({ id }: Props) => {
         ) : (
           <></>
         )}
-        {/* <Comment
-          text={"Bro who tf would say that?! XD"}
-          // Ask clarification for ?
-          commentName={"Alex"}
-          createdAt={"10/12/1312"}
-        /> */}
+        
         <Flex display={displayTextBox ? "flex" : "none"} flexDir={"row"} ml={5}>
           <Input
-            // mb={2}
             formLabel="Add your comment here"
             value={text}
             setState={setText}
