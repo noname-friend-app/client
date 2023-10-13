@@ -4,7 +4,7 @@ import { useCreateComment } from "../../libs/api/mutations";
 import { useParams } from "react-router-dom";
 import Comment from "./Comment";
 import { Flex, Link } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import Button from "../Button";
 import Input from "../Input";
 
