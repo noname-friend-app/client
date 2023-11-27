@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import { useQueryClient, useMutation, } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +8,66 @@ axios.defaults.withCredentials = true;
 export const API_URL = process.env.REACT_APP_API_URL;
 
 //MUTATIONS
+interface UpdateListTextProps {
+  text: string;
+  groupId: string;
+  listId: string;
+  itemId: string;
+}
+
+const updateListText = async (updateListTextDetails: UpdateListTextProps) => {
+  try {
+    const res = await axios.put(
+      `${API_URL}/group/${updateListTextDetails.groupId}/list/${updateListTextDetails.listId}/item/${updateListTextDetails.itemId}`, updateListTextDetails
+    );
+    return res.data;
+  } catch (e: any) {
+    throw new Error(e.response?.data.message || "An error has occurred");
+  }
+};
+
+export const useUpdateListText = ({
+  listId,
+  closeEditListModal,
+}: {
+  listId: string;
+  closeEditListModal: () => void;
+}) => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: updateListText,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        predicate: (query: any) =>
+          query.queryKey[0] === "listItems" &&
+          query.queryKey[1]?.listId === listId,
+      });
+      toast({
+        title: "Success",
+        description: "Text updated",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+      closeEditListModal();
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+};
+
 interface CreateListItemProps {
   text: string;
   listId: string;
@@ -139,7 +199,7 @@ export const useCreateList = ({ onClose }: { onClose: () => void }) => {
   return useMutation({
     mutationFn: createList,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ["lists"]});
+      queryClient.invalidateQueries({ queryKey: ["lists"] });
       toast({
         title: "Success",
         description: "List created",
@@ -215,7 +275,6 @@ export const useCreateQuote = ({ onClose }: { onClose: () => void }) => {
   });
 };
 
-
 interface CreateCommentProps {
   text: string;
   createdAt: string;
@@ -229,9 +288,9 @@ const createComment = async (commentDetails: CreateCommentProps) => {
       `${API_URL}/group/${commentDetails.groupId}/quotes/${commentDetails.quoteId}/comments`,
       commentDetails
     );
-    return res.data
+    return res.data;
   } catch (e: any) {
-    throw new Error(e.response?.data.message || 'An error has occured')
+    throw new Error(e.response?.data.message || "An error has occured");
   }
 };
 

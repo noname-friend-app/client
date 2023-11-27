@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useCreateList } from "../libs/api/mutations";
 import { useLists } from "../libs/api/queries";
 import { useParams } from "react-router-dom";
-import ListCard from "../components/ListCard";
+import ListCard from "../components/lists/ListCard";
 
 const Lists: React.FC = () => {
   const [listName, setListName] = useState<string>("");

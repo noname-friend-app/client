@@ -15,6 +15,7 @@ interface InputProps {
   type?: string;
   isRequired?: boolean;
   length?: number;
+  name?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -25,6 +26,7 @@ const Input: React.FC<InputProps> = ({
   type = "text",
   isRequired = false,
   length,
+  name,
   ...rest
 }) => {
   const [error, setError] = useState<any>(false);
@@ -52,6 +54,7 @@ const Input: React.FC<InputProps> = ({
               setError(false);
             }
           }}
+          name={name}
           variant="flushed"
           w={w}
           value={value}

@@ -8,11 +8,11 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Plus } from "react-feather";
-import { useAddListItem } from "../libs/api/mutations";
-import { useListItems } from "../libs/api/queries";
+import { useAddListItem } from "../../libs/api/mutations";
+import { useListItems } from "../../libs/api/queries";
 import ListItemCard from "./ListItemCard";
-import Modal from "./Modal";
-import Input from "./Input";
+import Modal from "../Modal";
+import Input from "../Input";
 interface IProps {
   list: List;
 }
@@ -67,7 +67,7 @@ const ListCard: React.FC<IProps> = ({
               return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1;
             })
             .map((listItem, index) => (
-              <ListItemCard index={index} key={index} listItem={listItem} />
+              <ListItemCard groupId={groupId} index={index} key={index} listItem={listItem} />
             ))
         ) : (
           <Text>No list items</Text>
