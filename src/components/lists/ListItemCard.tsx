@@ -2,6 +2,7 @@ import {
   Divider,
   Flex,
   HStack,
+  Heading,
   Icon,
   Menu,
   MenuButton,
@@ -12,11 +13,13 @@ import {
 } from "@chakra-ui/react";
 import { CheckSquare, Square, MoreVertical, X } from "react-feather";
 import {
+  useDeleteListItem,
   useUpdateListItemCompleted,
   useUpdateListText,
 } from "../../libs/api/mutations";
 import EditListModal from "./EditListModal";
 import { useState } from "react";
+import Modal from "../Modal";
 
 interface IProps {
   listItem: ListItem;
@@ -29,10 +32,16 @@ const ListItemCard: React.FC<IProps> = ({
   groupId,
 }: IProps) => {
   const { mutate } = useUpdateListItemCompleted({ listId });
+  
   const {
     isOpen: isEditModalOpen,
     onOpen: openEditModal,
     onClose: closeEditModal,
+  } = useDisclosure();
+  const {
+    isOpen: isDeleteModalOpen,
+    onOpen: openDeleteMdoal,
+    onClose: closeDeleteModal
   } = useDisclosure();
   const [listItemText, setListItemText] = useState<string>(text);
 
@@ -40,11 +49,22 @@ const ListItemCard: React.FC<IProps> = ({
     listId,
     closeEditListModal: closeEditModal,
   });
-
+  const {mutate: deleteListItem} = useDeleteListItem({
+    listId,
+    closeDeleteListItemModal: closeDeleteModal
+  })
   const handleEditListItemText = () => {
     if (text !== listItemText)
       updateListItemText({ listId, text: listItemText, groupId, itemId: id });
   };
+
+  const handleDeleteListItem = () => {
+    deleteListItem({
+      listId,
+      groupId,
+      itemId: id,
+    })
+  }
   return (
     <>
       <Flex pl={20} pr={4} w="100%" justifyContent={"space-between"}>
@@ -64,7 +84,7 @@ const ListItemCard: React.FC<IProps> = ({
               </MenuButton>
               <MenuList>
                 <MenuItem onClick={openEditModal}>Edit</MenuItem>
-                <MenuItem>Delete</MenuItem>
+                <MenuItem onClick={openDeleteMdoal}>Delete</MenuItem>
               </MenuList>
             </>
           )}
@@ -77,6 +97,18 @@ const ListItemCard: React.FC<IProps> = ({
         onChangeText={setListItemText}
         onSubmit={handleEditListItemText}
       />
+      <Modal
+        isOpen={isDeleteModalOpen}
+        onClose={closeDeleteModal}
+        title="Are you sure?"
+        action={handleDeleteListItem}
+        actionText="DELETE"
+        actionButtonStyles={{backgroundColor: 'red.500'}}
+        actionButtonHoverStyles={{backgroundColor: 'red.600'}}
+        actionTextStyles={{color: 'white'}}
+      >
+        <Heading size='sm'>This action can't be reversed!</Heading>
+      </Modal>
     </>
   );
 };

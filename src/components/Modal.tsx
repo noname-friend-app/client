@@ -6,8 +6,10 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Text,
 } from "@chakra-ui/react";
 import Button from "./Button";
+import type { TextProps, ButtonProps } from "@chakra-ui/react";
 
 interface Props {
   isOpen: boolean;
@@ -18,6 +20,9 @@ interface Props {
   action: () => void;
   buttonType?: string;
   actionDisabled?: boolean;
+  actionButtonStyles?: ButtonProps;
+  actionButtonHoverStyles?: ButtonProps;
+  actionTextStyles?: TextProps;
 }
 const Modal: React.FC<Props> = ({
   isOpen,
@@ -28,6 +33,9 @@ const Modal: React.FC<Props> = ({
   actionText,
   buttonType,
   actionDisabled = false,
+  actionButtonStyles,
+  actionButtonHoverStyles,
+  actionTextStyles
 }) => {
   const secondaryBtnProps = { variant: "ghost", colorScheme: "blue", mr: 3 };
   const primaryBtnProps = { type: buttonType, isDisabled: actionDisabled };
@@ -54,8 +62,19 @@ const Modal: React.FC<Props> = ({
             >
               cancel
             </Button>
-            <Button onClick={() => action()} {...primaryBtnProps} w={100}>
-              {actionText}
+            <Button
+              _hover={{ ...actionButtonHoverStyles }}
+              bg={
+                actionButtonStyles && actionButtonStyles.backgroundColor
+                  ? actionButtonStyles.backgroundColor.toString()
+                  : "white"
+              }
+              styles={{ ...actionButtonStyles }}
+              onClick={() => action()}
+              {...primaryBtnProps}
+              w={100}
+            >
+              <Text {...actionTextStyles} >{actionText}</Text>
             </Button>
           </ModalFooter>
         </ModalContent>

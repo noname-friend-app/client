@@ -7,6 +7,73 @@ axios.defaults.withCredentials = true;
 const API_URL = process.env.REACT_APP_API_URL;
 
 //LIST MUTATIONS
+interface DeleteListItemProps {
+  listId: string;
+  groupId: string;
+  itemId: string;
+}
+
+const deleteListItem = async ({
+  groupId,
+  listId,
+  itemId,
+}: DeleteListItemProps) => {
+  try {
+    const res = await axios.delete(
+      `${API_URL}/group/${groupId}/list/${listId}/item/${itemId}`
+    );
+    return res.data;
+  } catch (e: any) {
+    throw new Error(
+      e.response?.data.message ||
+        "An error has occurred trying to delete the item"
+    );
+  }
+};
+
+const useDeleteListItem = ({
+  listId,
+  closeDeleteListItemModal,
+}: {
+  listId: string;
+  closeDeleteListItemModal: () => void;
+}) => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteListItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        predicate: (query: any) =>
+          query.queryKey[0] === "listItems" &&
+          query.queryKey[1]?.listId === listId,
+      });
+      toast({
+        title: "Success",
+        description: "Item deleted",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+      closeDeleteListItemModal();
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+};
+
 interface UpdateListTextProps {
   text: string;
   groupId: string;
@@ -17,11 +84,15 @@ interface UpdateListTextProps {
 const updateListText = async (updateListTextDetails: UpdateListTextProps) => {
   try {
     const res = await axios.put(
-      `${API_URL}/group/${updateListTextDetails.groupId}/list/${updateListTextDetails.listId}/item/${updateListTextDetails.itemId}`, updateListTextDetails
+      `${API_URL}/group/${updateListTextDetails.groupId}/list/${updateListTextDetails.listId}/item/${updateListTextDetails.itemId}`,
+      updateListTextDetails
     );
     return res.data;
   } catch (e: any) {
-    throw new Error(e.response?.data.message || "An error has occurred");
+    throw new Error(
+      e.response?.data.message ||
+        "An error has occurred trying to update the text"
+    );
   }
 };
 
@@ -225,8 +296,9 @@ const useCreateList = ({ onClose }: { onClose: () => void }) => {
 };
 
 export {
+  useDeleteListItem,
   useUpdateListText,
   useAddListItem,
   useUpdateListItemCompleted,
-  useCreateList
-}
+  useCreateList,
+};

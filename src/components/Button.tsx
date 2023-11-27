@@ -1,6 +1,6 @@
 import { Button as ChakraButton } from "@chakra-ui/react";
-
-interface ButtonProps {
+import type { ButtonProps } from "@chakra-ui/react";
+interface IButtonProps {
   w?: string | number;
   h?: string | number;
   bg?: string;
@@ -9,9 +9,10 @@ interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   isDisabled?: boolean;
+  styles?: ButtonProps
 }
 
-const Button: React.FC<ButtonProps> = ({
+const Button: React.FC<IButtonProps> = ({
   h = 45,
   w = "200px",
   bg = "white",
@@ -25,7 +26,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <>
       <ChakraButton
-       {...rest}
+      {...rest}
        isDisabled={isDisabled}
        onClick={onClick}
        bg={bg}

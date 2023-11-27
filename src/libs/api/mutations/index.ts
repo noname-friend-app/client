@@ -3,6 +3,7 @@ import {
   useAddListItem,
   useUpdateListItemCompleted,
   useCreateList,
+  useDeleteListItem,
 } from "./lists";
 
 import { useCreateProfile, useSignup, useLogin, useLogout } from "./auth";
@@ -26,6 +27,7 @@ export {
 
   //Lists
   useUpdateListText,
+  useDeleteListItem,
   useAddListItem,
   useUpdateListItemCompleted,
   useCreateList,
