@@ -7,6 +7,49 @@ axios.defaults.withCredentials = true;
 const API_URL = process.env.REACT_APP_API_URL;
 
 //LIST MUTATIONS
+interface CompleteListProps {
+  listId: string;
+  checked: boolean;
+}
+
+const completeList = async ({ listId, checked }: CompleteListProps) => {
+  try {
+    const res = await axios.put(`${API_URL}/list/${listId}/complete`, { checked: false });
+    return res.data;
+  } catch (e: any) {
+    throw new Error(
+      e.response?.data.message ||
+        "An error has occurred trying to update the list"
+    );
+  }
+};
+
+const useCompleteList = ({ groupId }: { groupId: string }) => {
+  const toast = useToast();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: completeList,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        predicate: (query: any) =>
+          query.queryKey[0] === "lists" &&
+          query.queryKey[1]?.groupId === groupId,
+      });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Error",
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top-right",
+        variant: "subtle",
+      });
+    },
+  });
+};
+
 interface DeleteListItemProps {
   listId: string;
   groupId: string;
@@ -263,13 +306,23 @@ const createList = async (listDetails: CreateListProps) => {
   }
 };
 
-const useCreateList = ({ onClose }: { onClose: () => void }) => {
+const useCreateList = ({
+  onClose,
+  groupId,
+}: {
+  onClose: () => void;
+  groupId: string;
+}) => {
   const toast = useToast();
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createList,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["lists"] });
+      queryClient.invalidateQueries({
+        predicate: (query: any) =>
+          query.queryKey[0] === "lists" &&
+          query.queryKey[1]?.groupId === groupId,
+      });
       toast({
         title: "Success",
         description: "List created",
@@ -301,4 +354,5 @@ export {
   useAddListItem,
   useUpdateListItemCompleted,
   useCreateList,
+  useCompleteList
 };

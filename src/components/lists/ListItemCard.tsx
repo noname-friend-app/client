@@ -74,7 +74,7 @@ const ListItemCard: React.FC<IProps> = ({
         >
           <Icon as={checked ? CheckSquare : Square} />
           <Divider orientation="vertical" />
-          <Text>{text}</Text>
+          <Text as={checked ? 's' : 'p'}>{text}</Text>
         </HStack>
         <Menu>
           {({ isOpen }) => (

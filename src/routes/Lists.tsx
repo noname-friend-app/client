@@ -13,13 +13,14 @@ const Lists: React.FC = () => {
   const [listName, setListName] = useState<string>("");
   const { groupId } = useParams();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {data, isLoading: isLoadingLists} = useLists({groupId: groupId!})
+  const { data, isLoading: isLoadingLists } = useLists({ groupId: groupId! });
   const { mutate: createList, isPending: isCreatingList } = useCreateList({
     onClose,
+    groupId: groupId!
   });
 
   if (isLoadingLists) return <div>Loading...</div>;
-  const lists = data!.lists
+  const lists = data!.lists;
   return (
     <>
       <Flex
@@ -38,15 +39,15 @@ const Lists: React.FC = () => {
           </Button>
         </HStack>
         <VStack mt={4} spacing={8}>
-        {!isLoadingLists && lists && lists.length > 0 ? (
-          lists.map((list, index) => (
-            <ListCard key={index} list={list} />
-          ))
-        ) : (
-          <Heading size="md" mt={4}>
-            No lists yet
-          </Heading>
-        )}
+          {!isLoadingLists && lists && lists.length > 0 ? (
+            lists.sort((a, b) => {
+              return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1;
+            }).map((list, index) => <ListCard key={index} list={list} />)
+          ) : (
+            <Heading size="md" mt={4}>
+              No lists yet
+            </Heading>
+          )}
         </VStack>
         <Modal
           isOpen={isOpen}

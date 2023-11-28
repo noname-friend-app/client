@@ -54,7 +54,7 @@ const getGroup = async ({ id }: GroupProps) => {
 
 export const useGroup = ({ id }: GroupProps) => {
   return useSuspenseQuery<GroupResponse>({
-    queryKey: ["group", id],
+    queryKey: ["group", {id}],
     queryFn: () => getGroup({ id }),
   });
 };
@@ -77,7 +77,7 @@ const getGroupQuotes = async ({ groupId }: GroupQuote) => {
 
 export const useGroupQuotes = ({ groupId }: GroupQuote) => {
   return useSuspenseQuery<QuotesResponse>({
-    queryKey: ["quotes", groupId],
+    queryKey: ["quotes", {groupId}],
     queryFn: () => getGroupQuotes({ groupId }),
   });
 };
@@ -104,7 +104,7 @@ const getComments = async ({ quoteId, groupId }: GetCommentsProps) => {
 
 export const useComments = ({ quoteId, groupId }: GetCommentsProps) => {
   return useSuspenseQuery<CommentsResponse>({
-    queryKey: ["comments", quoteId],
+    queryKey: ["comments", {quoteId}],
     queryFn: () => getComments({ groupId, quoteId })
   })
 }
@@ -116,7 +116,7 @@ const getLists = async ({ groupId }: { groupId: string }) => {
 
 export const useLists = ({ groupId }: { groupId: string }) => {
   return useSuspenseQuery<ListResponse>({
-    queryKey: ["lists", groupId],
+    queryKey: ["lists", {groupId}],
     queryFn: () => getLists({ groupId }),
   });
 };

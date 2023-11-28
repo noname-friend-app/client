@@ -76,6 +76,7 @@ interface List {
   groupId: string;
   profileId: string;
   listItems: ListItem[]
+  checked: boolean;
 }
 
 interface ListItem {

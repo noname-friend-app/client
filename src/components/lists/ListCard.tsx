@@ -7,8 +7,14 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { ChevronDown, ChevronUp, Plus } from "react-feather";
-import { useAddListItem } from "../../libs/api/mutations";
+import {
+  CheckSquare,
+  ChevronDown,
+  ChevronUp,
+  Plus,
+  Square,
+} from "react-feather";
+import { useAddListItem, useCompleteList } from "../../libs/api/mutations";
 import { useListItems } from "../../libs/api/queries";
 import ListItemCard from "./ListItemCard";
 import Modal from "../Modal";
@@ -18,7 +24,7 @@ interface IProps {
 }
 
 const ListCard: React.FC<IProps> = ({
-  list: { name, groupId, id },
+  list: { name, groupId, id, checked },
 }: IProps) => {
   const [displayListItems, setDisplayListItems] = useState(false);
   const { data, isLoading } = useListItems({
@@ -38,18 +44,21 @@ const ListCard: React.FC<IProps> = ({
     listId: id,
     groupId,
   });
+
+  const {mutate: completeList} = useCompleteList({groupId})
+
   return (
     <>
       <HStack w="100%">
-        <HStack
-          onClick={() => setDisplayListItems(!displayListItems)}
-          _hover={{ color: "purple.100", cursor: "pointer" }}
-        >
+        <HStack>
           <Divider h="100%" orientation="vertical" />
-          <Icon as={displayListItems ? ChevronUp : ChevronDown} />
-          {/* <Icon as={Square} /> */}
-
-          <Text>{name}</Text>
+          <Icon
+            onClick={() => setDisplayListItems(!displayListItems)}
+            _hover={{ color: "purple.100", cursor: "pointer" }}
+            as={displayListItems ? ChevronUp : ChevronDown}
+          />
+          <Icon onClick={() => completeList({listId: id, checked: !checked})} _hover={{cursor: 'pointer', color: 'purple.100'}} as={checked ? CheckSquare : Square} />
+          <Text as={checked ? 's' : 'p'}>{name}</Text>
         </HStack>
         <Tooltip label="Add new list item">
           <Icon
@@ -67,7 +76,12 @@ const ListCard: React.FC<IProps> = ({
               return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1;
             })
             .map((listItem, index) => (
-              <ListItemCard groupId={groupId} index={index} key={index} listItem={listItem} />
+              <ListItemCard
+                groupId={groupId}
+                index={index}
+                key={index}
+                listItem={listItem}
+              />
             ))
         ) : (
           <Text>No list items</Text>
