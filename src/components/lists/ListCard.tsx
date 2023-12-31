@@ -48,6 +48,10 @@ const ListCard: React.FC<IProps> = ({
 
   const { mutate: completeList } = useCompleteList({ groupId });
 
+  const handleCreateListItemName = () => {
+    addListItem({ text: listItemName, listId: id, groupId })
+    setListItemName('')
+  }
   return (
     <>
       <HStack w="100%">
@@ -79,7 +83,7 @@ const ListCard: React.FC<IProps> = ({
           />
         </Tooltip>
       </HStack>
-      <VStack pl={12} alignSelf={"start"} w="80%">
+      <VStack pl={16} alignSelf={"start"} w="80%">
         {displayListItems ? (
           isLoading ? null : data && data.listItems.length > 0 ? (
             data.listItems
@@ -107,7 +111,7 @@ const ListCard: React.FC<IProps> = ({
         isOpen={isNewListItemModalOpen}
         title="New List Item"
         actionText="Add List Item"
-        action={() => addListItem({ text: listItemName, listId: id, groupId })}
+        action={handleCreateListItemName}
         actionDisabled={listItemName.length === 0 || isAddingListItem}
       >
         <Input
