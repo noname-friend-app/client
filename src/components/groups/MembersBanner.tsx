@@ -23,7 +23,7 @@ const MembersBanner: React.FC = () => {
               {data.group.members.map((member, index: number) => (
                 <Flex align={"center"} w="100%" key={index}>
                   <ProfilePicture seed={member.profile!.user!.id} size="sm" />
-                  <Text ml={2}>{member.profile.name.split(" ")}</Text>
+                  <Text ml={2}>{member.profile.name.split("")}</Text>
                 </Flex>
               ))}
             </Suspense>
