@@ -3,7 +3,7 @@ import { useComments } from "../../libs/api/queries";
 import { useCreateComment } from "../../libs/api/mutations";
 import { useParams } from "react-router-dom";
 import Comment from "./Comment";
-import { Flex, Heading, Link, Text } from "@chakra-ui/react";
+import { Flex, Link, Text } from "@chakra-ui/react";
 import { useState } from "react";
 import Button from "../Button";
 import Input from "../Input";
