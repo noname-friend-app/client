@@ -79,12 +79,12 @@ const ListItemCard: React.FC<IProps> = ({
         <Menu>
           {({ isOpen }) => (
             <>
-              <MenuButton>
-                <Icon as={isOpen ? X : MoreVertical} />
+              <MenuButton _hover={{color: 'purple.100'}}>
+                <Icon transition={{delay: '3s'}} as={isOpen ? X : MoreVertical} />
               </MenuButton>
-              <MenuList>
-                <MenuItem onClick={openEditModal}>Edit</MenuItem>
-                <MenuItem onClick={openDeleteMdoal}>Delete</MenuItem>
+              <MenuList bg={'purple.200'}>
+                <MenuItem _hover={{bg: 'purple.100'}} bg={'purple.200'} onClick={openEditModal}>Edit</MenuItem>
+                <MenuItem _hover={{bg: 'purple.100'}} bg={'purple.200'} onClick={openDeleteMdoal}>Delete</MenuItem>
               </MenuList>
             </>
           )}
@@ -100,7 +100,7 @@ const ListItemCard: React.FC<IProps> = ({
       <Modal
         isOpen={isDeleteModalOpen}
         onClose={closeDeleteModal}
-        title="Are you sure?"
+        title="Are you sure ?"
         action={handleDeleteListItem}
         actionText="DELETE"
         actionButtonStyles={{backgroundColor: 'red.500'}}
