@@ -4,6 +4,7 @@ import {
   Icon,
   Text,
   Tooltip,
+  VStack,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -45,23 +46,32 @@ const ListCard: React.FC<IProps> = ({
     groupId,
   });
 
-  const {mutate: completeList} = useCompleteList({groupId})
+  const { mutate: completeList } = useCompleteList({ groupId });
 
   return (
     <>
       <HStack w="100%">
         <HStack>
-          <Divider h="100%" orientation="vertical" />
           <Icon
+            w={6}
+            h={6}
             onClick={() => setDisplayListItems(!displayListItems)}
             _hover={{ color: "purple.100", cursor: "pointer" }}
             as={displayListItems ? ChevronUp : ChevronDown}
           />
-          <Icon onClick={() => completeList({listId: id, checked: !checked})} _hover={{cursor: 'pointer', color: 'purple.100'}} as={checked ? CheckSquare : Square} />
-          <Text as={checked ? 's' : 'p'}>{name}</Text>
+          <Icon
+            w={6}
+            h={6}
+            onClick={() => completeList({ listId: id, checked: !checked })}
+            _hover={{ cursor: "pointer", color: "purple.100" }}
+            as={checked ? CheckSquare : Square}
+          />
+          <Text fontSize={'xl'} as={checked ? "s" : "p"}>{name}</Text>
         </HStack>
         <Tooltip label="Add new list item">
           <Icon
+          w={6}
+          h={6}
             onClick={() => openListItemModal()}
             color="white"
             _hover={{ color: "purple.100", cursor: "pointer" }}
@@ -69,24 +79,29 @@ const ListCard: React.FC<IProps> = ({
           />
         </Tooltip>
       </HStack>
-      {displayListItems ? (
-        isLoading ? null : data && data.listItems.length > 0 ? (
-          data.listItems
-            .sort((a, b) => {
-              return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1;
-            })
-            .map((listItem, index) => (
-              <ListItemCard
-                groupId={groupId}
-                index={index}
-                key={index}
-                listItem={listItem}
-              />
-            ))
-        ) : (
-          <Text>No list items</Text>
-        )
-      ) : null}
+      <VStack pl={12} alignSelf={"start"} w="80%">
+        {displayListItems ? (
+          isLoading ? null : data && data.listItems.length > 0 ? (
+            data.listItems
+              .sort((a, b) => {
+                return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1;
+              })
+              .map((listItem, index) => (
+                <>
+                  <ListItemCard
+                    groupId={groupId}
+                    index={index}
+                    key={index}
+                    listItem={listItem}
+                  />
+                  <Divider w='100%' />
+                </>
+              ))
+          ) : (
+            <Text>No list items</Text>
+          )
+        ) : null}
+      </VStack>
       <Modal
         onClose={closeListItemModal}
         isOpen={isNewListItemModalOpen}

@@ -38,7 +38,7 @@ const Lists: React.FC = () => {
             New List
           </Button>
         </HStack>
-        <VStack mt={4} spacing={8}>
+        <VStack mt={4} spacing={4}>
           {!isLoadingLists && lists && lists.length > 0 ? (
             lists.sort((a, b) => {
               return new Date(a.createdAt) < new Date(b.createdAt) ? 1 : -1;

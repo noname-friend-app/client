@@ -67,14 +67,14 @@ const ListItemCard: React.FC<IProps> = ({
   }
   return (
     <>
-      <Flex pl={20} pr={4} w="100%" justifyContent={"space-between"}>
+      <Flex pl={0} pr={4} w="100%" justifyContent={"space-between"}>
         <HStack
           onClick={() => mutate({ checked: !checked, listId, itemId: id })}
           _hover={{ color: "purple.100", cursor: "pointer" }}
         >
-          <Icon as={checked ? CheckSquare : Square} />
+          <Icon w={6} h={6} as={checked ? CheckSquare : Square} />
           <Divider orientation="vertical" />
-          <Text as={checked ? 's' : 'p'}>{text}</Text>
+          <Text fontWeight='light' fontSize="xl" as={checked ? 's' : 'p'}>{text}</Text>
         </HStack>
         <Menu>
           {({ isOpen }) => (
