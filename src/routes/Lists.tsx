@@ -19,6 +19,11 @@ const Lists: React.FC = () => {
     groupId: groupId!
   });
 
+  const handleCreateList = () => {
+    createList({ name: listName, groupId: groupId! })
+    setListName('')
+  }
+
   if (isLoadingLists) return <div>Loading...</div>;
   const lists = data!.lists;
   return (
@@ -53,7 +58,7 @@ const Lists: React.FC = () => {
           isOpen={isOpen}
           onClose={onClose}
           title="New List"
-          action={() => createList({ name: listName, groupId: groupId! })}
+          action={handleCreateList}
           actionText="Create List"
           actionDisabled={listName.length === 0 || isCreatingList}
         >
